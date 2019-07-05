@@ -32,7 +32,7 @@ test_script:
 
 - ps: >-
     msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" Practice.vcxproj
-    .\demo.exe
+    .\Practice.exe
 
 notifications:
   - provider: Email
