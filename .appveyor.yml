@@ -4,13 +4,13 @@ skip_tags: true
 
 configuration:
 
--Debug
--Release
+- Debug
+- Release
 
 platform:
 
--Win32
--x64
+- Win32
+- x64
 
 image:
 
