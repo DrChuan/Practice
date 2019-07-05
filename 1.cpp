@@ -1,6 +1,4 @@
 #include<iostream>
 int main(){
-    std::cout<<"esws";
-    return 0;
+    std::cout<<"er";
 }
-#try
