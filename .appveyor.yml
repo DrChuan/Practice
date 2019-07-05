@@ -31,6 +31,3 @@ build: off
 test_script:
   parallel: true                  # enable MSBuild parallel builds
   project: Practice.sln      # path to Visual Studio solution or project
-
-- ps: >-
-    .\Practice.exe
