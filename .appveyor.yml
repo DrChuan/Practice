@@ -32,9 +32,7 @@ test_script:
 
 - ps: >-
     msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" demo.vcxproj
-    msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" demo.vcxproj
-    msbuild /t:CopyCryptestToRoot demo.vcxproj
-    .\demo.exe v
+    .\demo.exe
 
 notifications:
   - provider: Email
