@@ -33,5 +33,3 @@ test_script:
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
   ./D0
-  parallel: true                  # enable MSBuild parallel builds
-  project: Practice.sln      # path to Visual Studio solution or project
