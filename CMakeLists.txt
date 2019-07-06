@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.15)
+project(D0)
+aux_source_directory(. DIR_SRCS)
+#add_subdirectory(math)
+add_executable(D0 ${DIR_SRCS})
+#target_link_libraries(Demo Math)
