@@ -35,8 +35,6 @@ test_script:
 
   git config --global user.name "EHie"
 
-  git add Debug/*
-
   git add Release/*
 
   git commit -m "Complier"
