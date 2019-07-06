@@ -31,12 +31,9 @@ test_script:
 
   msbuild /t:Build  D0.vcxproj
 
+  git add -A
 
-on success:
+  git commit -m "Complier"
 
-  - git add -A
-
-  - git commit -m "Complier"
-
-  - git push origin %TARGET_BRANCH%
+  git push origin %TARGET_BRANCH%
 
