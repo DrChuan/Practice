@@ -35,16 +35,6 @@ test_script:
 
   msbuild /t:Build  D0.vcxproj
 
-  git config --global user.email "992061851@qq.com"
 
-  git config --global user.name "EHie"
-
-  git add Release/*
-
-  git commit -m "Complier"
-
-  git tag -a v{build} -m "release-{build}"
-
-  git push origin v{build}
 
 
