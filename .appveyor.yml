@@ -29,6 +29,6 @@ build: off
 
 # Build through commands in script below
 test_script:
-  cmake .
-  msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
-  msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
+  -cmake .
+  -msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
+  -msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
