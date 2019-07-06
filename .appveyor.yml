@@ -30,7 +30,15 @@ build: off
 # Build through commands in script below
 test_script:
   cmake .
+<<<<<<< HEAD
 
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
 
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
+=======
+  
+  msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
+  
+  msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
+  
+>>>>>>> 85b18a8d512ae9b6470a163f1b0c055721802e0e
