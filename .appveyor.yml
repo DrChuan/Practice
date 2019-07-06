@@ -29,7 +29,5 @@ build: off
 test_script:
   cmake .
 
-  msbuild /t:Build  D0.sln
-
   msbuild /t:Build  D0.vcxproj
 
