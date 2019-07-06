@@ -32,4 +32,3 @@ test_script:
   cmake .
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.sln
   msbuild /t:Build /p:platform="$env:platform" /p:configuration="$env:configuration" D0.vcxproj
-  ./D0
