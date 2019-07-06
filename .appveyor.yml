@@ -35,7 +35,7 @@ test_script:
 
   msbuild /t:Build  D0.vcxproj
 
-  makecab Release Release.zip 
+  makecab Release\D0.exe Release.zip 
 
 deploy:
   release: myproduct-v$(appveyor_build_version)
