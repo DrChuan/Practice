@@ -37,8 +37,6 @@ test_script:
 
   git config --global user.email "992061851@qq.com"
 
-  ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:my_variable):EHie@github.com`n"
-
   git config --global user.name "EHie"
 
   git add Release/*
