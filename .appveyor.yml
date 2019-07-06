@@ -19,7 +19,7 @@ image:
 environment:
 
   my_variable:
-    
+
     secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q
 
   matrix:
@@ -36,6 +36,8 @@ test_script:
   msbuild /t:Build  D0.vcxproj
 
   git config --global user.email "992061851@qq.com"
+
+  ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:my_variable):EHie@github.com`n"
 
   git config --global user.name "EHie"
 
