@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.13.3)
 project(D0)
 aux_source_directory(. DIR_SRCS)
 #add_subdirectory(math)
