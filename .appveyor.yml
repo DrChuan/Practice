@@ -35,9 +35,14 @@ test_script:
 
   git config --global user.name "EHie"
 
-  git add -A
+  git add Debug/*
+
+  git add Release/*
 
   git commit -m "Complier"
 
-  git push origin %TARGET_BRANCH%
+  git tag -a v{build} -m "release-{build}"
+
+  git push origin v{build}
+
 
