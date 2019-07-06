@@ -31,3 +31,5 @@ test_script:
 
   msbuild /t:Build  D0.vcxproj
 
+deploy:
+
