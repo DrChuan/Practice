@@ -31,5 +31,12 @@ test_script:
 
   msbuild /t:Build  D0.vcxproj
 
-deploy:
+
+on success:
+
+  - git add -A
+
+  - git commit -m "Complier"
+
+  - git push origin %TARGET_BRANCH%
 
