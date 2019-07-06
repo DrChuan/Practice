@@ -18,6 +18,10 @@ image:
 
 environment:
 
+  my_variable:
+    
+    secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q
+
   matrix:
 
   - BUILD_MODE: MSBuild
