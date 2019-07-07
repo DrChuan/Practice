@@ -19,9 +19,6 @@ artifacts:
   - path: Release.zip
     name: Release
 
-  - path: logs
-    name: test logs
-    type: zip
 
 environment:
 
@@ -44,7 +41,9 @@ test_script:
 
   makecab Release\Demo.exe Release.zip 
 
-  ls
+  cd Release
+
+  Demo.exe
 
 deploy:
   release: Demo-v$(appveyor_build_version)
