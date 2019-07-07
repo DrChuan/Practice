@@ -33,9 +33,9 @@ build: off
 test_script:
   cmake .
 
-  msbuild /t:Build  D0.vcxproj
+  msbuild /t:Build  Demo.vcxproj
 
-  makecab Release\D0.exe Release.zip 
+  makecab Release\Demo.exe Release.zip 
 
   ls
 
