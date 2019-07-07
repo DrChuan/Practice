@@ -15,6 +15,13 @@ image:
 
 - Visual Studio 2017
 
+artifacts:
+  - path: Release.zip
+    name: Release
+
+  - path: logs
+    name: test logs
+    type: zip
 
 environment:
 
@@ -45,7 +52,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q # encrypted token from GitHub
-  artifact: Release.zip           # upload all NuGet packages to release assets
+  artifact: /.*\.zip           
   draft: false
   prerelease: false
   on:
