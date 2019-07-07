@@ -1,6 +1,5 @@
 #include<iostream>
-#include"math/math.h"
 int main(){
-    std::cout<<"er"<<ddouble(1.0);
+    std::cout<<"er"<<std::endl;
     return 0;
 }
