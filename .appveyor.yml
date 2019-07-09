@@ -16,8 +16,8 @@ image:
 - Visual Studio 2017
 
 artifacts:
-  - path: Release.zip
-    name: Release
+  - path: test.zip
+    name: test
 
 
 environment:
@@ -35,15 +35,16 @@ build: off
 
 # Build through commands in script below
 test_script:
-  cmake .
+  cd Common\MapUtility
 
-  msbuild /t:Build  Demo.vcxproj
+  test Debug
+  #cmake .
+  #msbuild /t:Build  Demo.vcxproj
+  makecab Release\test.exe test.zip 
+  
 
-  makecab Release\Demo.exe Release.zip 
-
-  cd Release
-
-  Demo.exe
+  #cd Release
+  #Demo.exe
 
 deploy:
   release: Demo-v$(appveyor_build_version)
@@ -51,7 +52,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q # encrypted token from GitHub
-  artifact: Release          
+  artifact: test          
   draft: true
   prerelease: false
   on:
