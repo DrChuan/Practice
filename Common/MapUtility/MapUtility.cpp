@@ -28,7 +28,7 @@ Floor::Floor(string name, int index){
 
 bool Floor::saveFloor() {
 	ofstream fout;
-	fout.open(m_name, ios_base::out|ios_base::binary);//此处可以考虑改进一下，先检查文件是否存在，若存在则提示一下用户是否覆盖
+	fout.open(m_name.c_str(), ios_base::out|ios_base::binary);//此处可以考虑改进一下，先检查文件是否存在，若存在则提示一下用户是否覆盖
 	if (!fout.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";//暂时先这样，，以后再改异常提示方式
 		return false;
@@ -53,7 +53,7 @@ bool Floor::saveFloor() {
 //记录一个string类使用不规范导致的bug. m_name+='\0' 将导致string类记录的size加 1
 bool Floor::loadFloor() {
 	ifstream fcin;
-	fcin.open(m_name, ios_base::in | ios_base::binary);
+	fcin.open(m_name.c_str(), ios_base::in | ios_base::binary);
 	if (!fcin.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";
 		return false;
