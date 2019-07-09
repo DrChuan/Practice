@@ -16,7 +16,7 @@ image:
 - Visual Studio 2017
 
 artifacts:
-  - path: Common\MapUtility\Debug\test.zip
+  - path: Common\MapUtility\test.zip
     name: test
 
 
