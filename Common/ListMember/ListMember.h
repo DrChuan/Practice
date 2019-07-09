@@ -16,14 +16,14 @@ public:
 	int getHp() { return m_hp; }
 	int getAtk() { return m_atk; }
 	int getDef() { return m_def; }
-	int getexp() { return m_exp; }
+	int getExp() { return m_exp; }
 	std::string getName() { return m_name; }
 };
 
 class Enemy: public Obj {
 public:
 	Enemy(std::string name, int hp = 0, int atk = 0, int def = 0, int exp = 0) :Obj(name, hp, atk, def, exp) {}
-	//friend bool fight(int enmAtk, int enmDef, int enmHp, int enmExp);
+	friend bool Hero::fight(const Enemy& enemy);
 };
 
 class  Item: public Obj {
@@ -40,4 +40,22 @@ public:
 
 	int getSpecialIndex() { return m_specialIndex; }
 	bool getWalkable() { return m_walkable; }
+};
+
+class Hero: public Obj {
+private:
+	int next_level_exp;
+	int m_playerX, m_playerY, m_level, m_weapon, m_equip; //direction {0,1,2,3}=={ÉÏ£¬ÏÂ£¬×ó£¬ÓÒ}
+	int key[3];
+	void addExp(int value);
+	void addKey(int keyNum) { key[keyNum]++; }
+public:
+	Hero();
+
+	bool fight(const Enemy& enemy);
+
+	bool getItem(int index);
+
+	void getItem(int addAtk, int addDef, int addExp, int addHp);
+
 };
