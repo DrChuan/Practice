@@ -8,18 +8,18 @@ private:
 	int m_type, m_index;
 	
 public:
-	Square::Square(int type = -1, int index = -1) : m_type(type), m_index(index) {}
+	Square(int type = -1, int index = -1) : m_type(type), m_index(index) {}
 
-	void Square::setType(int type) { m_type = type; }
-	void Square::setIndex(int index) { m_index = index; }
+	void setType(int type) { m_type = type; }
+	void setIndex(int index) { m_index = index; }
 
-	int Square::getType() { return m_type; }
-	int Square::getIndex() { return m_index; }
+	int getType() { return m_type; }
+	int getIndex() { return m_index; }
 
 	friend std::ostream& operator<<(std::ostream& os, const Square& square);
 	friend std::istream& operator>>(std::istream& os, const Square& square);
 
-	Square::~Square(){}
+	~Square(){}
 };
 
 class Floor {
@@ -34,7 +34,7 @@ private:
 
 public:
 	
-	Floor::Floor(std::string name, int index = -1);
+	Floor(std::string name, int index = -1);
 
 	bool saveFloor();
 	bool loadFloor(); //这两个函数最初构架是void型，现改为bool型.同时增加了floor的name成员
