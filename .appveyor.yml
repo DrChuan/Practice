@@ -44,7 +44,7 @@ test_script:
 
   test Debug
   
-  makecab Release\test.exe test.zip 
+  makecab Debug\test.exe test.zip 
   
 
 deploy:
