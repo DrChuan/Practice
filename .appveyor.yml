@@ -34,17 +34,18 @@ environment:
 build: off
 
 # Build through commands in script below
+#cmake .
+#msbuild /t:Build  Demo.vcxproj
+#cd Release
+#Demo.exe
+
 test_script:
   cd Common\MapUtility
 
   test Debug
-  #cmake .
-  #msbuild /t:Build  Demo.vcxproj
+  
   makecab Release\test.exe test.zip 
   
-
-  #cd Release
-  #Demo.exe
 
 deploy:
   release: Demo-v$(appveyor_build_version)
