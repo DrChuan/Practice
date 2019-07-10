@@ -26,9 +26,14 @@ Floor::Floor(string name, int index){
 	m_index = index;
 }
 
-bool Floor::saveFloor() {
+bool Floor::saveFloor(string path) {
+	string name;
+	if (path.c_str()!=nullptr)
+		name = path + "\\" + m_name;
+	else 
+		name = m_name;
 	ofstream fout;
-	fout.open(m_name.c_str(), ios_base::out|ios_base::binary);//此处可以考虑改进一下，先检查文件是否存在，若存在则提示一下用户是否覆盖
+	fout.open(name.c_str(), ios_base::out|ios_base::binary);//此处可以考虑改进一下，先检查文件是否存在，若存在则提示一下用户是否覆盖
 	if (!fout.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";//暂时先这样，，以后再改异常提示方式
 		return false;
@@ -51,9 +56,14 @@ bool Floor::saveFloor() {
 }
 
 //记录一个string类使用不规范导致的bug. m_name+='\0' 将导致string类记录的size加 1
-bool Floor::loadFloor() {
+bool Floor::loadFloor(string path) {
+	string name;
+	if (path.c_str()!=nullptr)
+		name = path +"\\"+ m_name;
+	else
+		name = m_name;
 	ifstream fcin;
-	fcin.open(m_name.c_str(), ios_base::in | ios_base::binary);
+	fcin.open(name.c_str(), ios_base::in | ios_base::binary);
 	if (!fcin.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";
 		return false;
@@ -79,9 +89,15 @@ bool Floor::loadFloor() {
 
 //FloorSet
 
-bool  FloorSet::loadFloorSet() {
+bool  FloorSet::loadFloorSet(string path) {
+	string Npath;
+	if (path.c_str() == nullptr)
+		Npath = m_name;
+	else
+		Npath = path + "\\" + m_name;
+
 	ifstream fcin;
-	fcin.open(m_name + "\\" + m_name + ".set", ios_base::in);
+	fcin.open(Npath + "\\" + m_name + ".set", ios_base::in);
 	if (!fcin.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";	//暂时先这样，，以后再改异常提示方式
 		return false;
@@ -90,35 +106,36 @@ bool  FloorSet::loadFloorSet() {
 	int m_floorNum = 0;
 	m_floors.clear();
 	while(fcin.getline(filename, 30) && (filename[0]!='\0')) {
-		string path = m_name + "\\" + filename;
-		m_floors.push_back(Floor::Floor(path,m_floorNum));
-		m_floors[m_floorNum].loadFloor();
-		m_floors[m_floorNum].setName(filename);
+		m_floors.push_back(Floor::Floor(filename,m_floorNum));
+		m_floors[m_floorNum].loadFloor(Npath);
 		m_floorNum++;
 	}
 	fcin.close();
 	return true;
 }
 
-bool  FloorSet::saveFloorSet() {
-	if ((_access(m_name.c_str(), 0) == -1))
-		if (_mkdir(m_name.c_str()) != 0) {
-			cerr << "Directory is not exists and can't create the directory:" << m_name << "\n";
+bool  FloorSet::saveFloorSet(string path) {
+	string Npath;
+	if (path.c_str() == nullptr)
+		Npath = m_name;
+	else
+		Npath = path + "\\" + m_name;	
+	
+	if ((_access((Npath).c_str(), 0) == -1))
+		if (_mkdir((Npath).c_str()) != 0) {
+			cerr << "Can't open or create the directory:" << m_name << "\n";
 		}
 
 	ofstream fout;
-	fout.open(m_name + "\\" + m_name + ".set", ios_base::out);
+	fout.open(Npath + "\\" + m_name + ".set", ios_base::out);//这边最好加一下不存在目录则创建
 	if (!fout.is_open()) {
 		cerr << "Can't open the file:" << m_name << "\n";//暂时先这样，，以后再改异常提示方式
 		return false;
 	}
+	
 	for (Floor& x : m_floors) {
-		string filename = x.getName();
-		string path = m_name + "\\" + filename;
-		x.setName(path);
-		x.saveFloor();
-		x.setName(filename);
-		fout << filename << endl;
+		if(!x.saveFloor(Npath))  return false;
+		fout << x.getName() << endl;
 	}
 	fout << endl;
 	fout.close();

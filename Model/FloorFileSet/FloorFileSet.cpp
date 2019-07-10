@@ -25,4 +25,5 @@ int FloorFileSet::getFileNumber(std::string filename) {
 		if (filenameSet[i] == filename)
 			return i;
 	}
+	return -1;
 }

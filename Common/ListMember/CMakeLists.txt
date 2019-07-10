@@ -1,1 +1,0 @@
-add_library (ListMember ListMember.cpp)

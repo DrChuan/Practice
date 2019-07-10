@@ -1,1 +1,0 @@
-add_library (MapUtility MapUtility.cpp)

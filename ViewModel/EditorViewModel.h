@@ -1,47 +1,35 @@
 #pragma once
-#include<string>
-#include<vector>
-#include"MapUtility.h"
-#include"FloorFileSet.h"
+#include <string>
+#include <vector>
+#include "MapUtility.h"
+#include "FloorFileSet.h"
+#include "SquareSetSink.h"
+#include "SquareGetSink.h"
+
 using std::string;
 using std::vector;
 
 class EditorViewModel {
 	FloorFileSet m_floorFileSet;
 	Floor m_floor;
-	EditorViewModel();
 public:
+	std::shared_ptr<SquareSetSink> m_sssink;
+	std::shared_ptr<SquareGetTSink> m_sgTink;
+	std::shared_ptr<SquareGetISink> m_sgIink;
+	EditorViewModel();
 	void setFloorSquare(int x, int y, int type, int index) {
 		m_floor.setSquare(type, index, x, y);
 	}
-	Floor getFloor() {
-		return  m_floor;
+	Floor getFloor() {	return  m_floor; }
+	void saveFloor();
+	void loadFloor();
+	void generateFloorSet(vector<int> floorsIndex, string filename);
+	int getFloorSquareType(int x, int y)
+	{
+		return m_floor.getSquare(x, y).getType();
 	}
-	void saveFloor() {
-		string filename = m_floor.getName();
-		string path = "floor_work\\" + filename;
-		m_floor.setName(path);
-		m_floor.saveFloor();
-		m_floor.setName(filename);
-	}
-	void loadFloor() {
-		string filename = m_floor.getName();
-		string path = "floor_work\\" + filename;
-		m_floor.setName(path);
-		m_floor.loadFloor();
-		m_floor.setName(filename);
-	}
-	void generateFloorSet(vector<int> floorsIndex, string filename) {
-		FloorSet floors(filename);
-		for (int i = 0; i < floorsIndex.size(); i++) {
-			string filename = m_floorFileSet.getFilename(floorsIndex[i]);
-			string path = "floor_work\\" + filename;
-			m_floor.setName(path);
-			m_floor.loadFloor();
-			m_floor.setName(filename);
-			m_floor.setIndex(i);
-			floors.addFloor(m_floor);
-		}
-		floors.saveFloorSet();
+	int getFloorSquareIndex(int x, int y)
+	{
+		return m_floor.getSquare(x, y).getIndex();
 	}
 };

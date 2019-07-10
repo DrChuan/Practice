@@ -1,7 +1,7 @@
 #include "SelectWindow.h"
 
 // 从QMainWindow类创建了SelectWindow类，作为程序的入口，要求用户选择编辑或游戏
-SelectWindow::SelectWindow(EditorViewModel *evm, QWidget *parent) : QMainWindow(parent)
+SelectWindow::SelectWindow( QWidget *parent) : QMainWindow(parent)
 {
 	initWindow();
 	initBrowser();
@@ -10,7 +10,8 @@ SelectWindow::SelectWindow(EditorViewModel *evm, QWidget *parent) : QMainWindow(
 
 void SelectWindow::clickCreator()
 {
-	editWindow = new EditWindow();
+	//editWindow = new EditWindow();
+	//editWindow->iss = editorViewModel->m_sssink;
 	editWindow->show();
 	this->hide();
 }
@@ -22,7 +23,7 @@ void SelectWindow::initWindow()
 	setWindowTitle(codec->toUnicode("魔塔"));
 	setFixedSize(800, 600);
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/back.png")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/back.png")));
 	this->setPalette(p);
 }
 void SelectWindow::initBrowser()

@@ -2,13 +2,13 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow(EditorViewModel *evm, QWidget *parent) : QMainWindow(parent)
+EditWindow::EditWindow( QWidget *parent) : QMainWindow(parent)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
 	// 初始化冰、火、林按钮
 	initBackSetBtn();
-	// 初始化物品栏按钮
+	// 初始化元件栏按钮
 	initItemBtn();	
 	initEnemyBtn();
 	initGameBtn();
@@ -17,12 +17,12 @@ EditWindow::EditWindow(EditorViewModel *evm, QWidget *parent) : QMainWindow(pare
 	// 初始化地图编辑区域
 	initDrawPlace();
 	initDrawObj();
-	// 初始化地图元件
+	// 初始化帮助按钮
+	initHelpBoardBtn();
+	// 初始化图块显示组件
 	initSquarePic();
 	// 设置鼠标事件响应方式
 	setMouseTracking(true);
-	// 初始化其他变量
-	floor = editorViewModel->getFloor();
 }
 
 // 普通函数
@@ -32,7 +32,7 @@ void EditWindow::initWindow()
 	setWindowTitle(codec->toUnicode("魔塔关卡设计"));
 	setFixedSize(1024, 768);
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/editbackice.jpg")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackice.jpg")));
 	this->setPalette(p);
 }
 
@@ -95,7 +95,7 @@ void EditWindow::initItemBtn()
 	{
 		items[i].setParent(this);                                            // 设置parent指针
 		items[i].setGeometry(48 + 48 * (i % 5), 48 + 48 * (i / 5), 48, 48);  // 设置大小及位置
-		items[i].setIcon(QIcon(QPixmap("img/item" + QString::number(i))));   // 设置图标
+		items[i].setIcon(QIcon(QPixmap("img/item/item" + QString::number(i))));   // 设置图标
 		items[i].setIconSize(QSize(48, 48));                                 // 设置图标大小
 		items[i].setFlat(true);                                              // 原按钮图案不可见
 		items[i].show();
@@ -112,7 +112,7 @@ void EditWindow::initEnemyBtn()
 	{
 		enemies[i].setParent(this);
 		enemies[i].setGeometry(48 + 48 * (i % 5), 48 + DIS_IT_TO_ENM + 48 * (i / 5), 48, 48);
-		enemies[i].setIcon(QIcon(QPixmap("img/enemy" + QString::number(i))));
+		enemies[i].setIcon(QIcon(QPixmap("img/enemy/enemy" + QString::number(i))));
 		enemies[i].setIconSize(QSize(48, 48));
 		enemies[i].setFlat(true);
 		enemies[i].show();
@@ -129,7 +129,7 @@ void EditWindow::initGameBtn()
 	{
 		games[i].setParent(this);
 		games[i].setGeometry(48 + 48 * (i % 5), 48 + DIS_IT_TO_GM + 48 * (i / 5), 48, 48);
-		games[i].setIcon(QIcon(QPixmap("img/game" + QString::number(i))));
+		games[i].setIcon(QIcon(QPixmap("img/game/game" + QString::number(i))));
 		games[i].setIconSize(QSize(48, 48));
 		games[i].setFlat(true);
 		games[i].show();
@@ -142,9 +142,9 @@ void EditWindow::initGameBtn()
 void EditWindow::initSelectFrame()
 {
 	selectFrame.setParent(this);
-	selectFrame.setPixmap(QPixmap("img/selectFrame.png"));
+	selectFrame.setPixmap(QPixmap("img/system/selectFrame.png"));
 	selectFrame.move(48, 48);
-	selectFrame.show();
+	selectFrame.show();	items[0].setParent(this);
 	selectFrame.raise();
 	selectFrame.setFixedSize(48, 48);
 }
@@ -158,7 +158,7 @@ void EditWindow::initDrawPlace()
 	p.setColor(QPalette::Background, QColor(255, 0, 0, 0));
 	drawPlace.setAutoFillBackground(true);
 	drawPlace.setPalette(p);
-	drawPlace.setCursor(QCursor(QPixmap("img/item0.png")));
+	drawPlace.setCursor(QCursor(QPixmap("img/item/item0.png")));
 	drawPlace.setMouseTracking(true);
 	connect(&drawPlace, SIGNAL(moving(int, int)), this, SLOT(updateDrawObj(int, int)));
 }
@@ -167,14 +167,24 @@ void EditWindow::initDrawObj()
 {
 	drawObj.setParent(this);
 	drawObj.setGeometry(0, 0, 48, 48);
-	drawObj.setIcon(QIcon(QPixmap("img/item0.png")));
+	drawObj.setIcon(QIcon(QPixmap("img/item/item0.png")));
 	drawObj.setIconSize(QSize(48, 48));
 	drawObj.setFlat(true);
-	drawObj.setCursor(QCursor(QPixmap("img/item0.png")));
+	drawObj.setCursor(QCursor(QPixmap("img/item/item0.png")));
 	QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
 	drawObj.setGraphicsEffect(opacityEffect);
 	opacityEffect->setOpacity(0.65);
 	connect(&drawObj, SIGNAL(clicked()), this, SLOT(putSquare()));
+}
+
+void EditWindow::initHelpBoardBtn()
+{
+	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	helpBoardBtn.setParent(this);
+	helpBoardBtn.setText(codec->toUnicode("说明书"));
+	helpBoardBtn.show();
+	helpBoardBtn.setGeometry(900, 700, 100, 32);
+	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
 }
 
 void EditWindow::initSquarePic()
@@ -185,6 +195,9 @@ void EditWindow::initSquarePic()
 		{
 			squaresPic[i][j].setParent(this);
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
+			//squaresPic[i][j].setPixmap(QPixmap(getImgName(editorViewModel->getFloorSquareType(i, j), 
+			//	                                          editorViewModel->getFloorSquareIndex(i, j))));
+			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
 		}
@@ -207,7 +220,9 @@ void EditWindow::update()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			squaresPic[i][j].setPixmap(QPixmap(getImgName(floor->getSquareType(i, j), floor->getSquareIndex(i, j))));
+			//squaresPic[i][j].setPixmap(QPixmap(getImgName(editorViewModel->getFloorSquareType(i, j),
+			//	                                          editorViewModel->getFloorSquareIndex(i, j))));
+			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 		}
 	}
 }
@@ -228,7 +243,7 @@ int EditWindow::getType()
 		return 0;
 	else if (index < 45)
 		return 1;
-	else 
+	else
 		return 0;
 }
 
@@ -247,11 +262,11 @@ QString EditWindow::getImgName(int type, int index)
 	QString ret;
 	if (type == 0)
 		if (index < 20)
-			ret = "img/item" + QString::number(index);
+			ret = "img/item/item" + QString::number(index);
 		else
-			ret = "img/game" + QString::number(index - 25);
+			ret = "img/game/game" + QString::number(index - 20);
 	if (type == 1)
-		ret = "img/enemy" + QString::number(index - 20);
+		ret = "img/enemy/enemy" + QString::number(index);
 	return ret;
 }
 
@@ -260,18 +275,14 @@ void EditWindow::mouseMoveEvent(QMouseEvent *e)
 	drawObj.hide();
 }
 
-void EditWindow::updateDrawObj(int x, int y)
-{
-	drawObj.show();
-	drawObj.move( ((x-311) / 48) * 48 + 311, ((y-145) / 48) * 48 + 145);
-}
+
 
 // slots函数
 void EditWindow::setIce()
 {
 	map = 0;
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/editbackice.jpg")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackice.jpg")));
 	this->setPalette(p);
 	btIce.setDown(true);
 }
@@ -280,7 +291,7 @@ void EditWindow::setFire()
 {
 	map = 1;
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/editbackfire.jpg")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackfire.jpg")));
 	this->setPalette(p);
 	btFire.setDown(true);
 }
@@ -289,7 +300,7 @@ void EditWindow::setLeaf()
 {
 	map = 2;
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/editbackleaf.jpg")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackleaf.jpg")));
 	this->setPalette(p);
 	btLeaf.setDown(true);
 }
@@ -297,32 +308,50 @@ void EditWindow::setLeaf()
 void EditWindow::clickItem(int id)
 {
 	index = id;
-	drawPlace.setCursor(QCursor(QPixmap("img/item" + QString::number(id))));
-	drawObj.setCursor(QCursor(QPixmap("img/item" + QString::number(id))));
-	drawObj.setIcon(QIcon(QPixmap("img/item" + QString::number(id))));
+	drawPlace.setCursor(QCursor(QPixmap("img/item/item" + QString::number(id))));
+	drawObj.setCursor(QCursor(QPixmap("img/item/item" + QString::number(id))));
+	drawObj.setIcon(QIcon(QPixmap("img/item/item" + QString::number(id))));
 	setFramePos();
 }
 
 void EditWindow::clickEnemy(int id)
 {
 	index = id + 20;
-	drawPlace.setCursor(QCursor(QPixmap("img/enemy" + QString::number(id))));
-	drawObj.setCursor(QCursor(QPixmap("img/enemy" + QString::number(id))));
-	drawObj.setIcon(QIcon(QPixmap("img/enemy" + QString::number(id))));
+	drawPlace.setCursor(QCursor(QPixmap("img/enemy/enemy" + QString::number(id))));
+	drawObj.setCursor(QCursor(QPixmap("img/enemy/enemy" + QString::number(id))));
+	drawObj.setIcon(QIcon(QPixmap("img/enemy/enemy" + QString::number(id))));
 	setFramePos();
 }
 
 void EditWindow::clickGame(int id)
 {
 	index = id + 45;
-	drawPlace.setCursor(QCursor(QPixmap("img/game" + QString::number(id))));
-	drawObj.setCursor(QCursor(QPixmap("img/game" + QString::number(id))));
-	drawObj.setIcon(QIcon(QPixmap("img/game" + QString::number(id))));
+	drawPlace.setCursor(QCursor(QPixmap("img/game/game" + QString::number(id))));
+	drawObj.setCursor(QCursor(QPixmap("img/game/game" + QString::number(id))));
+	drawObj.setIcon(QIcon(QPixmap("img/game/game" + QString::number(id))));
 	setFramePos();
+}
+
+void EditWindow::updateDrawObj(int x, int y)
+{
+	drawObj.show();
+	drawObj.move(((x - 311) / 48) * 48 + 311, ((y - 145) / 48) * 48 + 145);
+}
+
+void EditWindow::clickHelpBoardBtn()
+{
+	helpBoard = new HelpBoard();
 }
 
 void EditWindow::putSquare()
 {
-	floor->setSquare(getType(), getId(), (drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48);
+	int type, id;
+	if (index == 59)
+		type = -1, id = 0;
+	else
+		type = getType(), id = getId();
+	std::cout << "put!" << getType() << getId() << (drawObj.x() - 311) / 48 << (drawObj.y() - 145) / 48 << std::endl;
+	iss->onSquareChange((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
+	//editorViewModel->setFloorSquare((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	update();
 }

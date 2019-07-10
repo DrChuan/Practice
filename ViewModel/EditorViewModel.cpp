@@ -1,45 +1,38 @@
-#include<string>
-#include<vector>
-#include"MapUtility.h"
-#include"FloorFileSet.h"
-using std::string;
-using std::vector;
+#include"EditorViewModel.h"
 
-class EditorViewModel {
-	FloorFileSet m_floorFileSet;
-	Floor m_floor;
-public:
-	void setFloorSquare(int x, int y, int type, int index) {
-		m_floor.setSquare(type, index, x, y);
-	}
-	Floor getFloor() {
-		return m_floor;
-	}
-	void saveFloor() {
-		string filename = m_floor.getName();
-		string path = "floor_work\\" + filename;
-		m_floor.setName(path);
-		m_floor.saveFloor();
-		m_floor.setName(filename);
-	}
-	void loadFloor() {
-		string filename = m_floor.getName();
+EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this)),
+									m_sgTink(std::make_shared<SquareGetTSink>(this)),
+									m_sgIink(std::make_shared<SquareGetISink>(this))
+{
+	m_floorFileSet.filenameSetInit();
+}
+
+void EditorViewModel::saveFloor() {
+	string filename = m_floor.getName();
+	string path = "floor_work\\" + filename;
+	m_floor.setName(path);
+	m_floor.saveFloor();
+	m_floor.setName(filename);
+}
+
+void EditorViewModel::loadFloor() {
+	string filename = m_floor.getName();
+	string path = "floor_work\\" + filename;
+	m_floor.setName(path);
+	m_floor.loadFloor();
+	m_floor.setName(filename);
+}
+
+void EditorViewModel::generateFloorSet(vector<int> floorsIndex, string filename) {
+	FloorSet floors(filename);
+	for (int i = 0; i < floorsIndex.size(); i++) {
+		string filename = m_floorFileSet.getFilename(floorsIndex[i]);
 		string path = "floor_work\\" + filename;
 		m_floor.setName(path);
 		m_floor.loadFloor();
 		m_floor.setName(filename);
+		m_floor.setIndex(i);
+		floors.addFloor(m_floor);
 	}
-	void generateFloorSet(vector<int> floorsIndex, string filename) {
-		FloorSet floors(filename);
-		for (int i = 0; i < floorsIndex.size(); i++) {
-			string filename = m_floorFileSet.getFilename(floorsIndex[i]);
-			string path = "floor_work\\" + filename;
-			m_floor.setName(path);
-			m_floor.loadFloor();
-			m_floor.setName(filename);
-			m_floor.setIndex(i);
-			floors.addFloor(m_floor);
-		}
-		floors.saveFloorSet();
-	}
-};
+	floors.saveFloorSet();
+}
