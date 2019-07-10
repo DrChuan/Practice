@@ -2,28 +2,24 @@
 
 class Obj {
 private:
-	int m_hp, m_atk, m_def, m_exp;
-	std::string m_name;		////生命 攻击 防御 经验 名字 
+	int m_hp, m_atk, m_def, m_exp; //生命 攻击 防御 经验 名字 
 public:
-	Obj(std::string name, int hp = 0, int atk = 0, int def = 0, int exp = 0) :m_name(name), m_hp(hp), m_atk(atk), m_def(def), m_exp(exp) {}
+	Obj(int hp = 0, int atk = 0, int def = 0, int exp = 0) : m_hp(hp), m_atk(atk), m_def(def), m_exp(exp) {}
 
 	void setHp(int value) { m_hp = value; }
 	void setAtk(int value) { m_atk = value; }
 	void setDef(int value) { m_def = value; }
 	void setExp(int value) { m_exp = value; }
-	void setName(std::string value) { m_name = value; }
 
-	int getHp() { return m_hp; }
-	int getAtk() { return m_atk; }
-	int getDef() { return m_def; }
-	int getExp() { return m_exp; }
-	std::string getName() { return m_name; }
+	int getHp() const { return m_hp; }
+	int getAtk() const { return m_atk; }
+	int getDef() const { return m_def; }
+	int getExp() const { return m_exp; }
 };
 
 class Enemy: public Obj {
 public:
-	Enemy(std::string name, int hp = 0, int atk = 0, int def = 0, int exp = 0) :Obj(name, hp, atk, def, exp) {}
-	friend bool Hero::fight(const Enemy& enemy);
+	Enemy( int hp = 0, int atk = 0, int def = 0, int exp = 0) :Obj( hp, atk, def, exp) {}
 };
 
 class  Item: public Obj {
@@ -32,8 +28,8 @@ private:
 	bool m_walkable;
 
 public:
-	Item(std::string name, int hp = 0, int atk = 0, int def = 0, int exp = 0, int specialIndex=-1, int walkable = 0) :
-		 Obj(name, hp, atk, def, exp), m_specialIndex(specialIndex), m_walkable(walkable) {}
+	Item( int hp = 0, int atk = 0, int def = 0, int exp = 0, int specialIndex=-1, int walkable = 0) :
+		 Obj( hp, atk, def, exp), m_specialIndex(specialIndex), m_walkable(walkable) {}
 
 	void setSpecialIndex(int value) { m_specialIndex = value; }
 	void setWalkable(bool wkb) { m_walkable = wkb; }
@@ -42,7 +38,7 @@ public:
 	bool getWalkable() { return m_walkable; }
 };
 
-class Hero: public Obj {
+class Hero : public Obj {
 private:
 	int next_level_exp;
 	int m_playerX, m_playerY, m_level, m_weapon, m_equip; //direction {0,1,2,3}=={上，下，左，右}
