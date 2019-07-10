@@ -6,11 +6,12 @@ SelectWindow::SelectWindow(EditorViewModel *evm, QWidget *parent) : QMainWindow(
 	initWindow();
 	initBrowser();
 	initbutton();
+	editorViewModel = evm;
 }
 
 void SelectWindow::clickCreator()
 {
-	editWindow = new EditWindow();
+	editWindow = new EditWindow(editorViewModel);
 	editWindow->show();
 	this->hide();
 }
@@ -22,7 +23,7 @@ void SelectWindow::initWindow()
 	setWindowTitle(codec->toUnicode("Ä§Ëþ"));
 	setFixedSize(800, 600);
 	QPalette p = this->palette();
-	p.setBrush(QPalette::Background, QBrush(QPixmap("img/back.png")));
+	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/back.png")));
 	this->setPalette(p);
 }
 void SelectWindow::initBrowser()

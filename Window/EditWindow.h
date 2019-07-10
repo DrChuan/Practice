@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <QtWidgets/QMainWindow>
 #include "qpushbutton.h"
 #include "qlabel.h"
@@ -8,29 +8,32 @@
 #include "qtextcodec.h"
 #include "qgraphicseffect.h"
 #include "DrawPlace.h"
+#include "HelpBoard.h"
+#include "MapUtility.h"
+#include "EditorViewModel.h"
 
-
-// ×ó±ßÈı¸ö¿òÖ®¼äµÄ¾àÀë
+// å·¦è¾¹ä¸‰ä¸ªæ¡†ä¹‹é—´çš„è·ç¦»
 #define DIS_IT_TO_ENM 237
 #define DIS_IT_TO_GM  525
 
 class EditWindow : public QMainWindow {
 	Q_OBJECT
 public:
-	// ¹¹Ôìº¯ÊıÔ­ĞÍ
-	EditWindow(EditorViewModel *evm, QWidget *parent = Q_NULLPTR);
-	// ¹«¹²º¯Êı½Ó¿Ú
-	int getIndex();
-	int getMap();  // mapÖ¸±ù¡¢»ğ¡¢ÁÖÈı¸öÑ¡Ïî
-	int getType();
-	int getId();
-	void setFramePos();
-	void update();
+	// æ„é€ å‡½æ•°åŸå‹
+	EditWindow(EditorViewModel *edvm, QWidget *parent = Q_NULLPTR);
+
+	EditorViewModel *editorViewModel;
+	// å…¬å…±å‡½æ•°æ¥å£
+	int     getIndex();
+	int     getMap();  
+	int     getType();              
+	int     getId();
+	void    setFramePos();
+	void    update();
 	QString getImgName(int type, int index);
 private:
-	EditorViewModel *editorViewModel;
-	Floor           *floor;
-	// ³õÊ¼»¯º¯Êı¼°Êó±êÊÂ¼şº¯Êı
+	Floor       floor;
+	// åˆå§‹åŒ–å‡½æ•°åŠé¼ æ ‡äº‹ä»¶å‡½æ•°
 	void        initWindow();
 	void		    initBackSetBtn();
 	void        initItemBtn();
@@ -40,13 +43,12 @@ private:
 	void        initDrawPlace();
 	void        mouseMoveEvent(QMouseEvent *e);
 	void        initDrawObj();
+	void        initHelpBoardBtn();
 	void        initSquarePic();
-	// ÊôĞÔ
+	// å±æ€§
 	int         index = 0;
 	int         map = 0;
-	int         cursorOX = 0;
-	int         cursorOY = 0;
-	// ´°¿Ú×é¼ş
+	// çª—å£ç»„ä»¶
 	QPushButton btIce;
 	QPushButton btFire;
 	QPushButton btLeaf;
@@ -56,8 +58,10 @@ private:
 	QPushButton games[15];
 	DrawPlace   drawPlace;
 	QPushButton drawObj;
+	HelpBoard  *helpBoard;
+	QPushButton helpBoardBtn;
 	QLabel      squaresPic[11][11];
-	// ²Ûº¯Êı
+	// æ§½å‡½æ•°
 public slots:
 	void setIce();
 	void setFire();
@@ -66,5 +70,6 @@ public slots:
 	void clickEnemy(int id);
 	void clickGame(int id);
 	void updateDrawObj(int x, int y);
+	void clickHelpBoardBtn();
 	void putSquare();
 };
