@@ -1,13 +1,13 @@
 #include "ListMember.h"
-#inlcude <cmath>
-Hero::Hero() :Obj("Hero", 1200, 18, 18, 0) {
+#include <cmath>
+Hero::Hero() :Obj( 1200, 18, 18, 0) {
 	this->m_level = 0;
 	this->next_level_exp = 20;
 	this->m_playerX = 5;
 	this->m_playerY = 10;
-	this->addKey[0] = 0;
-	this->addKey[1] = 0;
-	this->addKey[2] = 0;
+	this->key[0] = 0;
+	this->key[1] = 0;
+	this->key[2] = 0;
 	this->m_equip = 0;
 	this->m_weapon = 0;
 }
@@ -15,25 +15,25 @@ Hero::Hero() :Obj("Hero", 1200, 18, 18, 0) {
 void Hero::addExp(int value) {
 	int exp = getExp() + value;
 	setExp(exp); 
-	if (exp > this->next_level_exp) {
+	if (exp >= this->next_level_exp) {
 		this->m_level++;
-		this->setHp(this->getHp() + int(300.0 * log10(level * 11)));
-		this->setAtk(this->getAtk() + int(3.0*log10(level*10)));
-		this->setDef(this->getDef() + int(5.0 * log10(level * 10)));
-		this->next_level_exp = level * (level + 1) * 20;
+		this->setHp(this->getHp() + int(300.0 * log10(m_level * 11)));
+		this->setAtk(this->getAtk() + int(3.0*log10(m_level*10)));
+		this->setDef(this->getDef() + int(5.0 * log10(m_level * 10)));
+		this->next_level_exp = m_level * (m_level + 1) * 20;
 	}
 }
 
 bool Hero::fight(const Enemy& enemy) {
-	int Hero_hurt = this->getatk() - enemy.getDef();
+	int Hero_hurt = this->getAtk() - enemy.getDef();
 	if (Hero_hurt < 0) return false;
-	int huihe = (enemy.getHp + Hero_hurt - 1) / Hero_hurt;
+	int huihe = (enemy.getHp() + Hero_hurt - 1) / Hero_hurt;
 	int Enemy_hurt = enemy.getAtk() - this->getDef();
 	Enemy_hurt = Enemy_hurt > 0 ? Enemy_hurt : 0;
 	int hp = this->getHp() - Enemy_hurt * huihe;
 	if (hp > 0) {
 		this->setHp(hp);
-		this->addExp(Enemy.getExp());
+		this->addExp(enemy.getExp());
 		return true;
 	}
 	else {
@@ -41,7 +41,7 @@ bool Hero::fight(const Enemy& enemy) {
 	}
 }
 
-bool Hero::getItem(int index) {
+bool Hero::getItem(int index) {//这里index待修改
 	switch (index) {
 	case 0: case 1: case 2://三种钥匙
 		this->addKey(index);
