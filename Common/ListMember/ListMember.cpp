@@ -45,12 +45,6 @@ bool Hero::getItem(int index) {//这里index待修改
 	switch (index) {
 	case 0: case 1: case 2://三种钥匙
 		this->addKey(index);
-	case 4:	case 5: case 6: case 7: 
-	case 8: case 9: case 10: case 11://预留的八个武器位4~11
-		this->m_weapon |= 1 << (index - 4);
-	case 12: case 13: case 14: case 15:
-	case 16: case 17: case 18: case 19://预留8个装备位12~19
-		this->m_equip |= 1 << (index - 12);
 	case 20: case 21: case 22://三扇门(三种门)20~22
 		if (this->key[index - 20] > 0)
 			this->key[index - 20]--;

@@ -1,3 +1,4 @@
+#pragma once
 #define silen  11
 #include <iostream>
 #include <string>

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 class Obj {
@@ -53,5 +54,7 @@ public:
 	bool getItem(int index);
 
 	void getItem(int addAtk, int addDef, int addExp, int addHp);
+
+	int getKey(int num) { return key[num]; }
 
 };
