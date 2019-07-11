@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Common\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel\HandleFileSink;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Model;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Model\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel\IHandleFile;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel\SquareGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel\IGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\MagicalTower\GeneratedFiles;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Window;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\ViewModel\SquareSetSink;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\View;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Model\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Model\ListMember;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Common\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\Common\ICommands;C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\App;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\GenerateGameSink;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\ICommands;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\HandleFileSink;C:\Users\Link\Documents\GitHub\Practice - 副本\Model;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\IHandleFile;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\SquareGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\IGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\MagicalTower\GeneratedFiles;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel;C:\Users\Link\Documents\GitHub\Practice - 副本\Window;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\SquareSetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\View;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\ListMember;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本\App;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -121,6 +121,7 @@
     <ClCompile Include="..\Model\ListMember\ListMember.cpp" />
     <ClCompile Include="..\Model\MapUtility\MapUtility.cpp" />
     <ClCompile Include="..\ViewModel\EditorViewModel.cpp" />
+    <ClCompile Include="..\ViewModel\GenerateGameSink\GenerateGameSink.cpp" />
     <ClCompile Include="..\ViewModel\HandleFileSink\HandleFileSink.cpp" />
     <ClCompile Include="..\ViewModel\IGetSink\IGetSink.cpp" />
     <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp" />
@@ -142,9 +143,12 @@
     <ClInclude Include="..\App\App.h" />
     <ClInclude Include="..\Common\FloorFileSet\FloorFileSet.h" />
     <ClInclude Include="..\Common\ICommands\ICommand.h" />
+    <ClInclude Include="..\Model\EnemyList.h" />
+    <ClInclude Include="..\Model\ItemList.h" />
     <ClInclude Include="..\Model\ListMember\ListMember.h" />
     <ClInclude Include="..\Model\MapUtility\MapUtility.h" />
     <ClInclude Include="..\ViewModel\EditorViewModel.h" />
+    <ClInclude Include="..\ViewModel\GenerateGameSink\GenerateGameSink.h" />
     <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h" />
     <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h" />
     <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h" />

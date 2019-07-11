@@ -72,13 +72,16 @@
     <ClCompile Include="..\View\FloorChoose.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Window\EditWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\Model\EnemyList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Model\ItemList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Window\EditWindow.cpp">
+    <ClCompile Include="..\ViewModel\GenerateGameSink\GenerateGameSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,6 +136,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Model\MapUtility\MapUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ViewModel\GenerateGameSink\GenerateGameSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Model\EnemyList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Model\ItemList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

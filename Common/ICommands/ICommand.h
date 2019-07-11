@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include <iostream>
-
+#include <vector>
 class ISquareGet {
 public:
 	virtual int onUpdate(int, int) = 0;
@@ -27,5 +26,5 @@ public:
 
 class IGenerate {
 public:
-	//virtual void onGenerate(vector<int> & fileGeneList, std::string) = 0;
+	virtual void onGenerate(const std::vector<int>& fileGeneList, std::string filename) = 0;
 };

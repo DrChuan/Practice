@@ -2,14 +2,14 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFloorFileSet)
+EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloorFileSet)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
 	// 初始化冰、火、林按钮
 	initBackSetBtn();
 	// 初始化元件栏按钮
-	initItemBtn();	
+	initItemBtn();
 	initEnemyBtn();
 	initGameBtn();
 	// 初始化选择框属性
@@ -93,7 +93,7 @@ void EditWindow::initBackSetBtn()
 
 void EditWindow::initItemBtn()
 {
-	QSignalMapper *qsm = new QSignalMapper(this);
+	QSignalMapper* qsm = new QSignalMapper(this);
 	for (int i = 0; i < 20; i++)
 	{
 		items[i].setParent(this);                                            // 设置parent指针
@@ -110,7 +110,7 @@ void EditWindow::initItemBtn()
 
 void EditWindow::initEnemyBtn()
 {
-	QSignalMapper *qsm = new QSignalMapper(this);
+	QSignalMapper* qsm = new QSignalMapper(this);
 	for (int i = 0; i < 25; i++)
 	{
 		enemies[i].setParent(this);
@@ -127,7 +127,7 @@ void EditWindow::initEnemyBtn()
 
 void EditWindow::initGameBtn()
 {
-	QSignalMapper *qsm = new QSignalMapper(this);
+	QSignalMapper* qsm = new QSignalMapper(this);
 	for (int i = 0; i < 15; i++)
 	{
 		games[i].setParent(this);
@@ -174,7 +174,7 @@ void EditWindow::initDrawObj()
 	drawObj.setIconSize(QSize(48, 48));
 	drawObj.setFlat(true);
 	drawObj.setCursor(QCursor(QPixmap("img/item/item0.png")));
-	QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
+	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
 	drawObj.setGraphicsEffect(opacityEffect);
 	opacityEffect->setOpacity(0.65);
 	connect(&drawObj, SIGNAL(clicked()), this, SLOT(putSquare()));
@@ -219,7 +219,7 @@ void EditWindow::initSquarePic()
 		{
 			squaresPic[i][j].setParent(this);
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
-			if(isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
 		}
@@ -301,7 +301,7 @@ QString EditWindow::getImgName(int type, int index)
 }
 
 // -- 鼠标移动回调函数
-void EditWindow::mouseMoveEvent(QMouseEvent *e)
+void EditWindow::mouseMoveEvent(QMouseEvent* e)
 {
 	drawObj.hide();
 }
@@ -314,18 +314,18 @@ void EditWindow::saveFile()
 	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt();
 	QString oriUntitledName;
 	oriUntitledName = "Untitled" + QString::number(num);
-	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), 
-		                                     codec->toUnicode("请输入您要保存的层文件名："), 
-		                                     QLineEdit::Normal, oriUntitledName, &ok);
+	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"),
+		codec->toUnicode("请输入您要保存的层文件名："),
+		QLineEdit::Normal, oriUntitledName, &ok);
 	if (ok)
 	{
 		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
-		if(iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		pFloorFileSet->filenameSetInit();
 		floorChoose.setFileList();
-	//	floorchoose.additem(filename);
+		//	floorchoose.additem(filename);
 	}
 }
 
@@ -402,12 +402,12 @@ void EditWindow::clickSaveBtn()
 
 void EditWindow::clickNewBtn()
 {
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"), 
-		                             codec->toUnicode("是否保存当前层？"), 
-		                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
+		codec->toUnicode("是否保存当前层？"),
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if(iLoadFile) iLoadFile->onHandleFile("__new");
+	if (iLoadFile) iLoadFile->onHandleFile("__new");
 	update();
 }
 
@@ -424,7 +424,7 @@ void EditWindow::clickOpenBtn()
 		codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if(iLoadFile) iLoadFile->onHandleFile(name);
+	if (iLoadFile) iLoadFile->onHandleFile(name);
 	update();
 }
 
