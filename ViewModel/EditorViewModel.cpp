@@ -3,18 +3,11 @@
 EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this)),
 									m_sgTink(std::make_shared<SquareGetTSink>(this)),
 									m_sgIink(std::make_shared<SquareGetISink>(this)),
-									m_igsink(std::make_shared<IGetSink>()),
-									m_hlfink(std::make_shared<HandleLFileSink>(this)),
-									m_hrfink(std::make_shared<HandleRFileSink>(this))
+									m_igsink(std::make_shared<IGetSink>())
 {
-	m_floorFileSet = std::make_shared<FloorFileSet>();
-	m_floorFileSet->filenameSetInit();
+	m_floorFileSet.filenameSetInit();
 }
-void EditorViewModel::resetFloor() {
-	for (int i = 0; i < 11; i++)
-		for (int j = 0; j < 11; j++)
-			m_floor.setSquare(-1, -1, i, j);
-}
+
 void EditorViewModel::saveFloor() {
 	m_floor.saveFloor();
 }
@@ -26,7 +19,7 @@ void EditorViewModel::loadFloor() {
 void EditorViewModel::generateFloorSet(vector<int> floorsIndex, string filename) {
 	FloorSet floors(filename);
 	for (int i = 0; i < floorsIndex.size(); i++) {
-		string filename = m_floorFileSet->getFilename(floorsIndex[i]);
+		string filename = m_floorFileSet.getFilename(floorsIndex[i]);
 		string path = "floor_ws\\" + filename;
 		m_floor.setName(path);
 		m_floor.loadFloor();
@@ -38,10 +31,18 @@ void EditorViewModel::generateFloorSet(vector<int> floorsIndex, string filename)
 	enemylist.SaveEnemyList(filename);
 	itemlist.SaveItemList(filename);
 }
+void EditorViewModel::LoadEnemyList(string filename) {
+	enemylist.SaveEnemyList(filename);
+	enemylist.LoadEnemyList(filename);
+}
+void EditorViewModel::ChangeEnemyList(int atk, int def, int hp, int exp, int index) {
+	enemylist.ChangeEnemy(atk, def, hp, exp, index);
+}
+void EditorViewModel::LoadItemList(string filename) {
+	itemlist.SaveItemList(filename);
+	itemlist.LoadItemList(filename);
+}
+void EditorViewModel::ChangeItemList(int hp, int atk, int def, int exp, int Index) {
+	itemlist.ChangeItem(hp, atk, def, exp, Index);
+}
 
-void EditorViewModel::AddEnemy(int atk, int def, int hp, int exp, string name) {
-	enemylist.addEnemy(atk, def, hp, exp);
-}
-void EditorViewModel::AddItem(int hp, int atk, int def, int exp, int specialIndex, int walkable, string name) {
-	itemlist.addItem(hp, atk, def, exp, specialIndex, walkable);
-}
