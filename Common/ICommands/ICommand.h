@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+#include <iostream>
 
 class ISquareGet {
 public:
@@ -23,3 +25,7 @@ public:
 	// （改动）将filename文件中数据加载为当前的floor(filename为"__new"时为创建新floor)
 };
 
+class IGenerate {
+public:
+	//virtual void onGenerate(vector<int> & fileGeneList, std::string) = 0;
+};

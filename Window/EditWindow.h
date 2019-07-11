@@ -25,16 +25,17 @@ class EditWindow : public QMainWindow {
 	Q_OBJECT
 public:
 	// 构造函数原型
-	EditWindow(QWidget* parent = Q_NULLPTR);
-
+	EditWindow(QWidget *parent = Q_NULLPTR);
+	// 命令绑定指针
 	std::shared_ptr<ISquareSet>  iss;
 	std::shared_ptr<ISquareGet>  isgt;
 	std::shared_ptr<ISquareGet>  isgi;
 	std::shared_ptr<IGetInt>     iGetUntitledFloorNum;
 	std::shared_ptr<IHandleFile> iSaveFile;
 	std::shared_ptr<IHandleFile> iLoadFile;
-
+	// Common对象数据绑定指针
 	std::shared_ptr<FloorFileSet> pFloorFileSet;
+	// 层文件选择控件
 	FloorChoose  floorChoose;
 	// 公共函数接口
 	int     getIndex();
@@ -54,7 +55,7 @@ private:
 	void        initGameBtn();
 	void        initSelectFrame();
 	void        initDrawPlace();
-	void        mouseMoveEvent(QMouseEvent* e);
+	void        mouseMoveEvent(QMouseEvent *e);
 	void        initDrawObj();
 	void        initHelpBoardBtn();
 	void        initSaveComponent();
@@ -64,7 +65,7 @@ private:
 	// 属性
 	int          index = 0;
 	int          map = 0;
-	int          fileId = 0;
+	int          fileId = -1;
 	// 窗口组件
 	QPushButton  btIce;
 	QPushButton  btFire;
@@ -75,15 +76,13 @@ private:
 	QPushButton  games[15];
 	DrawPlace    drawPlace;
 	QPushButton  drawObj;
-	HelpBoard* helpBoard;
+	HelpBoard   *helpBoard;
 	QPushButton  helpBoardBtn;
 	QPushButton  saveBtn;
 	QPushButton  newFloorBtn;
 	QPushButton  openFloorBtn;
-
 	QLabel       squaresPic[11][11];
-
-	QTextCodec* codec = QTextCodec::codecForName("GBK");
+	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	// 槽函数
 public slots:
 	void setIce();
