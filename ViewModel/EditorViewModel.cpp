@@ -4,7 +4,8 @@ EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this
 									m_sgTink(std::make_shared<SquareGetTSink>(this)),
 									m_sgIink(std::make_shared<SquareGetISink>(this)),
 									m_igsink(std::make_shared<IGetSink>()),
-									m_hdfink(std::make_shared<HandleFileSink>(this))
+									m_hlfink(std::make_shared<HandleLFileSink>(this)),
+									m_hrfink(std::make_shared<HandleRFileSink>(this))
 {
 	m_floorFileSet.filenameSetInit();
 }

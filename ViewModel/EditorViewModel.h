@@ -25,9 +25,9 @@ public:
 	std::shared_ptr<SquareGetTSink> m_sgTink;
 	std::shared_ptr<SquareGetISink> m_sgIink;
 	std::shared_ptr<IGetSink> m_igsink;
-	std::shared_ptr<HandleFileSink> m_hdfink;
+	std::shared_ptr<HandleLFileSink> m_hlfink;
+	std::shared_ptr<HandleRFileSink> m_hrfink;
 	EditorViewModel();
-
 	void setFloorSquare(int x, int y, int type, int index) {
 		m_floor.setSquare(type, index, x, y);
 	}
