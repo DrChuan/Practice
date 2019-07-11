@@ -33,6 +33,7 @@ public:
 	}
 	Floor getFloor() {	return  m_floor; }
 	void setFloorName(std::string name) { m_floor.setName(name); }
+	void resetFloor();
 	void saveFloor();
 	void loadFloor();
 	void generateFloorSet(vector<int> floorsIndex, string filename);
