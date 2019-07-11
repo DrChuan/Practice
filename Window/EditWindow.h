@@ -9,7 +9,6 @@
 #include "qgraphicseffect.h"
 #include "DrawPlace.h"
 #include "HelpBoard.h"
-#include "MapUtility.h"
 #include "ISquareSet.h"
 #include "ISquareGet.h"
 
@@ -35,7 +34,6 @@ public:
 	void    update();
 	QString getImgName(int type, int index);
 private:
-	Floor       floor;
 	// 初始化函数及鼠标事件函数
 	void        initWindow();
 	void		    initBackSetBtn();
