@@ -3,11 +3,16 @@
 EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this)),
 									m_sgTink(std::make_shared<SquareGetTSink>(this)),
 									m_sgIink(std::make_shared<SquareGetISink>(this)),
-									m_igsink(std::make_shared<IGetSink>())
+									m_igsink(std::make_shared<IGetSink>()),
+									m_hdfink(std::make_shared<HandleFileSink>(this))
 {
 	m_floorFileSet.filenameSetInit();
 }
-
+void EditorViewModel::resetFloor() {
+	for (int i = 0; i < 11; i++)
+		for (int j = 0; j < 11; j++)
+			m_floor.setSquare(-1, -1, i, j);
+}
 void EditorViewModel::saveFloor() {
 	m_floor.saveFloor();
 }
