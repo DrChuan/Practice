@@ -322,7 +322,6 @@ void EditWindow::saveFile()
 		if (iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
-		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		pFloorFileSet->filenameSetInit();
 		floorChoose.setFileList();
 		//	floorchoose.additem(filename);

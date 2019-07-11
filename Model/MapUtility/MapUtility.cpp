@@ -71,7 +71,8 @@ bool Floor::loadFloor(string path) {
 	name = "\0";
 	char a;
 	fcin.read((char*)& a, 1);
-	while ( a != 0 && fcin.eofbit!=1 ) {
+	fcin.clear();
+	while ( a != 0 && fcin.eof()!=1 ) {
 		name += a;
 		fcin.read((char*)& a, 1);
 	}//读到0为止，注意最后一个0不能用string加
@@ -87,6 +88,17 @@ bool Floor::loadFloor(string path) {
 	return true;
 }
 
+bool Floor::removeFloor(std::string path ) {
+	string name;
+	if (path.c_str() != nullptr)
+		name = path + "\\" + m_name;
+	else
+		name = m_name;
+	if (remove(name.c_str()) == 0){  
+		return true;
+	}
+	return false;
+}
 
 //FloorSet
 

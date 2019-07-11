@@ -36,8 +36,9 @@ public:
 	Floor getFloor() {	return  m_floor; }
 	void setFloorName(std::string name) { m_floor.setName(name); }
 	void resetFloor();
-	void saveFloor();
-	void loadFloor();
+	bool saveFloor();
+	bool loadFloor();
+	bool removeFloor();
 	void generateFloorSet(const vector<int>& floorsIndex, string filename);
 	int getFloorSquareType(int x, int y)
 	{

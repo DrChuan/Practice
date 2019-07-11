@@ -17,12 +17,16 @@ void EditorViewModel::resetFloor() {
 		for (int j = 0; j < 11; j++)
 			m_floor.setSquare(-1, -1, i, j);
 }
-void EditorViewModel::saveFloor() {
-	m_floor.saveFloor();
+bool EditorViewModel::saveFloor() {
+	return m_floor.saveFloor();
 }
 
-void EditorViewModel::loadFloor() {
-	m_floor.loadFloor();
+bool EditorViewModel::loadFloor() {
+	return m_floor.loadFloor();
+}
+
+bool EditorViewModel::removeFloor() {
+	return m_floor.removeFloor();
 }
 
 void EditorViewModel::generateFloorSet(const vector<int>& floorsIndex, string filename) {
