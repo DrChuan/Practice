@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\GenerateGameSink;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\ICommands;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\HandleFileSink;C:\Users\Link\Documents\GitHub\Practice - 副本\Model;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\IHandleFile;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\SquareGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\IGetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\MagicalTower\GeneratedFiles;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel;C:\Users\Link\Documents\GitHub\Practice - 副本\Window;C:\Users\Link\Documents\GitHub\Practice - 副本\ViewModel\SquareSetSink;C:\Users\Link\Documents\GitHub\Practice - 副本\View;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice - 副本\Model\ListMember;C:\Users\Link\Documents\GitHub\Practice - 副本\Common\MapUtility;C:\Users\Link\Documents\GitHub\Practice - 副本\App;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Link\Documents\GitHub\Practice\ViewModel\GenerateGameSink;C:\Users\Link\Documents\GitHub\Practice\Common\ICommands;C:\Users\Link\Documents\GitHub\Practice\Common\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice\ViewModel\HandleFileSink;C:\Users\Link\Documents\GitHub\Practice\Model;C:\Users\Link\Documents\GitHub\Practice\Model\MapUtility;C:\Users\Link\Documents\GitHub\Practice\ViewModel\IHandleFile;C:\Users\Link\Documents\GitHub\Practice\ViewModel\SquareGetSink;C:\Users\Link\Documents\GitHub\Practice\ViewModel\IGetSink;C:\Users\Link\Documents\GitHub\Practice\MagicalTower\GeneratedFiles;C:\Users\Link\Documents\GitHub\Practice\ViewModel;C:\Users\Link\Documents\GitHub\Practice\Window;C:\Users\Link\Documents\GitHub\Practice\ViewModel\SquareSetSink;C:\Users\Link\Documents\GitHub\Practice\View;C:\Users\Link\Documents\GitHub\Practice\Model\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice\Model\ListMember;C:\Users\Link\Documents\GitHub\Practice\Common\MapUtility;C:\Users\Link\Documents\GitHub\Practice\App;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -54,7 +54,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\MagicalTower\GeneratedFiles;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Link\Documents\GitHub\Practice %282%29\MagicalTower\GeneratedFiles;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -70,7 +70,7 @@
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>C:\Users\Link\Documents\GitHub\Practice - 副本 %282%29\MagicalTower\GeneratedFiles;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>C:\Users\Link\Documents\GitHub\Practice %282%29\MagicalTower\GeneratedFiles;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
