@@ -1,18 +1,22 @@
 #include "SelectWindow.h"
 
 // 从QMainWindow类创建了SelectWindow类，作为程序的入口，要求用户选择编辑或游戏
-SelectWindow::SelectWindow( QWidget *parent) : QMainWindow(parent)
+SelectWindow::SelectWindow(QWidget *parent) : QMainWindow(parent)
 {
 	initWindow();
 	initBrowser();
 	initbutton();
+
 }
 
 void SelectWindow::clickCreator()
 {
-	//editWindow = new EditWindow();
+	//editWindow = new EditWindow(editorViewModel);
 	//editWindow->iss = editorViewModel->m_sssink;
 	editWindow->show();
+	editWindow->pFloorFileSet->filenameSetInit();
+	editWindow->floorChoose.setFileList();
+
 	this->hide();
 }
 
