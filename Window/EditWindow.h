@@ -25,7 +25,7 @@ class EditWindow : public QMainWindow {
 	Q_OBJECT
 public:
 	// 构造函数原型
-	EditWindow(QWidget *parent = Q_NULLPTR);
+	EditWindow(QWidget* parent = Q_NULLPTR);
 
 	std::shared_ptr<ISquareSet>  iss;
 	std::shared_ptr<ISquareGet>  isgt;
@@ -54,11 +54,12 @@ private:
 	void        initGameBtn();
 	void        initSelectFrame();
 	void        initDrawPlace();
-	void        mouseMoveEvent(QMouseEvent *e);
+	void        mouseMoveEvent(QMouseEvent* e);
 	void        initDrawObj();
 	void        initHelpBoardBtn();
 	void        initSaveComponent();
 	void        initChangeFloorBtn();
+	void        initFloorChooseList();
 	void        initSquarePic();
 	// 属性
 	int          index = 0;
@@ -74,7 +75,7 @@ private:
 	QPushButton  games[15];
 	DrawPlace    drawPlace;
 	QPushButton  drawObj;
-	HelpBoard   *helpBoard;
+	HelpBoard* helpBoard;
 	QPushButton  helpBoardBtn;
 	QPushButton  saveBtn;
 	QPushButton  newFloorBtn;
@@ -82,7 +83,7 @@ private:
 
 	QLabel       squaresPic[11][11];
 
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("GBK");
 	// 槽函数
 public slots:
 	void setIce();

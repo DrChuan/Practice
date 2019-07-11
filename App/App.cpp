@@ -7,6 +7,12 @@ MagicalTower::MagicalTower(int argc, char* argv[] ):QApplication(argc, argv) {
 void MagicalTower::Init() {
 	w.editWindow = new EditWindow();
 
+	string path = "floors_ws";
+	if ((_access((path).c_str(), 0) == -1))
+		if (_mkdir((path).c_str()) != 0) {
+			cerr << "Can't open or create the directory:" << path << "\n";
+		}
+
 	w.editWindow->iss = evm.m_sssink;
 	w.editWindow->isgi = evm.m_sgIink;
 	w.editWindow->isgt = evm.m_sgTink;
