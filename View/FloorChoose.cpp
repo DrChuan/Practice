@@ -12,6 +12,7 @@ void FloorChoose::setFileList()
 	clear();
 	for (int i = 0; i < pFloorFileSet->getSize(); i++)
 	{
-		addItem(QString::fromStdString(pFloorFileSet->getFilename(i)));
+		//QString::fromLocal8Bit("ok");
+		addItem(QString::fromLocal8Bit((pFloorFileSet->getFilename(i)).c_str()));
 	}
 }

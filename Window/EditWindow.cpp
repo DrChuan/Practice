@@ -319,7 +319,7 @@ void EditWindow::saveFile()
 		QLineEdit::Normal, oriUntitledName, &ok);
 	if (ok)
 	{
-		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		if (iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
 		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
