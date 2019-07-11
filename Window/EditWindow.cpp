@@ -23,12 +23,8 @@ EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFlo
 	initChangeFloorBtn();
 	// 初始化图块显示组件
 	initSquarePic();
-	
-	floorChoose.show();
-	floorChoose.setParent(this);
-	floorChoose.move(880, 50);
-	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
 
+	initFloorChooseList();
 	// 设置鼠标事件响应方式
 	setMouseTracking(true);
 }
@@ -222,13 +218,19 @@ void EditWindow::initSquarePic()
 		{
 			squaresPic[i][j].setParent(this);
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
-			//squaresPic[i][j].setPixmap(QPixmap(getImgName(editorViewModel->getFloorSquareType(i, j), 
-			//	                                          editorViewModel->getFloorSquareIndex(i, j))));
 			if(isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
 		}
 	}
+}
+
+void EditWindow::initFloorChooseList()
+{
+	floorChoose.show();
+	floorChoose.setParent(this);
+	floorChoose.move(880, 50);
+	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
 }
 
 void EditWindow::setFramePos()
@@ -247,8 +249,6 @@ void EditWindow::update()
 	{
 		for (int j = 0; j < 11; j++)
 		{
-			//squaresPic[i][j].setPixmap(QPixmap(getImgName(editorViewModel->getFloorSquareType(i, j),
-			//	                                          editorViewModel->getFloorSquareIndex(i, j))));
 			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 		}
 	}
@@ -305,8 +305,8 @@ void EditWindow::mouseMoveEvent(QMouseEvent *e)
 void EditWindow::saveFile()
 {
 	bool ok = false;
-	int num = 1;
-	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt() + 1;
+	int num = 0;
+	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt();
 	QString oriUntitledName;
 	oriUntitledName = "Untitled" + QString::number(num);
 	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), codec->toUnicode("请输入您要保存的层文件名："), QLineEdit::Normal, oriUntitledName, &ok);
@@ -315,9 +315,9 @@ void EditWindow::saveFile()
 		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
+		iSaveFile->onHandleFile(filename.toStdString);
 	}
 }
-
 
 // slots函数
 void EditWindow::setIce()

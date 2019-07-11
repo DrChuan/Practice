@@ -59,6 +59,7 @@ private:
 	void        initHelpBoardBtn();
 	void        initSaveComponent();
 	void        initChangeFloorBtn();
+	void        initFloorChooseList();
 	void        initSquarePic();
 	// 属性
 	int          index = 0;
