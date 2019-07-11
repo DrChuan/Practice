@@ -2,7 +2,7 @@
 #include "EditorViewModel.h"
 
 void HandleLFileSink::onHandleFile(std::string filename) {
-	if (filename != "__new") {
+	if (filename == "__new") {
 		m_eVM->setFloorName("Focused Floor");
 		m_eVM->resetFloor();
 	}

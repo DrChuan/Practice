@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_MagicTower.h"
+#include "ui_MagicalTower.h"
 #include "qtextbrowser.h"
 #include "qtextcodec.h" 
 #include "qtoolbutton.h"

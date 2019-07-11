@@ -16,11 +16,12 @@ using std::vector;
 
 class EditorViewModel {
 private:
-	FloorFileSet m_floorFileSet;
+	
 	Floor m_floor;
 	EnemyList enemylist;
 	ItemList itemlist;
 public:
+	std::shared_ptr<FloorFileSet> m_floorFileSet;
 	std::shared_ptr<SquareSetSink> m_sssink;
 	std::shared_ptr<SquareGetTSink> m_sgTink;
 	std::shared_ptr<SquareGetISink> m_sgIink;

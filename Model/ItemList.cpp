@@ -14,7 +14,7 @@ void ItemList::SaveItemList(string name) {
 		fout.write(path.c_str(), sizeof(x.getHp()));
 		fout.write(path.c_str(), sizeof(x.getAtk()));
 		fout.write(path.c_str(), sizeof(x.getDef()));
-		fout.write(path.c_str(), sizeof(x.getexp()));
+		fout.write(path.c_str(), sizeof(x.getExp()));
 		fout.write(path.c_str(), sizeof(x.getSpecialIndex()));
 		fout.write(path.c_str(), sizeof(x.getWalkable()));
 	}

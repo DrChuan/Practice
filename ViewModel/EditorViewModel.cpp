@@ -7,7 +7,8 @@ EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this
 									m_hlfink(std::make_shared<HandleLFileSink>(this)),
 									m_hrfink(std::make_shared<HandleRFileSink>(this))
 {
-	m_floorFileSet.filenameSetInit();
+	m_floorFileSet = std::make_shared<FloorFileSet>();
+	m_floorFileSet->filenameSetInit();
 }
 void EditorViewModel::resetFloor() {
 	for (int i = 0; i < 11; i++)
@@ -25,7 +26,7 @@ void EditorViewModel::loadFloor() {
 void EditorViewModel::generateFloorSet(vector<int> floorsIndex, string filename) {
 	FloorSet floors(filename);
 	for (int i = 0; i < floorsIndex.size(); i++) {
-		string filename = m_floorFileSet.getFilename(floorsIndex[i]);
+		string filename = m_floorFileSet->getFilename(floorsIndex[i]);
 		string path = "floor_ws\\" + filename;
 		m_floor.setName(path);
 		m_floor.loadFloor();
