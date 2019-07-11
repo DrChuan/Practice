@@ -48,13 +48,7 @@
     <ClCompile Include="..\Window\SelectWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Model\FloorFileSet\FloorFileSet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Model\ListMember\ListMember.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\MapUtility\MapUtility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\View\HelpBoard.cpp">
@@ -69,7 +63,13 @@
     <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ViewModel\IHandleFile\HandleFileSink.cpp">
+    <ClCompile Include="..\ViewModel\HandleFileSink\HandleFileSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\FloorFileSet\FloorFileSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Model\MapUtility\MapUtility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,13 +93,7 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\MapUtility\MapUtility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\ViewModel\EditorViewModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Model\FloorFileSet\FloorFileSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Model\ListMember\ListMember.h">
@@ -120,10 +114,16 @@
     <ClInclude Include="..\App\App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ViewModel\IHandleFile\HandleFileSink.h">
+    <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h">
+    <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FloorFileSet\FloorFileSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Model\MapUtility\MapUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

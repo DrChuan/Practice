@@ -115,12 +115,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\App\App.cpp" />
-    <ClCompile Include="..\Common\MapUtility\MapUtility.cpp" />
-    <ClCompile Include="..\Model\FloorFileSet\FloorFileSet.cpp" />
+    <ClCompile Include="..\Common\FloorFileSet\FloorFileSet.cpp" />
     <ClCompile Include="..\Model\ListMember\ListMember.cpp" />
+    <ClCompile Include="..\Model\MapUtility\MapUtility.cpp" />
     <ClCompile Include="..\ViewModel\EditorViewModel.cpp" />
+    <ClCompile Include="..\ViewModel\HandleFileSink\HandleFileSink.cpp" />
     <ClCompile Include="..\ViewModel\IGetSink\IGetSink.cpp" />
-    <ClCompile Include="..\ViewModel\IHandleFile\HandleFileSink.cpp" />
     <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp" />
     <ClCompile Include="..\ViewModel\SquareSetSink\SquareSetSink.cpp" />
     <ClCompile Include="..\View\DrawPlace.cpp" />
@@ -137,12 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\App\App.h" />
+    <ClInclude Include="..\Common\FloorFileSet\FloorFileSet.h" />
     <ClInclude Include="..\Common\ICommands\ICommand.h" />
-    <ClInclude Include="..\Common\MapUtility\MapUtility.h" />
-    <ClInclude Include="..\Model\FloorFileSet\FloorFileSet.h" />
     <ClInclude Include="..\Model\ListMember\ListMember.h" />
+    <ClInclude Include="..\Model\MapUtility\MapUtility.h" />
     <ClInclude Include="..\ViewModel\EditorViewModel.h" />
-    <ClInclude Include="..\ViewModel\IHandleFile\HandleFileSink.h" />
+    <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h" />
     <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h" />
     <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h" />
     <ClInclude Include="IGetSink.h" />

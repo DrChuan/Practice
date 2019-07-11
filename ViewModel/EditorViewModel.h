@@ -6,7 +6,7 @@
 #include "SquareSetSink.h"
 #include "SquareGetSink.h"
 #include "IGetSink.h"
-#include "IHandleFile/HandleFileSink.h"
+#include "HandleFileSink/HandleFileSink.h"
 
 using std::string;
 using std::vector;
