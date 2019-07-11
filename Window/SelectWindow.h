@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_MagicalTower.h"
+#include "ui_MagicTower.h"
 #include "qtextbrowser.h"
 #include "qtextcodec.h" 
 #include "qtoolbutton.h"
@@ -18,7 +18,7 @@ class SelectWindow : public QMainWindow
 	Q_OBJECT
 public:
 	// 构造函数
-	SelectWindow( QWidget *parent = Q_NULLPTR);
+	SelectWindow(QWidget *parent = Q_NULLPTR);
 
 	// 编辑器窗口
 	EditWindow *editWindow;

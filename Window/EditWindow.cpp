@@ -2,7 +2,7 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow( QWidget *parent) : QMainWindow(parent)
+EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFloorFileSet)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
@@ -17,10 +17,18 @@ EditWindow::EditWindow( QWidget *parent) : QMainWindow(parent)
 	// 初始化地图编辑区域
 	initDrawPlace();
 	initDrawObj();
-	// 初始化帮助按钮
+	// 初始化右侧按钮
 	initHelpBoardBtn();
+	initSaveComponent();
+	initChangeFloorBtn();
 	// 初始化图块显示组件
 	initSquarePic();
+	
+	floorChoose.show();
+	floorChoose.setParent(this);
+	floorChoose.move(880, 50);
+	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
+
 	// 设置鼠标事件响应方式
 	setMouseTracking(true);
 }
@@ -28,7 +36,6 @@ EditWindow::EditWindow( QWidget *parent) : QMainWindow(parent)
 // 普通函数
 void EditWindow::initWindow()
 {
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	setWindowTitle(codec->toUnicode("魔塔关卡设计"));
 	setFixedSize(1024, 768);
 	QPalette p = this->palette();
@@ -38,10 +45,9 @@ void EditWindow::initWindow()
 
 void EditWindow::initBackSetBtn()
 {
-	// 字体设置及中文支持
+	// 字体设置
 	QFont font;
 	font.setFamily("SimHei");   // 黑体
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	btIce.setFont(font);
 	btFire.setFont(font);
 	btLeaf.setFont(font);
@@ -179,12 +185,33 @@ void EditWindow::initDrawObj()
 
 void EditWindow::initHelpBoardBtn()
 {
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	helpBoardBtn.setParent(this);
 	helpBoardBtn.setText(codec->toUnicode("说明书"));
 	helpBoardBtn.show();
 	helpBoardBtn.setGeometry(900, 700, 100, 32);
 	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
+}
+
+void EditWindow::initSaveComponent() {
+	saveBtn.setParent(this);
+	saveBtn.setText(codec->toUnicode("保存这一层"));
+	saveBtn.show();
+	saveBtn.setGeometry(900, 600, 120, 32);
+	connect(&saveBtn, SIGNAL(clicked()), this, SLOT(clickSaveBtn()));
+}
+
+void EditWindow::initChangeFloorBtn()
+{
+	newFloorBtn.setParent(this);
+	newFloorBtn.setText(codec->toUnicode("新建层"));
+	newFloorBtn.show();
+	newFloorBtn.setGeometry(900, 500, 120, 32);
+	connect(&newFloorBtn, SIGNAL(clicked()), this, SLOT(clickNewBtn()));
+	openFloorBtn.setParent(this);
+	openFloorBtn.setText(codec->toUnicode("打开层"));
+	openFloorBtn.show();
+	openFloorBtn.setGeometry(900, 400, 120, 32);
+	connect(&openFloorBtn, SIGNAL(clicked()), this, SLOT(clickOpenBtn()));
 }
 
 void EditWindow::initSquarePic()
@@ -197,7 +224,7 @@ void EditWindow::initSquarePic()
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
 			//squaresPic[i][j].setPixmap(QPixmap(getImgName(editorViewModel->getFloorSquareType(i, j), 
 			//	                                          editorViewModel->getFloorSquareIndex(i, j))));
-			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+			if(isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
 		}
@@ -275,6 +302,21 @@ void EditWindow::mouseMoveEvent(QMouseEvent *e)
 	drawObj.hide();
 }
 
+void EditWindow::saveFile()
+{
+	bool ok = false;
+	int num = 1;
+	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt() + 1;
+	QString oriUntitledName;
+	oriUntitledName = "Untitled" + QString::number(num);
+	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), codec->toUnicode("请输入您要保存的层文件名："), QLineEdit::Normal, oriUntitledName, &ok);
+	if (ok)
+	{
+		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
+			QMessageBox::Ok, QMessageBox::Ok);
+	}
+}
 
 
 // slots函数
@@ -343,6 +385,34 @@ void EditWindow::clickHelpBoardBtn()
 	helpBoard = new HelpBoard();
 }
 
+void EditWindow::clickSaveBtn()
+{
+	saveFile();
+}
+
+void EditWindow::clickNewBtn()
+{
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"), 
+		                             codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	if (rb == QMessageBox::Yes)
+		saveFile();
+	if(iLoadFile) iLoadFile->onHandleFile("__new");
+	update();
+}
+
+void EditWindow::clickOpenBtn()
+{
+
+	//qmessagebox::standardbutton rb = qmessagebox::question(this, codec->tounicode("魔塔关卡设计"),
+	//	codec->tounicode("是否保存当前层？"), qmessagebox::yes | qmessagebox::no, qmessagebox::yes);
+	//if (rb == qmessagebox::yes)
+	//	savefile();
+	//qstring filepath = qfiledialog::getopenfilename(this, codec->tounicode("选择一个层文件"), ".", "floor files(*.flr)");
+	//qmessagebox::standardbutton rb2 = qmessagebox::question(this, codec->tounicode("魔塔关卡设计"),
+	//	filepath, qmessagebox::yes | qmessagebox::no, qmessagebox::yes);
+	//if(iloadfile) iloadfile->onhandlefile("__new");
+}
+
 void EditWindow::putSquare()
 {
 	int type, id;
@@ -354,4 +424,10 @@ void EditWindow::putSquare()
 	iss->onSquareChange((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	//editorViewModel->setFloorSquare((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	update();
+}
+
+void EditWindow::changeFileId(int num)
+{
+	fileId = num;
+	std::cout << fileId << std::endl;
 }
