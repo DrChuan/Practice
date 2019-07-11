@@ -2,14 +2,14 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloorFileSet)
+EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFloorFileSet)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
 	// 初始化冰、火、林按钮
 	initBackSetBtn();
 	// 初始化元件栏按钮
-	initItemBtn();
+	initItemBtn();	
 	initEnemyBtn();
 	initGameBtn();
 	// 初始化选择框属性
@@ -23,13 +23,14 @@ EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloo
 	initChangeFloorBtn();
 	// 初始化图块显示组件
 	initSquarePic();
-
+	// 初始化层选择控件
 	initFloorChooseList();
 	// 设置鼠标事件响应方式
 	setMouseTracking(true);
 }
 
 // 普通函数
+// -- 控件初始化函数
 void EditWindow::initWindow()
 {
 	setWindowTitle(codec->toUnicode("魔塔关卡设计"));
@@ -92,7 +93,7 @@ void EditWindow::initBackSetBtn()
 
 void EditWindow::initItemBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 20; i++)
 	{
 		items[i].setParent(this);                                            // 设置parent指针
@@ -109,7 +110,7 @@ void EditWindow::initItemBtn()
 
 void EditWindow::initEnemyBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 25; i++)
 	{
 		enemies[i].setParent(this);
@@ -126,7 +127,7 @@ void EditWindow::initEnemyBtn()
 
 void EditWindow::initGameBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 15; i++)
 	{
 		games[i].setParent(this);
@@ -173,7 +174,7 @@ void EditWindow::initDrawObj()
 	drawObj.setIconSize(QSize(48, 48));
 	drawObj.setFlat(true);
 	drawObj.setCursor(QCursor(QPixmap("img/item/item0.png")));
-	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
+	QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
 	drawObj.setGraphicsEffect(opacityEffect);
 	opacityEffect->setOpacity(0.65);
 	connect(&drawObj, SIGNAL(clicked()), this, SLOT(putSquare()));
@@ -218,7 +219,7 @@ void EditWindow::initSquarePic()
 		{
 			squaresPic[i][j].setParent(this);
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
-			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+			if(isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
 		}
@@ -233,6 +234,7 @@ void EditWindow::initFloorChooseList()
 	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
 }
 
+// -- 刷新函数
 void EditWindow::setFramePos()
 {
 	if (index < 20)
@@ -254,6 +256,7 @@ void EditWindow::update()
 	}
 }
 
+// -- 属性获取函数
 int EditWindow::getIndex()
 {
 	return index;
@@ -297,11 +300,13 @@ QString EditWindow::getImgName(int type, int index)
 	return ret;
 }
 
-void EditWindow::mouseMoveEvent(QMouseEvent* e)
+// -- 鼠标移动回调函数
+void EditWindow::mouseMoveEvent(QMouseEvent *e)
 {
 	drawObj.hide();
 }
 
+// -- 保存文件函数
 void EditWindow::saveFile()
 {
 	bool ok = false;
@@ -309,13 +314,18 @@ void EditWindow::saveFile()
 	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt();
 	QString oriUntitledName;
 	oriUntitledName = "Untitled" + QString::number(num);
-	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), codec->toUnicode("请输入您要保存的层文件名："), QLineEdit::Normal, oriUntitledName, &ok);
+	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), 
+		                                     codec->toUnicode("请输入您要保存的层文件名："), 
+		                                     QLineEdit::Normal, oriUntitledName, &ok);
 	if (ok)
 	{
 		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
-		iSaveFile->onHandleFile(filename.toStdString());
+		if(iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		pFloorFileSet->filenameSetInit();
+		floorChoose.setFileList();
+	//	floorchoose.additem(filename);
 	}
 }
 
@@ -392,25 +402,30 @@ void EditWindow::clickSaveBtn()
 
 void EditWindow::clickNewBtn()
 {
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
-		codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"), 
+		                             codec->toUnicode("是否保存当前层？"), 
+		                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if (iLoadFile) iLoadFile->onHandleFile("__new");
+	if(iLoadFile) iLoadFile->onHandleFile("__new");
 	update();
 }
 
 void EditWindow::clickOpenBtn()
 {
-
-	//qmessagebox::standardbutton rb = qmessagebox::question(this, codec->tounicode("魔塔关卡设计"),
-	//	codec->tounicode("是否保存当前层？"), qmessagebox::yes | qmessagebox::no, qmessagebox::yes);
-	//if (rb == qmessagebox::yes)
-	//	savefile();
-	//qstring filepath = qfiledialog::getopenfilename(this, codec->tounicode("选择一个层文件"), ".", "floor files(*.flr)");
-	//qmessagebox::standardbutton rb2 = qmessagebox::question(this, codec->tounicode("魔塔关卡设计"),
-	//	filepath, qmessagebox::yes | qmessagebox::no, qmessagebox::yes);
-	//if(iloadfile) iloadfile->onhandlefile("__new");
+	if (fileId == -1)
+	{
+		QMessageBox::warning(this, codec->toUnicode("魔塔关卡设计"),
+			codec->toUnicode("请选中一个层文件！"), QMessageBox::Ok, QMessageBox::Ok);
+		return;
+	}
+	std::string name = pFloorFileSet->getFilename(fileId);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
+		codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	if (rb == QMessageBox::Yes)
+		saveFile();
+	if(iLoadFile) iLoadFile->onHandleFile(name);
+	update();
 }
 
 void EditWindow::putSquare()
@@ -422,7 +437,6 @@ void EditWindow::putSquare()
 		type = getType(), id = getId();
 	std::cout << "put!" << getType() << getId() << (drawObj.x() - 311) / 48 << (drawObj.y() - 145) / 48 << std::endl;
 	iss->onSquareChange((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
-	//editorViewModel->setFloorSquare((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	update();
 }
 
