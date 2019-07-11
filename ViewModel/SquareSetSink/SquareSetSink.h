@@ -1,4 +1,4 @@
-#include "ISquareSet.h"
+#include "ICommand.h"
 #include <string>
 class EditorViewModel;
 

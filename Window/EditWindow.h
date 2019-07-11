@@ -9,8 +9,7 @@
 #include "qgraphicseffect.h"
 #include "DrawPlace.h"
 #include "HelpBoard.h"
-#include "ISquareSet.h"
-#include "ISquareGet.h"
+#include "ICommand.h"
 
 // 左边三个框之间的距离
 #define DIS_IT_TO_ENM 237

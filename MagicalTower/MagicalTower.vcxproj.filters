@@ -60,7 +60,16 @@
     <ClCompile Include="..\View\HelpBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SquareGetSink.cpp">
+    <ClCompile Include="..\App\App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ViewModel\IGetSink\IGetSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ViewModel\IHandleFile\HandleFileSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,9 +93,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\ICommands\ISquareSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Common\MapUtility\MapUtility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,10 +108,22 @@
     <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\ICommands\ISquareGet.h">
+    <ClInclude Include="..\Common\ICommands\ICommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SquareGetSink.h">
+    <ClInclude Include="IGetSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="preInclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\App\App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ViewModel\IHandleFile\HandleFileSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,24 +5,34 @@
 #include "FloorFileSet.h"
 #include "SquareSetSink.h"
 #include "SquareGetSink.h"
+#include "IGetSink.h"
+#include "IHandleFile/HandleFileSink.h"
 
 using std::string;
 using std::vector;
 
 class EditorViewModel {
-	FloorFileSet m_floorFileSet;
+private:
 	Floor m_floor;
 public:
+	FloorFileSet m_floorFileSet;
 	std::shared_ptr<SquareSetSink> m_sssink;
 	std::shared_ptr<SquareGetTSink> m_sgTink;
 	std::shared_ptr<SquareGetISink> m_sgIink;
+	std::shared_ptr<IGetSink> m_igsink;
+	std::shared_ptr<HandleFileSink> m_hdfink;
 	EditorViewModel();
+
 	void setFloorSquare(int x, int y, int type, int index) {
 		m_floor.setSquare(type, index, x, y);
 	}
 	Floor getFloor() {	return  m_floor; }
+	void setFloorName(std::string name) { m_floor.setName(name); }
+	void resetFloor();
+
 	void saveFloor();
 	void loadFloor();
+
 	void generateFloorSet(vector<int> floorsIndex, string filename);
 	int getFloorSquareType(int x, int y)
 	{

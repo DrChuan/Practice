@@ -1,5 +1,5 @@
 #pragma once
-#include "ISquareGet.h"
+#include "ICommand.h"
 class EditorViewModel;
 
 class SquareGetTSink : public ISquareGet {
