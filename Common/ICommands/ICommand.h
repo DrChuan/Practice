@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include <vector>
+
 class ISquareGet {
 public:
 	virtual int onUpdate(int, int) = 0;
@@ -14,18 +16,19 @@ public:
 class IGetInt {
 public:
 	virtual int onCallInt() = 0; 
-	// éœ€è¦ä¸€ä¸ªè¿”å›å½“å‰flooræ–‡ä»¶å¤¹ä¸‹åä¸ºUntitledXXXçš„æœ€å¤§XXX
+	// ĞèÒªÒ»¸ö·µ»Øµ±Ç°floorÎÄ¼ş¼ĞÏÂÃûÎªUntitledXXXµÄ×î´óXXX
 };
 
 class IHandleFile {
 public:
-	virtual bool onHandleFile(std::string filename) = 0;
-	// ä»¥filenameä¸ºæ–‡ä»¶åä¿å­˜å½“å‰å±‚åˆ°æ–‡ä»¶
-	// ï¼ˆæ”¹åŠ¨ï¼‰å°†filenameæ–‡ä»¶ä¸­æ•°æ®åŠ è½½ä¸ºå½“å‰çš„floor(filenameä¸º"__new"æ—¶ä¸ºåˆ›å»ºæ–°floor)
-	// ï¼ˆæ–°å¢ï¼‰å°†filenameæ–‡ä»¶åˆ é™¤
+	virtual void onHandleFile(std::string filename) = 0;
+	// ÒÔfilenameÎªÎÄ¼şÃû±£´æµ±Ç°²ãµ½ÎÄ¼ş
+	// £¨¸Ä¶¯£©½«filenameÎÄ¼şÖĞÊı¾İ¼ÓÔØÎªµ±Ç°µÄfloor(filenameÎª"__new"Ê±Îª´´½¨ĞÂfloor)
+	// £¨ĞÂÔö£©½«filenameÎÄ¼şÉ¾³ı
 };
 
 class IGenerate {
 public:
-	virtual void onGenerate(const std::vector<int>& fileGeneList, std::string filename) = 0;
+	virtual void onGenerate(std::vector<int> & fileGeneList, std::string filename) = 0;
+	// µØÍ¼·ç¸ñ ½ğÇ® ÉúÃü ¹¥»÷ ·ÀÓù »ÆÔ¿³× À¶Ô¿³× ºìÔ¿³×
 };
