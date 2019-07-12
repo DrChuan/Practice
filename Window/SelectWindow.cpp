@@ -34,7 +34,7 @@ void SelectWindow::initBrowser()
 {
 	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	// 创建、显示文本框
-	browser = std::make_shared<QTextBrowser>(this);
+	browser = new QTextBrowser(this);
 	browser->show();
 	// 设置文本框位置及大小
 	browser->resize(600, 320);
@@ -57,13 +57,13 @@ void SelectWindow::initbutton()
 {
 	QTextCodec *codec = QTextCodec::codecForName("GBK");
 	// 设置缔造者按钮文字、大小、位置
-	creatorBtn = std::make_shared<QToolButton>(this);
+	creatorBtn = new QToolButton(this);
 	creatorBtn->setText(codec->toUnicode("我要做缔造者"));
 	creatorBtn->move(BTN_X, BTN_Y);
 	creatorBtn->setFixedSize(150, 60);
 	creatorBtn->show();
 	// 设置求索者按钮文字、大小、位置
-	explorerBtn = std::make_shared<QToolButton>(this);
+	explorerBtn = new QToolButton(this);
 	explorerBtn->setText(codec->toUnicode("我要做求索者"));
 	explorerBtn->move(650 - BTN_X, BTN_Y);
 	explorerBtn->setFixedSize(150, 60);

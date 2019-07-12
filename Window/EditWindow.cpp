@@ -9,7 +9,7 @@ EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFlo
 	// 初始化冰、火、林按钮
 	initBackSetBtn();
 	// 初始化元件栏按钮
-	initItemBtn();	
+	initItemBtn();
 	initEnemyBtn();
 	initGameBtn();
 	// 初始化选择框属性
@@ -18,9 +18,7 @@ EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFlo
 	initDrawPlace();
 	initDrawObj();
 	// 初始化右侧按钮
-	initHelpBoardBtn();
-	initSaveComponent();
-	initChangeFloorBtn();
+	initRightButton();
 	// 初始化图块显示组件
 	initSquarePic();
 	// 初始化层选择控件
@@ -38,6 +36,40 @@ void EditWindow::initWindow()
 	QPalette p = this->palette();
 	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackice.jpg")));
 	this->setPalette(p);
+	QFont font;
+	font.setFamily("SimHei");
+	font.setPointSize(18);
+	currentFilenameLabel.setParent(this);
+	currentFilenameLabel.setText(currentFilename.toLocal8Bit());
+	currentFilenameLabel.show();
+	currentFilenameLabel.setFont(font);
+	currentFilenameLabel.setGeometry(340, 40, 200, 48);
+}
+
+void EditWindow::initButton(QPushButton & btn, int x, int y, int width, int height, std::string text)
+{
+	btn.setParent(this);
+	btn.setText(codec->toUnicode(text.data()));
+	btn.show();
+	btn.setGeometry(x, y, width, height);
+}
+
+void EditWindow::initRightButton()
+{
+	initButton(helpBoardBtn, 900, 700, 100, 32, "说明书");
+	initButton(saveBtn, 900, 600, 120, 32, "保存当前层");
+	initButton(newFloorBtn, 900, 500, 120, 32, "新建空白层");
+	initButton(openFloorBtn, 900, 400, 120, 32, "打开选中层");
+	initButton(generateBtn, 800, 500, 120, 32, "生成游戏关卡");
+	initButton(deleteBtn, 800, 600, 120, 32, "删除选中层");
+	initButton(setModelBtn, 800, 400, 120, 32, "修改选中块属性");
+	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
+	connect(&saveBtn, SIGNAL(clicked()), this, SLOT(clickSaveBtn()));
+	connect(&newFloorBtn, SIGNAL(clicked()), this, SLOT(clickNewBtn()));
+	connect(&openFloorBtn, SIGNAL(clicked()), this, SLOT(clickOpenBtn()));
+	connect(&generateBtn, SIGNAL(clicked()), this, SLOT(generate()));
+	connect(&deleteBtn, SIGNAL(clicked()), this, SLOT(clickDeleteBtn()));
+	connect(&setModelBtn, SIGNAL(clicked()), this, SLOT(clickSetModelBtn()));
 }
 
 void EditWindow::initBackSetBtn()
@@ -180,35 +212,12 @@ void EditWindow::initDrawObj()
 	connect(&drawObj, SIGNAL(clicked()), this, SLOT(putSquare()));
 }
 
-void EditWindow::initHelpBoardBtn()
+void EditWindow::initFloorChooseList()
 {
-	helpBoardBtn.setParent(this);
-	helpBoardBtn.setText(codec->toUnicode("说明书"));
-	helpBoardBtn.show();
-	helpBoardBtn.setGeometry(900, 700, 100, 32);
-	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
-}
-
-void EditWindow::initSaveComponent() {
-	saveBtn.setParent(this);
-	saveBtn.setText(codec->toUnicode("保存这一层"));
-	saveBtn.show();
-	saveBtn.setGeometry(900, 600, 120, 32);
-	connect(&saveBtn, SIGNAL(clicked()), this, SLOT(clickSaveBtn()));
-}
-
-void EditWindow::initChangeFloorBtn()
-{
-	newFloorBtn.setParent(this);
-	newFloorBtn.setText(codec->toUnicode("新建层"));
-	newFloorBtn.show();
-	newFloorBtn.setGeometry(900, 500, 120, 32);
-	connect(&newFloorBtn, SIGNAL(clicked()), this, SLOT(clickNewBtn()));
-	openFloorBtn.setParent(this);
-	openFloorBtn.setText(codec->toUnicode("打开层"));
-	openFloorBtn.show();
-	openFloorBtn.setGeometry(900, 400, 120, 32);
-	connect(&openFloorBtn, SIGNAL(clicked()), this, SLOT(clickOpenBtn()));
+	floorChoose.show();
+	floorChoose.setParent(this);
+	floorChoose.move(880, 50);
+	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
 }
 
 void EditWindow::initSquarePic()
@@ -219,39 +228,9 @@ void EditWindow::initSquarePic()
 		{
 			squaresPic[i][j].setParent(this);
 			squaresPic[i][j].setGeometry(311 + i * 48, 145 + j * 48, 48, 48);
-			if(isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 			squaresPic[i][j].show();
 			squaresPic[i][j].lower();
-		}
-	}
-}
-
-void EditWindow::initFloorChooseList()
-{
-	floorChoose.show();
-	floorChoose.setParent(this);
-	floorChoose.move(880, 50);
-	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
-}
-
-// -- 刷新函数
-void EditWindow::setFramePos()
-{
-	if (index < 20)
-		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + 48 * (index / 5), 48, 48);
-	else if (index < 45)
-		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + DIS_IT_TO_ENM - 48 * 4 + 48 * (index / 5), 48, 48);
-	else
-		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + DIS_IT_TO_GM - 48 * 9 + 48 * (index / 5), 48, 48);
-}
-
-void EditWindow::update()
-{
-	for (int i = 0; i < 11; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
 		}
 	}
 }
@@ -300,10 +279,27 @@ QString EditWindow::getImgName(int type, int index)
 	return ret;
 }
 
-// -- 鼠标移动回调函数
-void EditWindow::mouseMoveEvent(QMouseEvent *e)
+// -- 刷新函数
+void EditWindow::setFramePos()
 {
-	drawObj.hide();
+	if (index < 20)
+		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + 48 * (index / 5), 48, 48);
+	else if (index < 45)
+		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + DIS_IT_TO_ENM - 48 * 4 + 48 * (index / 5), 48, 48);
+	else
+		selectFrame.setGeometry(48 + 48 * (index % 5), 48 + DIS_IT_TO_GM - 48 * 9 + 48 * (index / 5), 48, 48);
+}
+
+void EditWindow::update()
+{
+	currentFilenameLabel.setText(currentFilename);//(codec->toUnicode(currentFilename.to));//currentFilename.toLocal8Bit());
+	for (int i = 0; i < 11; i++)
+	{
+		for (int j = 0; j < 11; j++)
+		{
+			if (isgt && isgi) squaresPic[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+		}
+	}
 }
 
 // -- 保存文件函数
@@ -319,14 +315,20 @@ void EditWindow::saveFile()
 		                                     QLineEdit::Normal, oriUntitledName, &ok);
 	if (ok)
 	{
-		if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		//if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
 		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
 			QMessageBox::Ok, QMessageBox::Ok);
-		if(iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
+		if(iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
 		pFloorFileSet->filenameSetInit();
 		floorChoose.setFileList();
 	//	floorchoose.additem(filename);
 	}
+}
+
+// -- 鼠标移动回调函数
+void EditWindow::mouseMoveEvent(QMouseEvent *e)
+{
+	drawObj.hide();
 }
 
 // slots函数
@@ -408,6 +410,7 @@ void EditWindow::clickNewBtn()
 	if (rb == QMessageBox::Yes)
 		saveFile();
 	if(iLoadFile) iLoadFile->onHandleFile("__new");
+	currentFilename = "New Floor";
 	update();
 }
 
@@ -425,7 +428,30 @@ void EditWindow::clickOpenBtn()
 	if (rb == QMessageBox::Yes)
 		saveFile();
 	if(iLoadFile) iLoadFile->onHandleFile(name);
+	currentFilename = QString::fromLocal8Bit(name.c_str());
 	update();
+}
+
+void EditWindow::clickDeleteBtn()
+{
+	if (fileId == -1)
+	{
+		QMessageBox::warning(this, codec->toUnicode("魔塔关卡设计"),
+			codec->toUnicode("请选中一个层文件！"), QMessageBox::Ok, QMessageBox::Ok);
+		return;
+	}
+	std::string name = pFloorFileSet->getFilename(fileId);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
+		codec->toUnicode("确认删除") + QString::fromStdString(name) + codec->toUnicode("吗？"), 
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+	if (rb == QMessageBox::Yes)
+		if (iDeleteFile) iDeleteFile->onHandleFile(name);
+	update();
+}
+
+void EditWindow::clickSetModelBtn()
+{
+
 }
 
 void EditWindow::putSquare()
@@ -444,4 +470,11 @@ void EditWindow::changeFileId(int num)
 {
 	fileId = num;
 	std::cout << fileId << std::endl;
+}
+
+void EditWindow::generate()
+{
+	generateWindow.initialize(this);
+	generateWindow.setModal(true);
+	generateWindow.show();
 }

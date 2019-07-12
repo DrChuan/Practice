@@ -15,7 +15,7 @@
 #include "ICommand.h"
 #include "FloorChoose.h"
 #include "FloorFileSet.h"
-
+#include "GenerateWindow.h"
 
 // 左边三个框之间的距离
 #define DIS_IT_TO_ENM 237
@@ -33,6 +33,7 @@ public:
 	std::shared_ptr<IGetInt>     iGetUntitledFloorNum;
 	std::shared_ptr<IHandleFile> iSaveFile;
 	std::shared_ptr<IHandleFile> iLoadFile;
+	std::shared_ptr<IHandleFile> iDeleteFile;
 	// Common对象数据绑定指针
 	std::shared_ptr<FloorFileSet> pFloorFileSet;
 	// 层文件选择控件
@@ -42,34 +43,36 @@ public:
 	int     getMap();
 	int     getType();
 	int     getId();
+	QString getImgName(int type, int index);
 	void    setFramePos();
 	void    update();
 	void    saveFile();
-	QString getImgName(int type, int index);
 private:
-	// 初始化函数及鼠标事件函数
+	// 初始化函数
 	void        initWindow();
-	void		    initBackSetBtn();
+	void        initButton(QPushButton & btn, int x, int y, int width, int height, std::string text);
+	void        initRightButton();
+	void		initBackSetBtn();
 	void        initItemBtn();
 	void        initEnemyBtn();
 	void        initGameBtn();
 	void        initSelectFrame();
 	void        initDrawPlace();
-	void        mouseMoveEvent(QMouseEvent *e);
 	void        initDrawObj();
-	void        initHelpBoardBtn();
-	void        initSaveComponent();
-	void        initChangeFloorBtn();
 	void        initFloorChooseList();
 	void        initSquarePic();
+	// 鼠标事件函数
+	void        mouseMoveEvent(QMouseEvent *e);
 	// 属性
 	int          index = 0;
 	int          map = 0;
 	int          fileId = -1;
+	QString      currentFilename = "New Floor";
 	// 窗口组件
 	QPushButton  btIce;
 	QPushButton  btFire;
 	QPushButton  btLeaf;
+	QLabel       currentFilenameLabel;
 	QLabel       selectFrame;
 	QPushButton  items[20];
 	QPushButton  enemies[25];
@@ -81,8 +84,12 @@ private:
 	QPushButton  saveBtn;
 	QPushButton  newFloorBtn;
 	QPushButton  openFloorBtn;
+	QPushButton  generateBtn;
+	QPushButton  deleteBtn;
+	QPushButton  setModelBtn;
 	QLabel       squaresPic[11][11];
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	QTextCodec  *codec = QTextCodec::codecForName("GBK");
+	GenerateWindow generateWindow;
 	// 槽函数
 public slots:
 	void setIce();
@@ -96,6 +103,9 @@ public slots:
 	void clickSaveBtn();
 	void clickNewBtn();
 	void clickOpenBtn();
+	void clickDeleteBtn();
+	void clickSetModelBtn();
 	void putSquare();
 	void changeFileId(int num);
+	void generate();
 };
