@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>C:\Users\Link\Documents\GitHub\Practice\MagicalTower\GeneratedFiles;C:\Users\Link\Documents\GitHub\Practice\ViewModel\GenerateGameSink;C:\Users\Link\Documents\GitHub\Practice\Common\ICommands;C:\Users\Link\Documents\GitHub\Practice\Common\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice\ViewModel\HandleFileSink;C:\Users\Link\Documents\GitHub\Practice\Model;C:\Users\Link\Documents\GitHub\Practice\Model\MapUtility;C:\Users\Link\Documents\GitHub\Practice\ViewModel\IHandleFile;C:\Users\Link\Documents\GitHub\Practice\ViewModel\SquareGetSink;C:\Users\Link\Documents\GitHub\Practice\ViewModel\IGetSink;C:\Users\Link\Documents\GitHub\Practice\ViewModel;C:\Users\Link\Documents\GitHub\Practice\Window;C:\Users\Link\Documents\GitHub\Practice\ViewModel\SquareSetSink;C:\Users\Link\Documents\GitHub\Practice\View;C:\Users\Link\Documents\GitHub\Practice\Model\FloorFileSet;C:\Users\Link\Documents\GitHub\Practice\Model\ListMember;C:\Users\Link\Documents\GitHub\Practice\Common\MapUtility;C:\Users\Link\Documents\GitHub\Practice\App;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Window;$(ProjectDir)ViewModel\SquareSetSink;$(ProjectDir)ViewModel\SquareGetSink;$(ProjectDir)ViewModel\HandleFileSink;$(ProjectDir)ViewModel\IGetSink;$(ProjectDir)ViewModel\GenerateGameSink;$(ProjectDir)ViewModel;$(ProjectDir)View;$(ProjectDir)Model\MapUtility;$(ProjectDir)Model;$(ProjectDir)Common\ListMember;$(ProjectDir)Common\ICommands;$(ProjectDir)Common\FloorFileSet;$(ProjectDir)App;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -70,7 +70,7 @@
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -101,7 +101,7 @@
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -114,72 +114,55 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\App\App.cpp" />
-    <ClCompile Include="..\Common\FloorFileSet\FloorFileSet.cpp" />
-    <ClCompile Include="..\Model\EnemyList.cpp" />
-    <ClCompile Include="..\Model\ItemList.cpp" />
-    <ClCompile Include="..\Model\ListMember\ListMember.cpp" />
-    <ClCompile Include="..\Model\MapUtility\MapUtility.cpp" />
-    <ClCompile Include="..\ViewModel\EditorViewModel.cpp" />
-    <ClCompile Include="..\ViewModel\GenerateGameSink\GenerateGameSink.cpp" />
-    <ClCompile Include="..\ViewModel\HandleFileSink\HandleFileSink.cpp" />
-    <ClCompile Include="..\ViewModel\IGetSink\IGetSink.cpp" />
-    <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp" />
-    <ClCompile Include="..\ViewModel\SquareSetSink\SquareSetSink.cpp" />
-    <ClCompile Include="..\View\DrawPlace.cpp" />
-    <ClCompile Include="..\View\FloorChoose.cpp" />
-    <ClCompile Include="..\View\HelpBoard.cpp" />
-    <ClCompile Include="..\Window\EditWindow.cpp" />
-    <ClCompile Include="..\Window\GenerateWindow.cpp" />
-    <ClCompile Include="..\Window\SelectWindow.cpp" />
-    <ClCompile Include="..\Window\SetInitModelWindow.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <QtUic Include="MagicalTower.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="MagicalTower.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\App\App.h" />
-    <ClInclude Include="..\Common\FloorFileSet\FloorFileSet.h" />
-    <ClInclude Include="..\Common\ICommands\ICommand.h" />
-    <ClInclude Include="..\Model\EnemyList.h" />
-    <ClInclude Include="..\Model\ItemList.h" />
-    <ClInclude Include="..\Model\ListMember\ListMember.h" />
-    <ClInclude Include="..\Model\MapUtility\MapUtility.h" />
-    <ClInclude Include="..\ViewModel\EditorViewModel.h" />
-    <ClInclude Include="..\ViewModel\GenerateGameSink\GenerateGameSink.h" />
-    <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h" />
-    <ClInclude Include="..\ViewModel\IGetSink\IGetSink.h" />
-    <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h" />
-    <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h" />
-    <QtMoc Include="..\Window\GenerateWindow.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\Window\SetInitModelWindow.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
+    <ClCompile Include="App\App.cpp" />
+    <ClCompile Include="Common\FloorFileSet\FloorFileSet.cpp" />
+    <ClCompile Include="Common\ListMember\ListMember.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model\EnemyList.cpp" />
+    <ClCompile Include="Model\ItemList.cpp" />
+    <ClCompile Include="Model\MapUtility\MapUtility.cpp" />
+    <ClCompile Include="ViewModel\EditorViewModel.cpp" />
+    <ClCompile Include="ViewModel\GenerateGameSink\GenerateGameSink.cpp" />
+    <ClCompile Include="ViewModel\HandleFileSink\HandleFileSink.cpp" />
+    <ClCompile Include="ViewModel\IGetSink\IGetSink.cpp" />
+    <ClCompile Include="ViewModel\SquareGetSink\SquareGetSink.cpp" />
+    <ClCompile Include="ViewModel\SquareSetSink\SquareSetSink.cpp" />
+    <ClCompile Include="View\DrawPlace.cpp" />
+    <ClCompile Include="View\FloorChoose.cpp" />
+    <ClCompile Include="View\HelpBoard.cpp" />
+    <ClCompile Include="Window\EditWindow.cpp" />
+    <ClCompile Include="Window\GenerateWindow.cpp" />
+    <ClCompile Include="Window\SelectWindow.cpp" />
+    <ClCompile Include="Window\SetInitModelWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App\App.h" />
+    <ClInclude Include="Common\FloorFileSet\FloorFileSet.h" />
+    <ClInclude Include="Common\ICommands\ICommand.h" />
+    <ClInclude Include="Common\ListMember\ListMember.h" />
+    <ClInclude Include="Model\EnemyList.h" />
+    <ClInclude Include="Model\ItemList.h" />
+    <ClInclude Include="Model\MapUtility\MapUtility.h" />
     <ClInclude Include="preInclude.h" />
-    <QtMoc Include="..\View\HelpBoard.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\Window\SelectWindow.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\Window\EditWindow.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
-    <QtMoc Include="..\View\DrawPlace.h">
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
-    </QtMoc>
+    <ClInclude Include="ViewModel\EditorViewModel.h" />
+    <ClInclude Include="ViewModel\GenerateGameSink\GenerateGameSink.h" />
+    <ClInclude Include="ViewModel\HandleFileSink\HandleFileSink.h" />
+    <ClInclude Include="ViewModel\IGetSink\IGetSink.h" />
+    <ClInclude Include="ViewModel\SquareGetSink\SquareGetSink.h" />
+    <ClInclude Include="ViewModel\SquareSetSink\SquareSetSink.h" />
+    <ClInclude Include="View\FloorChoose.h" />
+    <QtMoc Include="Window\SetInitModelWindow.h" />
+    <QtMoc Include="Window\SelectWindow.h" />
+    <QtMoc Include="Window\GenerateWindow.h" />
+    <QtMoc Include="Window\EditWindow.h" />
+    <QtMoc Include="View\HelpBoard.h" />
+    <QtMoc Include="View\DrawPlace.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

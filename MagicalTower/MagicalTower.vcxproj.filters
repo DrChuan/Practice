@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
       <Extensions>qrc;*</Extensions>
@@ -28,88 +20,54 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\View\DrawPlace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\EditorViewModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\SquareSetSink\SquareSetSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Window\SelectWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Model\ListMember\ListMember.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\View\HelpBoard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\App\App.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\IGetSink\IGetSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\SquareGetSink\SquareGetSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\HandleFileSink\HandleFileSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\FloorFileSet\FloorFileSet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Model\MapUtility\MapUtility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\View\FloorChoose.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Window\EditWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Model\EnemyList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Model\ItemList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewModel\GenerateGameSink\GenerateGameSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Window\GenerateWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Window\SetInitModelWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="..\View\DrawPlace.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="..\Window\EditWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="..\Window\SelectWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="..\View\HelpBoard.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="..\Window\GenerateWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="..\Window\SetInitModelWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
+    <Filter Include="Source">
+      <UniqueIdentifier>{888dba8f-fd1a-4b52-975a-7add98d3e9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Common">
+      <UniqueIdentifier>{f0f78fd9-28cf-4ea0-9954-77f72a50ff26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Common\FloorFileSet">
+      <UniqueIdentifier>{34c90c03-f113-4965-9616-7600083568d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Common\ICommand">
+      <UniqueIdentifier>{b8687c30-a6f9-4854-96a9-fbd8b128dc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Common\ListMember">
+      <UniqueIdentifier>{282b3bc7-72e8-4a92-83bd-bb6f64474518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\App">
+      <UniqueIdentifier>{7736a02a-654e-45ae-bc47-3811d63ae411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\View">
+      <UniqueIdentifier>{2f8df615-04dd-4c6d-99c8-a611bc3ccbaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows">
+      <UniqueIdentifier>{fc8eab43-b7f6-4342-a4fe-acb2e54b51bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Model">
+      <UniqueIdentifier>{6b85dd9f-0678-44e9-a382-84fd8312865f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel">
+      <UniqueIdentifier>{2f3ac7de-d991-4c62-b302-d8a2ffd3e533}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Model\MapUtility">
+      <UniqueIdentifier>{fee51e9c-b6b6-4edc-a7ca-8dfa169aede0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\GenerateGameSink">
+      <UniqueIdentifier>{e2f195d2-bfb7-4cd7-95c2-b1e03011a270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\HandleFileSink">
+      <UniqueIdentifier>{dd58e3e7-021e-464d-a5fd-3801cad12328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\IGetSink">
+      <UniqueIdentifier>{52c54ed3-dd7d-4609-93d9-97286dbfcd45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\SquareGetSink">
+      <UniqueIdentifier>{9fa5cf93-55ea-4136-a2e4-f81ffa4fbc33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\SquareSetSink">
+      <UniqueIdentifier>{02753164-dace-4600-944d-a93f2a376291}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MagicalTower.ui">
@@ -117,52 +75,137 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ViewModel\EditorViewModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Model\ListMember\ListMember.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\ICommands\ICommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="preInclude.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\App\App.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\FloorFileSet\FloorFileSet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Model\MapUtility\MapUtility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewModel\GenerateGameSink\GenerateGameSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Model\EnemyList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Model\ItemList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewModel\IGetSink\IGetSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <QtRcc Include="MagicalTower.qrc">
       <Filter>Generated Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Common\FloorFileSet\FloorFileSet.cpp">
+      <Filter>Source\Common\FloorFileSet</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\ListMember\ListMember.cpp">
+      <Filter>Source\Common\ListMember</Filter>
+    </ClCompile>
+    <ClCompile Include="App\App.cpp">
+      <Filter>Source\App</Filter>
+    </ClCompile>
+    <ClCompile Include="View\DrawPlace.cpp">
+      <Filter>Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\FloorChoose.cpp">
+      <Filter>Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="View\HelpBoard.cpp">
+      <Filter>Source\View</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\EditWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\GenerateWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\SelectWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\SetInitModelWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\ItemList.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\EnemyList.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\EditorViewModel.cpp">
+      <Filter>Source\ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\GenerateGameSink\GenerateGameSink.cpp">
+      <Filter>Source\ViewModel\GenerateGameSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\HandleFileSink\HandleFileSink.cpp">
+      <Filter>Source\ViewModel\HandleFileSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\IGetSink\IGetSink.cpp">
+      <Filter>Source\ViewModel\IGetSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\SquareGetSink\SquareGetSink.cpp">
+      <Filter>Source\ViewModel\SquareGetSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\SquareSetSink\SquareSetSink.cpp">
+      <Filter>Source\ViewModel\SquareSetSink</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\MapUtility\MapUtility.cpp">
+      <Filter>Source\Model\MapUtility</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common\FloorFileSet\FloorFileSet.h">
+      <Filter>Source\Common\FloorFileSet</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\ICommands\ICommand.h">
+      <Filter>Source\Common\ICommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\ListMember\ListMember.h">
+      <Filter>Source\Common\ListMember</Filter>
+    </ClInclude>
+    <ClInclude Include="App\App.h">
+      <Filter>Source\App</Filter>
+    </ClInclude>
+    <ClInclude Include="View\FloorChoose.h">
+      <Filter>Source\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\ItemList.h">
+      <Filter>Source\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\EnemyList.h">
+      <Filter>Source\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\EditorViewModel.h">
+      <Filter>Source\ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\GenerateGameSink\GenerateGameSink.h">
+      <Filter>Source\ViewModel\GenerateGameSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\HandleFileSink\HandleFileSink.h">
+      <Filter>Source\ViewModel\HandleFileSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\IGetSink\IGetSink.h">
+      <Filter>Source\ViewModel\IGetSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\SquareGetSink\SquareGetSink.h">
+      <Filter>Source\ViewModel\SquareGetSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\SquareSetSink\SquareSetSink.h">
+      <Filter>Source\ViewModel\SquareSetSink</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\MapUtility\MapUtility.h">
+      <Filter>Source\Model\MapUtility</Filter>
+    </ClInclude>
+    <ClInclude Include="preInclude.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="View\DrawPlace.h">
+      <Filter>Source\View</Filter>
+    </QtMoc>
+    <QtMoc Include="View\HelpBoard.h">
+      <Filter>Source\View</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\EditWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\GenerateWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\SelectWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\SetInitModelWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>
