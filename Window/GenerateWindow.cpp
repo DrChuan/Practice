@@ -9,15 +9,19 @@ GenerateWindow::GenerateWindow()
 	initBtn(&up  , 400, 100, 120, 32, "移至更低层 ↑");
 	initBtn(&down, 550, 100, 120, 32, "移至更高层 ↓");
 	initBtn(&generate, 300, 550, 120, 32, "生成游戏");
+	initBtn(&setInitModel, 450, 550, 120, 32, "设置初始属性");
 	connect(&add,  SIGNAL(clicked()), this, SLOT(clickAdd()));
 	connect(&del,  SIGNAL(clicked()), this, SLOT(clickDel()));
 	connect(&up,   SIGNAL(clicked()), this, SLOT(clickUp()));
 	connect(&down, SIGNAL(clicked()), this, SLOT(clickDown()));
+	
+	connect(&setInitModel, SIGNAL(clicked()), this, SLOT(clickSetInitModel()));
 }
 
 void GenerateWindow::initialize(EditWindow *ptr)
 {
 	ptrParent = ptr;
+	connect(&generate, SIGNAL(clicked()), ptrParent, SLOT(generateOk()));
 	setWindowTitle(cdc->toUnicode("魔塔关卡设计"));
 	originList.clear();
 	selectedList.clear();
@@ -61,6 +65,22 @@ void GenerateWindow::updateList()
 		leftList.addItem(QString::fromLocal8Bit(originList[i].c_str()));
 	for (int i = 0; i < selectedList.size(); i++)
 		rightList.addItem(QString::fromLocal8Bit(selectedList[i].c_str()));
+}
+
+void GenerateWindow::setInitialModel(int gold, int hp, int atk, int def, int ykey, int bkey, int rkey)
+{
+	initModel[1] = gold;
+	initModel[2] = hp;
+	initModel[3] = atk;
+	initModel[4] = def;
+	initModel[5] = ykey;
+	initModel[6] = bkey;
+	initModel[7] = rkey;
+}
+
+vector<int> GenerateWindow::getInitialModel()
+{
+	return initModel;
 }
 
 vector<string> GenerateWindow:: getList()
@@ -110,9 +130,11 @@ void GenerateWindow::clickDown()
 	updateList();
 }
 
-void GenerateWindow::clickGenerate()
+void GenerateWindow::clickSetInitModel()
 {
-	// 调用虚函数
+	setInitModelWindow.initialize(this);
+	setInitModelWindow.setModal(true);
+	setInitModelWindow.show();
 }
 
 void GenerateWindow::changeLeft(int id)
@@ -134,4 +156,28 @@ void GenerateWindow::changeRight(int id)
 		up.setEnabled(false);
 	if (rightIndex == selectedList.size() - 1 || rightIndex == -1)
 		down.setEnabled(false);
+}
+
+void GenerateWindow::setModelOk()
+{
+	initModel[1] = setInitModelWindow.gold.value();
+	initModel[2] = setInitModelWindow.hp.value();
+	initModel[3] = setInitModelWindow.atk.value();
+	initModel[4] = setInitModelWindow.def.value();
+	initModel[5] = setInitModelWindow.yelloKey.value();
+	initModel[6] = setInitModelWindow.blueKey.value();
+	initModel[7] = setInitModelWindow.redKey.value();
+	setInitModelWindow.close();
+}
+
+void GenerateWindow::setModelReset()
+{
+	initModel[1] = 0;
+	initModel[2] = 1000;
+	initModel[3] = 10;
+	initModel[4] = 5;
+	initModel[5] = 1;
+	initModel[6] = 1;
+	initModel[7] = 1;
+	setInitModelWindow.initialize(this);
 }
