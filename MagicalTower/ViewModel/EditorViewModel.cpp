@@ -41,9 +41,10 @@ bool EditorViewModel::generateFloorSet(const vector<int>& floorsIndex, string fi
 	}
 	if (!floors.saveFloorSet()) return false;
 	ofstream fout;
-	fout.open("game\\" + filename + "\\filenameStyle.stl", ios_base::out);
+	fout.open("game\\" + filename + "\\append", ios_base::out);
 	if (!fout.is_open()) return false;
-	fout.write((char*)& floorsIndex[0], sizeof floorsIndex[0]);
+	for (int i = 0; i < 8; i++)
+		fout.write((char*)& floorsIndex[i], sizeof floorsIndex[i]);
 	fout.close();
 	enemylist.SaveEnemyList(filename);
 	itemlist.SaveItemList(filename);

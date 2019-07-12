@@ -9,9 +9,12 @@ void MagicalTower::Init() {
 
 	string path = "floors_ws";
 	if ((_access((path).c_str(), 0) == -1))
-		if (_mkdir((path).c_str()) != 0) {
+		if (_mkdir((path).c_str()) != 0)
 			cerr << "Can't open or create the directory:" << path << "\n";
-		}
+	path = "game";
+	if ((_access((path).c_str(), 0) == -1))
+		if (_mkdir((path).c_str()) != 0)
+			cerr << "Can't open or create the directory:" << path << "\n";
 
 	w.editWindow->iss = evm.m_sssink;
 	w.editWindow->isgi = evm.m_sgIink;
