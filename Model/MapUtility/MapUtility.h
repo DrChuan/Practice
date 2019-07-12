@@ -40,6 +40,7 @@ public:
 
 	bool saveFloor(std::string path = "floors_ws");
 	bool loadFloor(std::string path = "floors_ws"); 
+	bool removeFloor(std::string path = "floors_ws");
 
 	int getIndex() { return m_index; }
 	void setIndex(int index) { m_index = index; }

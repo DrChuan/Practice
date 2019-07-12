@@ -2,7 +2,7 @@
 #include "FloorFileSet.h"
 
 void FloorFileSet::filenameSetInit() {
-	intptr_t   hFile = 0; //文件信息 
+	intptr_t   hFile = 0; //文件信息
 	struct _finddata_t fileinfo;
 	std::string path = "floors_ws";
 	std::string p;

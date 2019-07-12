@@ -1,18 +1,25 @@
 #pragma once
 #include "EditorViewModel.h"
 
-void HandleLFileSink::onHandleFile(std::string filename) {
+bool HandleLFileSink::onHandleFile(std::string filename) {
 	if (filename == "__new") {
 		m_eVM->setFloorName("Focused Floor");
 		m_eVM->resetFloor();
+		return true;
 	}
 	else {
 		m_eVM->setFloorName(filename);
-		m_eVM->loadFloor();
+		return m_eVM->loadFloor();
 	}
+	return true;
 }
 
-void HandleRFileSink::onHandleFile(std::string filename) {
+bool HandleRFileSink::onHandleFile(std::string filename) {
 	m_eVM->setFloorName(filename);
-	m_eVM->saveFloor();
+	return m_eVM->saveFloor();
+}
+
+bool HandleDFileSink::onHandleFile(std::string filename) {
+	m_eVM->setFloorName(filename);
+	return m_eVM->removeFloor();
 }

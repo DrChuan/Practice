@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <QtWidgets/QMainWindow>
 #include "qpushbutton.h"
 #include "qlabel.h"
