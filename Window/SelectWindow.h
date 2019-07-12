@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "ui_MagicalTower.h"
+#include "ui_MagicTower.h"
 #include "qtextbrowser.h"
 #include "qtextcodec.h" 
 #include "qtoolbutton.h"
@@ -28,9 +28,9 @@ public slots:
 	//void clickExplorer();
 private:
 	// 窗口组件
-	std::shared_ptr<QTextBrowser> browser;
-	std::shared_ptr<QToolButton> creatorBtn;
-	std::shared_ptr<QToolButton> explorerBtn;
+	QTextBrowser *browser;
+	QToolButton  *creatorBtn;
+	QToolButton  *explorerBtn;
 	// 初始化函数
 	void initWindow();
 	void initBrowser();
