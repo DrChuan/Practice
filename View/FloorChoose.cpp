@@ -9,11 +9,10 @@ FloorChoose::FloorChoose(std::shared_ptr<FloorFileSet> & pffs, QWidget *parent) 
 
 void FloorChoose::setFileList()
 {
+	clear();
 	for (int i = 0; i < pFloorFileSet->getSize(); i++)
 	{
-		addItem(QString::fromStdString(pFloorFileSet->getFilename(i)));
+		//QString::fromLocal8Bit("ok");
+		addItem(QString::fromLocal8Bit((pFloorFileSet->getFilename(i)).c_str()));
 	}
-	this->addItem("HAHA1");
-	this->addItem("HAHA2");
-	this->addItem("HAHA3");
 }

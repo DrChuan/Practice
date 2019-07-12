@@ -11,13 +11,10 @@ class EnemyList{
 	string  m_enemyFile;
 	vector<Enemy> m_enemies;
 public:
-	void addEnemy(int atk, int def, int hp, int exp) {
-		Enemy enemy(hp, atk, def, exp);
-		m_enemies.push_back(enemy);
-	}
-	Enemy getEnemy(int index) {
-		return m_enemies[index];
-	}
+	void AddEnemy(int atk, int def, int hp, int exp);
+	void ChangeEnemy(int atk, int def, int hp, int exp, int index);
+	Enemy getEnemy(int index) {return m_enemies[index];	}
 	void SaveEnemyList(string name);
+	void LoadEnemyList(string name);
 };
 

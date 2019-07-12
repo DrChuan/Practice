@@ -68,14 +68,16 @@ bool Floor::loadFloor(string path) {
 		cerr << "Can't open the file:" << m_name << "\n";
 		return false;
 	}
-	m_name = "\0";
+	name = "\0";
 	char a;
 	fcin.read((char*)& a, 1);
-	while (a != 0) {
-		m_name += a;
+	fcin.clear();
+	while ( a != 0 && fcin.eof()!=1 ) {
+		name += a;
 		fcin.read((char*)& a, 1);
 	}//读到0为止，注意最后一个0不能用string加
 	//fcin.read((char*)&m_name, sizeof m_name);
+	if (name != m_name) { return false; }
 	fcin.read((char*)& m_index, sizeof m_index);
 	for (int i = 0; i < silen; i++)
 		for (int j = 0; j < silen; j++)
@@ -86,6 +88,17 @@ bool Floor::loadFloor(string path) {
 	return true;
 }
 
+bool Floor::removeFloor(std::string path ) {
+	string name;
+	if (path.c_str() != nullptr)
+		name = path + "\\" + m_name;
+	else
+		name = m_name;
+	if (remove(name.c_str()) == 0){  
+		return true;
+	}
+	return false;
+}
 
 //FloorSet
 
@@ -102,10 +115,10 @@ bool  FloorSet::loadFloorSet(string path) {
 		cerr << "Can't open the file:" << m_name << "\n";	//暂时先这样，，以后再改异常提示方式
 		return false;
 	}
-	char filename[30]; 
+	string filename; 
 	int m_floorNum = 0;
 	m_floors.clear();
-	while(fcin.getline(filename, 30) && (filename[0]!='\0')) {
+	while(getline(fcin, filename) && (filename[0]!='\0')) {
 		m_floors.push_back(Floor::Floor(filename,m_floorNum));
 		m_floors[m_floorNum].loadFloor(Npath);
 		m_floorNum++;
