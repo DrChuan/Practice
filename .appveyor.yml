@@ -10,10 +10,9 @@ platform:
 
 - x64
 
-
 image:
 
-- Visual Studio 2017
+- Visual Studio 2019
 
 artifacts:
   - path: x64\Debug\MagicalTower.exe
