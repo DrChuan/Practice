@@ -2,7 +2,7 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloorFileSet)
+EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFloorFileSet)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
@@ -25,6 +25,11 @@ EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloo
 	initFloorChooseList();
 	// 设置鼠标事件响应方式
 	setMouseTracking(true);
+	// 初始化更改属性弹出框
+	setItemWindow.initialize(this, 0, 0);
+	setItemWindow.initSignalSlot();
+	setEnemyWindow.initialize(this, 0, 0);
+	setEnemyWindow.initSignalSlot();
 }
 
 // 普通函数
@@ -40,13 +45,14 @@ void EditWindow::initWindow()
 	font.setFamily("SimHei");
 	font.setPointSize(18);
 	currentFilenameLabel.setParent(this);
+	currentFilenameLabel.setAlignment(Qt::AlignHCenter);
 	currentFilenameLabel.setText(currentFilename.toLocal8Bit());
 	currentFilenameLabel.show();
 	currentFilenameLabel.setFont(font);
-	currentFilenameLabel.setGeometry(340, 40, 200, 48);
+	currentFilenameLabel.setGeometry(419, 65, 310, 48);
 }
 
-void EditWindow::initButton(QPushButton& btn, int x, int y, int width, int height, std::string text)
+void EditWindow::initButton(QPushButton & btn, int x, int y, int width, int height, std::string text)
 {
 	btn.setParent(this);
 	btn.setText(codec->toUnicode(text.data()));
@@ -56,13 +62,13 @@ void EditWindow::initButton(QPushButton& btn, int x, int y, int width, int heigh
 
 void EditWindow::initRightButton()
 {
-	initButton(helpBoardBtn, 900, 700, 100, 32, "说明书");
-	initButton(saveBtn, 900, 600, 120, 32, "保存当前层");
-	initButton(newFloorBtn, 900, 500, 120, 32, "新建空白层");
-	initButton(openFloorBtn, 900, 400, 120, 32, "打开选中层");
-	initButton(generateBtn, 800, 500, 120, 32, "生成游戏关卡");
-	initButton(deleteBtn, 800, 600, 120, 32, "删除选中层");
-	initButton(setModelBtn, 800, 400, 120, 32, "修改选中块属性");
+	initButton(helpBoardBtn, 901, 725-30, 80, 32, "说明书");
+	initButton(saveBtn, 895, 562 - 30, 92, 32, "保存当前层");
+	initButton(newFloorBtn, 895, 520 - 30, 92, 32, "新建空白层");
+	initButton(openFloorBtn, 895, 356, 92, 32, "打开选中层");
+	initButton(generateBtn, 885, 672 - 33, 112, 32, "生成游戏关卡");
+	initButton(deleteBtn, 895, 397, 92, 32, "删除选中层");
+	initButton(setModelBtn, 885, 630 - 33, 112, 32, "修改选中块属性");
 	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
 	connect(&saveBtn, SIGNAL(clicked()), this, SLOT(clickSaveBtn()));
 	connect(&newFloorBtn, SIGNAL(clicked()), this, SLOT(clickNewBtn()));
@@ -125,7 +131,7 @@ void EditWindow::initBackSetBtn()
 
 void EditWindow::initItemBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 20; i++)
 	{
 		items[i].setParent(this);                                            // 设置parent指针
@@ -142,7 +148,7 @@ void EditWindow::initItemBtn()
 
 void EditWindow::initEnemyBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 25; i++)
 	{
 		enemies[i].setParent(this);
@@ -159,7 +165,7 @@ void EditWindow::initEnemyBtn()
 
 void EditWindow::initGameBtn()
 {
-	QSignalMapper* qsm = new QSignalMapper(this);
+	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 15; i++)
 	{
 		games[i].setParent(this);
@@ -206,7 +212,7 @@ void EditWindow::initDrawObj()
 	drawObj.setIconSize(QSize(48, 48));
 	drawObj.setFlat(true);
 	drawObj.setCursor(QCursor(QPixmap("img/item/item0.png")));
-	QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect;
+	QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
 	drawObj.setGraphicsEffect(opacityEffect);
 	opacityEffect->setOpacity(0.65);
 	connect(&drawObj, SIGNAL(clicked()), this, SLOT(putSquare()));
@@ -214,9 +220,10 @@ void EditWindow::initDrawObj()
 
 void EditWindow::initFloorChooseList()
 {
-	floorChoose.show();
 	floorChoose.setParent(this);
-	floorChoose.move(880, 50);
+	floorChoose.show();
+	floorChoose.move(881, 45);
+	floorChoose.setStyleSheet("background-color:transparent; border:none");
 	connect(&floorChoose, SIGNAL(currentRowChanged(int)), this, SLOT(changeFileId(int)));
 }
 
@@ -310,23 +317,26 @@ void EditWindow::saveFile()
 	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt();
 	QString oriUntitledName;
 	oriUntitledName = "Untitled" + QString::number(num);
-	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"),
-		codec->toUnicode("请输入您要保存的层文件名："),
-		QLineEdit::Normal, oriUntitledName, &ok);
-	if (ok)
-	{
-		//if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
-		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
-			QMessageBox::Ok, QMessageBox::Ok);
-		if (iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
+	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), 
+		                                     codec->toUnicode("请输入您要保存的层文件名："), 
+		                                     QLineEdit::Normal, oriUntitledName, &ok);
+	if (ok) {
+		if (iSaveFile) {
+			if (iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString())) {
+				QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			} else {
+				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("保存失败！请检查您的输入。"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+		}
 		pFloorFileSet->filenameSetInit();
 		floorChoose.setFileList();
-		//	floorchoose.additem(filename);
 	}
 }
 
 // -- 鼠标移动回调函数
-void EditWindow::mouseMoveEvent(QMouseEvent* e)
+void EditWindow::mouseMoveEvent(QMouseEvent *e)
 {
 	drawObj.hide();
 }
@@ -404,12 +414,12 @@ void EditWindow::clickSaveBtn()
 
 void EditWindow::clickNewBtn()
 {
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
-		codec->toUnicode("是否保存当前层？"),
-		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"), 
+		                             codec->toUnicode("是否保存当前层？"), 
+		                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if (iLoadFile) iLoadFile->onHandleFile("__new");
+	if(iLoadFile) iLoadFile->onHandleFile("__new");
 	currentFilename = "New Floor";
 	update();
 }
@@ -427,9 +437,16 @@ void EditWindow::clickOpenBtn()
 		codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if (iLoadFile) iLoadFile->onHandleFile(name);
-	currentFilename = QString::fromLocal8Bit(name.c_str());
-	update();
+	if (iLoadFile) {
+		if (iLoadFile->onHandleFile(name)) {
+			currentFilename = QString::fromLocal8Bit(name.c_str());
+			update();
+		}
+		else {
+			QMessageBox::warning(this, codec->toUnicode("魔塔关卡设计"),
+				codec->toUnicode("不是有效的层文件！"), QMessageBox::Ok, QMessageBox::Ok);
+		}
+	}
 }
 
 void EditWindow::clickDeleteBtn()
@@ -442,7 +459,7 @@ void EditWindow::clickDeleteBtn()
 	}
 	std::string name = pFloorFileSet->getFilename(fileId);
 	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("魔塔关卡设计"),
-		codec->toUnicode("确认删除") + QString::fromStdString(name) + codec->toUnicode("吗？"),
+		codec->toUnicode("确认删除") + QString::fromStdString(name) + codec->toUnicode("吗？"), 
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 	if (rb == QMessageBox::Yes)
 		if (iDeleteFile) iDeleteFile->onHandleFile(name);
@@ -452,7 +469,19 @@ void EditWindow::clickDeleteBtn()
 
 void EditWindow::clickSetModelBtn()
 {
-
+	int type, id;
+	if (index < 20) {
+		type = getType(), id = getId();
+		setItemWindow.initialize(this, type, id);
+		setItemWindow.show();
+	} else if (index < 45) {
+		type = getType(), id = getId();
+		setEnemyWindow.initialize(this, type, id);
+		setEnemyWindow.show();
+	} else {
+		QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("关卡道具无法自定义属性！"),
+			QMessageBox::Ok, QMessageBox::Ok);
+	}
 }
 
 void EditWindow::putSquare()
@@ -485,9 +514,8 @@ void EditWindow::generateOk()
 	bool ok = false;
 	std::vector<int> temp = generateWindow.getInitialModel();
 	QString name;
-	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"), codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok);// .toLocal8Bit();
-	if (ok)
-	{
+	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"), codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok);//.toLocal8Bit();
+	if (ok) {
 		if (name.isEmpty())
 		{
 			QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不能为空！"),
@@ -499,9 +527,55 @@ void EditWindow::generateOk()
 		{
 			temp.push_back(pFloorFileSet->getFileNumber(generateWindow.getList()[i]));
 		}
-		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
-			QMessageBox::Ok, QMessageBox::Ok);
-		if (iGenerate) iGenerate->onGenerate(temp, name.toLocal8Bit().toStdString());
+
+		if (iGenerate) {
+			if (iGenerate->onGenerate(temp, name.toLocal8Bit().toStdString())) {
+				QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+			else {
+				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不合法！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+		}
 		std::cout << "Success!" << std::endl;
 	}
+}
+
+void EditWindow::setItemOk()
+{
+	std::cout << "OK" << std::endl;
+	Obj obj;
+	obj.setHp(setItemWindow.getData(1));
+	obj.setAtk(setItemWindow.getData(2));
+	obj.setDef(setItemWindow.getData(3));
+	obj.setExp(setItemWindow.getData(4));
+	if (iSetObj)
+		iSetObj->onSetObj(getType(), getIndex(), obj);
+	setItemWindow.close();
+}
+
+void EditWindow::setItemCancel()
+{
+	setItemWindow.close();
+	std::cout << "Cancel" << std::endl;
+}
+
+void EditWindow::setEnemyOk()
+{
+	std::cout << "OK" << std::endl;
+	Obj obj;
+	obj.setHp(setEnemyWindow.getData(1));
+	obj.setAtk(setEnemyWindow.getData(2));
+	obj.setDef(setEnemyWindow.getData(3));
+	obj.setExp(setEnemyWindow.getData(4));
+	if (iSetObj)
+		iSetObj->onSetObj(getType(), getIndex(), obj);
+	setEnemyWindow.close();
+}
+
+void EditWindow::setEnemyCancel()
+{
+	setEnemyWindow.close();
+	std::cout << "Cancel" << std::endl;
 }

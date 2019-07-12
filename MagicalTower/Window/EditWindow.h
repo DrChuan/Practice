@@ -16,6 +16,9 @@
 #include "FloorChoose.h"
 #include "FloorFileSet.h"
 #include "GenerateWindow.h"
+#include "SetItemWindow.h"
+#include "SetEnemyWindow.h"
+#include "ListMember.h"
 
 // 左边三个框之间的距离
 #define DIS_IT_TO_ENM 237
@@ -35,6 +38,8 @@ public:
 	std::shared_ptr<IHandleFile> iLoadFile;
 	std::shared_ptr<IHandleFile> iDeleteFile;
 	std::shared_ptr<IGenerate>   iGenerate;
+	std::shared_ptr<IGetObj>     iGetObj;
+	std::shared_ptr<ISetObj>     iSetObj;
 	// Common对象数据绑定指针
 	std::shared_ptr<FloorFileSet> pFloorFileSet;
 	// 层文件选择控件
@@ -91,6 +96,8 @@ private:
 	QLabel       squaresPic[11][11];
 	QTextCodec  *codec = QTextCodec::codecForName("GBK");
 	GenerateWindow generateWindow;
+	SetItemWindow  setItemWindow;
+	SetEnemyWindow setEnemyWindow;
 	// 槽函数
 public slots:
 	void setIce();
@@ -110,4 +117,8 @@ public slots:
 	void changeFileId(int num);
 	void generate();
 	void generateOk();
+	void setItemOk();
+	void setItemCancel();
+	void setEnemyOk();
+	void setEnemyCancel();
 };

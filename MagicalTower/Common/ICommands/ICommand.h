@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "ListMember.h"
 
 class ISquareGet {
 public:
@@ -31,4 +32,14 @@ class IGenerate {
 public:
 	virtual bool onGenerate(const std::vector<int>& fileGeneList, std::string filename) = 0;
 	// 地图风格 金钱 生命 攻击 防御 黄钥匙 蓝钥匙 红钥匙
+};
+
+class IGetObj {
+public:
+	virtual Obj onGetObj(int type, int index) = 0;    // 根据type和index返回对象  type:0->物品 1->敌人
+};
+
+class ISetObj {
+public:
+	virtual void onSetObj(int type, int index, Obj object) = 0;   // 将object存的属性赋给(type, index)对应的Obj
 };
