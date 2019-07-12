@@ -6,7 +6,6 @@ SelectWindow::SelectWindow(QWidget *parent) : QMainWindow(parent)
 	initWindow();
 	initBrowser();
 	initbutton();
-
 }
 
 void SelectWindow::clickCreator()

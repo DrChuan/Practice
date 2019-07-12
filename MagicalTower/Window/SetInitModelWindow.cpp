@@ -31,12 +31,12 @@ void SetInitModelWindow::initialize(GenerateWindow *parent)
 	ok.setParent(this);
 	ok.show();
 	ok.setText(codec->toUnicode("»∑∂®"));
-	ok.setGeometry(120, 270, 120, 32);
+	ok.setGeometry(100, 270, 120, 32);
 	connect(&ok, SIGNAL(clicked()), ptr, SLOT(setModelOk()));
 	reset.setParent(this);
 	reset.show();
 	reset.setText(codec->toUnicode("÷ÿ÷√"));
-	reset.setGeometry(320, 270, 120, 32);
+	reset.setGeometry(250, 270, 120, 32);
 	connect(&reset, SIGNAL(clicked()), ptr, SLOT(setModelReset()));
 }
 
