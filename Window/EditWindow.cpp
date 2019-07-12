@@ -496,8 +496,7 @@ void EditWindow::generateOk()
 	std::vector<int> temp = generateWindow.getInitialModel();
 	QString name;
 	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"),codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok).toLocal8Bit();
-	if (ok)
-	{
+	if (ok) {
 		if (name.isEmpty())
 		{
 			QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不能为空！"),
@@ -509,9 +508,17 @@ void EditWindow::generateOk()
 		{
 			temp.push_back(pFloorFileSet->getFileNumber(generateWindow.getList()[i]));
 		}
-		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
-			QMessageBox::Ok, QMessageBox::Ok);
-		if (iGenerate) iGenerate->onGenerate(temp, name.toStdString());
+
+		if (iGenerate) {
+			if (iGenerate->onGenerate(temp, name.toLocal8Bit().toStdString())) {
+				QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+			else {
+				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不合法！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+		}
 		std::cout << "Success!" << std::endl;
 	}
 }
