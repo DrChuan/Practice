@@ -42,7 +42,7 @@ public:
 class Hero : public Obj {
 private:
 	int next_level_exp;
-	int m_playerX, m_playerY, m_level, m_weapon, m_equip; //direction {0,1,2,3}=={上，下，左，右}
+	int m_level, m_weapon, m_equip; //direction {0,1,2,3}=={上，下，左，右}
 	int key[3];
 	void addExp(int value);
 	void addKey(int keyNum) { key[keyNum]++; }
@@ -56,5 +56,4 @@ public:
 	void getItem(int addAtk, int addDef, int addExp, int addHp);
 
 	int getKey(int num) { return key[num]; }
-
 };
