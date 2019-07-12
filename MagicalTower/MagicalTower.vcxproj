@@ -130,6 +130,7 @@
     <ClCompile Include="..\View\FloorChoose.cpp" />
     <ClCompile Include="..\View\HelpBoard.cpp" />
     <ClCompile Include="..\Window\EditWindow.cpp" />
+    <ClCompile Include="..\Window\GenerateWindow.cpp" />
     <ClCompile Include="..\Window\SelectWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -152,6 +153,10 @@
     <ClInclude Include="..\ViewModel\HandleFileSink\HandleFileSink.h" />
     <ClInclude Include="..\ViewModel\SquareGetSink\SquareGetSink.h" />
     <ClInclude Include="..\ViewModel\SquareSetSink\SquareSetSink.h" />
+    <QtMoc Include="..\Window\GenerateWindow.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Link\Documents\GitHub\Practice (2)\MagicalTower\GeneratedFiles;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
+    </QtMoc>
     <ClInclude Include="IGetSink.h" />
     <ClInclude Include="preInclude.h" />
     <QtMoc Include="..\View\HelpBoard.h">

@@ -84,6 +84,9 @@
     <ClCompile Include="..\ViewModel\GenerateGameSink\GenerateGameSink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Window\GenerateWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="..\View\DrawPlace.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="..\View\HelpBoard.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="..\Window\GenerateWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
