@@ -2,7 +2,7 @@
 #include <iostream>
 
 // 构造函数
-EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloorFileSet)
+EditWindow::EditWindow(QWidget* parent) : QMainWindow(parent), floorChoose(pFloorFileSet), generateWindow(this)
 {
 	// 初始化窗口标题，大小，背景
 	initWindow();
@@ -494,7 +494,7 @@ void EditWindow::putSquare()
 		type = -1, id = 0;
 	else
 		type = getType(), id = getId();
-	std::cout << "put!" << getType() << getId() << (drawObj.x() - 311) / 48 << (drawObj.y() - 145) / 48 << std::endl;
+	//std::cout << "put!" << getType() << getId() << (drawObj.x() - 311) / 48 << (drawObj.y() - 145) / 48 << std::endl;
 	iss->onSquareChange((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	update();
 }
@@ -502,12 +502,12 @@ void EditWindow::putSquare()
 void EditWindow::changeFileId(int num)
 {
 	fileId = num;
-	std::cout << fileId << std::endl;
+	//std::cout << fileId << std::endl;
 }
 
 void EditWindow::generate()
 {
-	generateWindow.initialize(this);
+	generateWindow.initialize();
 	generateWindow.setModal(true);
 	generateWindow.show();
 }
@@ -541,13 +541,13 @@ void EditWindow::generateOk()
 					QMessageBox::Ok, QMessageBox::Ok);
 			}
 		}
-		std::cout << "Success!" << std::endl;
+		//std::cout << "Success!" << std::endl;
 	}
 }
 
 void EditWindow::setItemOk()
 {
-	std::cout << "OK" << std::endl;
+	//std::cout << "OK" << std::endl;
 	Obj obj(setItemWindow.getData(1), setItemWindow.getData(2),
 		setItemWindow.getData(3), setItemWindow.getData(4), setItemWindow.getData(0));
 	//obj.setCoins(setItemWindow.getData(0));
@@ -568,7 +568,7 @@ void EditWindow::setItemCancel()
 
 void EditWindow::setEnemyOk()
 {
-	std::cout << "OK" << std::endl;
+	//std::cout << "OK" << std::endl;
 	Obj obj(setItemWindow.getData(1), setItemWindow.getData(2),
 		setItemWindow.getData(3), setItemWindow.getData(4), setItemWindow.getData(0));
 	//obj.setHp(setEnemyWindow.getData(1));
@@ -583,5 +583,5 @@ void EditWindow::setEnemyOk()
 void EditWindow::setEnemyCancel()
 {
 	setEnemyWindow.close();
-	std::cout << "Cancel" << std::endl;
+	//std::cout << "Cancel" << std::endl;
 }

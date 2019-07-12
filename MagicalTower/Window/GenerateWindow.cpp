@@ -1,27 +1,27 @@
 #include "GenerateWindow.h"
 #include "EditWindow.h"
 
-GenerateWindow::GenerateWindow()
+GenerateWindow::GenerateWindow(EditWindow *ptr) : ptrParent(ptr)
 {
 	setFixedSize(800, 600);
-	initBtn(&add , 100, 100, 120, 32, "添加这一层 >");
-	initBtn(&del , 250, 100, 120, 32, "< 移除这一层");
-	initBtn(&up  , 400, 100, 120, 32, "移至更低层 ↑");
-	initBtn(&down, 550, 100, 120, 32, "移至更高层 ↓");
-	initBtn(&generate, 300, 550, 120, 32, "生成游戏");
-	initBtn(&setInitModel, 450, 550, 120, 32, "设置初始属性");
+	initBtn(&add , 336, 240, 120, 32, "添加这一层 >");
+	initBtn(&del , 336, 310, 120, 32, "< 移除这一层");
+	initBtn(&up  , 542, 50, 120, 32, "移至更低层 ↑");
+	initBtn(&down, 542, 500, 120, 32, "移至更高层 ↓");
+	initBtn(&generate, 335, 550, 120, 32, "生成游戏");
+	initBtn(&setInitModel, 335, 510, 120, 32, "设置初始属性");
 	connect(&add,  SIGNAL(clicked()), this, SLOT(clickAdd()));
 	connect(&del,  SIGNAL(clicked()), this, SLOT(clickDel()));
 	connect(&up,   SIGNAL(clicked()), this, SLOT(clickUp()));
 	connect(&down, SIGNAL(clicked()), this, SLOT(clickDown()));
-	
+	connect(&generate, SIGNAL(clicked()), ptrParent, SLOT(generateOk()));
 	connect(&setInitModel, SIGNAL(clicked()), this, SLOT(clickSetInitModel()));
 }
 
-void GenerateWindow::initialize(EditWindow *ptr)
+void GenerateWindow::initialize()
 {
-	ptrParent = ptr;
-	connect(&generate, SIGNAL(clicked()), ptrParent, SLOT(generateOk()));
+	//ptrParent = ptr;
+	
 	setWindowTitle(cdc->toUnicode("魔塔关卡设计"));
 	originList.clear();
 	selectedList.clear();
@@ -46,8 +46,8 @@ void GenerateWindow::initList()
 {
 	leftList.setParent(this);
 	rightList.setParent(this);
-	leftList.setGeometry(40, 140, 300, 400);
-	rightList.setGeometry(370, 140, 300, 400);
+	leftList.setGeometry(70, 90, 250, 400);
+	rightList.setGeometry(473, 90, 250, 400);
 	leftList.show();
 	rightList.show();
 	leftIndex = -1;
@@ -90,44 +90,56 @@ vector<string> GenerateWindow:: getList()
 
 void GenerateWindow::clickAdd()
 {
+	int id = leftIndex;
 	if (leftIndex < 0 || leftIndex >= originList.size())
-	{
 		return;
-	}
 	add.setEnabled(false);
 	selectedList.push_back(originList[leftIndex]);
 	originList.erase(std::begin(originList) + leftIndex);
 	originList.shrink_to_fit();
 	updateList();
+	if (originList.size() >= 1)
+	{
+		while (id >= originList.size()) id--;
+		leftList.setCurrentRow(id);
+	}
 }
 
 void GenerateWindow::clickDel()
 {
+	int id = rightIndex;
 	if (rightIndex < 0 || rightIndex >= selectedList.size())
-	{
 		return;
-	}
 	del.setEnabled(false);
 	originList.push_back(selectedList[rightIndex]);
 	selectedList.erase(std::begin(selectedList) + rightIndex);
 	selectedList.shrink_to_fit();
 	updateList();
+	if (selectedList.size() >= 1)
+	{
+		while (id >= selectedList.size()) id--;
+		rightList.setCurrentRow(id);
+	}
 }
 
 void GenerateWindow::clickUp()
 {
+	int id = rightIndex;
 	string t = selectedList[rightIndex];
 	selectedList[rightIndex] = selectedList[rightIndex - 1];
 	selectedList[rightIndex - 1] = t;
 	updateList();
+	rightList.setCurrentRow(id - 1);
 }
 
 void GenerateWindow::clickDown()
 {
+	int id = rightIndex;
 	string t = selectedList[rightIndex];
 	selectedList[rightIndex] = selectedList[rightIndex + 1];
 	selectedList[rightIndex + 1] = t;
 	updateList();
+	rightList.setCurrentRow(id + 1);
 }
 
 void GenerateWindow::clickSetInitModel()
@@ -142,7 +154,7 @@ void GenerateWindow::changeLeft(int id)
 	if(id != -1)
 		add.setEnabled(true);
 	leftIndex = leftList.currentRow();
-	std::cout << leftIndex << std::endl;
+	//std::cout << leftIndex << std::endl;
 }
 
 void GenerateWindow::changeRight(int id)
