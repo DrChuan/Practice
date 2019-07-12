@@ -24,6 +24,8 @@ void MagicalTower::Init() {
 	w.editWindow->iLoadFile = evm.m_hlfink;
 	w.editWindow->iDeleteFile = evm.m_hdfink;
 	w.editWindow->iGenerate = evm.m_ggsink;
+	w.editWindow->iGetObj = evm.m_gosink;
+	w.editWindow->iSetObj = evm.m_sosink;
 
 	w.editWindow->pFloorFileSet = evm.m_floorFileSet;
 

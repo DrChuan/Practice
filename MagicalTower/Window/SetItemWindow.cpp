@@ -1,6 +1,6 @@
 #include "SetItemWindow.h"
 #include "EditWindow.h"
-void SetItemWindow::initialize(EditWindow *ptr, int _type, int _id)
+void SetItemWindow::initialize(EditWindow* ptr, int _type, int _id)
 {
 	ptrParent = ptr;
 	type = _type;
@@ -10,6 +10,7 @@ void SetItemWindow::initialize(EditWindow *ptr, int _type, int _id)
 	setModal(true);
 	if (ptr->iGetObj)
 	{
+		data[0] = ptr->iGetObj->onGetObj(type, id).getCoins();
 		data[1] = ptr->iGetObj->onGetObj(type, id).getHp();
 		data[2] = ptr->iGetObj->onGetObj(type, id).getAtk();
 		data[3] = ptr->iGetObj->onGetObj(type, id).getDef();

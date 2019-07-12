@@ -64,7 +64,7 @@ bool GameViewModel::saveHero(string path) {
 void GameViewModel::Move(int directionKey) {
 	xychange(directionKey);
 	if (x < 0 || x > 10 || y < 0 || y > 10)return;
-	int k = m_floorset.getSquare(index,x,y).getType(); 
+	int k = m_floorset.getSquare(index, x, y).getType();
 	if (k == 0) {
 		Item m_item = m_itemlist.getItem(m_floorset.getSquare(index, x, y).getIndex());
 		bool f = m_hero.getItem(m_floorset.getSquare(index, x, y).getIndex());
@@ -73,7 +73,7 @@ void GameViewModel::Move(int directionKey) {
 			m_floorset.getSquare(index, x, y).setType(-1);
 			m_floorset.getSquare(index, x, y).setIndex(-1);
 		}
-		m_hero.getItem(m_item.getAtk(), m_item.getDef(), m_item.getExp(), m_item.getHp());
+		m_hero.getItem(m_item.getAtk(), m_item.getDef(), m_item.getExp(), m_item.getHp(), m_item.getCoins());
 	}
 	if (k == 1) {
 		Enemy m_enemy = m_enemylist.getEnemy(m_floorset.getSquare(index, x, y).getIndex());

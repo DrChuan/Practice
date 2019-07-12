@@ -8,10 +8,16 @@ m_igsink(std::make_shared<IGetSink>()),
 m_hlfink(std::make_shared<HandleLFileSink>(this)),
 m_hrfink(std::make_shared<HandleRFileSink>(this)),
 m_hdfink(std::make_shared<HandleDFileSink>(this)),
-m_ggsink(std::make_shared<GenerateGameSink>(this))
+m_ggsink(std::make_shared<GenerateGameSink>(this)),
+m_gosink(std::make_shared<GetObjSink>(this)),
+m_sosink(std::make_shared<SetObjSink>(this))
 {
 	m_floorFileSet = std::make_shared<FloorFileSet>();
 	m_floorFileSet->filenameSetInit();
+	for (int i = 0; i < 25; i++)
+		enemylist.AddEnemy(10, 10, 10, 2, 2);
+	for (int i = 0; i < 45; i++)
+		itemlist.AddItem(10, 0, 0, 0, 1, 0, 1);
 }
 void EditorViewModel::resetFloor() {
 	for (int i = 0; i < 11; i++)
@@ -51,24 +57,35 @@ bool EditorViewModel::generateFloorSet(const vector<int>& floorsIndex, string fi
 	return true;
 }
 
-void EditorViewModel::AddEnemy(int atk, int def, int hp, int exp, string name) {
-	enemylist.AddEnemy(atk, def, hp, exp);
+void EditorViewModel::AddEnemy(int atk, int def, int hp, int exp, int coins) {
+	enemylist.AddEnemy(atk, def, hp, exp, coins);
 }
-void EditorViewModel::AddItem(int hp, int atk, int def, int exp, int specialIndex, int walkable, string name) {
-	itemlist.AddItem(hp, atk, def, exp, specialIndex, walkable);
+void EditorViewModel::AddItem(int hp, int atk, int def, int exp, int coins, int specialIndex, int walkable) {
+	itemlist.AddItem(hp, atk, def, exp, coins, specialIndex, walkable);
 }
 
 void EditorViewModel::LoadEnemyList(string filename) {
 	enemylist.SaveEnemyList(filename);
 	enemylist.LoadEnemyList(filename);
 }
-void EditorViewModel::ChangeEnemyList(int atk, int def, int hp, int exp, int index) {
-	enemylist.ChangeEnemy(atk, def, hp, exp, index);
+void EditorViewModel::ChangeEnemyList(int atk, int def, int hp, int exp, int coins, int index) {
+	enemylist.ChangeEnemy(atk, def, hp, exp, coins, index);
 }
 void EditorViewModel::LoadItemList(string filename) {
 	itemlist.SaveItemList(filename);
 	itemlist.LoadItemList(filename);
 }
-void EditorViewModel::ChangeItemList(int hp, int atk, int def, int exp, int Index) {
-	itemlist.ChangeItem(hp, atk, def, exp, Index);
+void EditorViewModel::ChangeItemList(int hp, int atk, int def, int exp, int coins, int Index) {
+	itemlist.ChangeItem(hp, atk, def, exp, coins, Index);
+}
+
+Obj EditorViewModel::getObj(int type, int index) {
+	if (type == 1) {
+		Obj& obj = enemylist.getEnemy(index);
+		return obj;
+	}
+	else {
+		Obj& obj = itemlist.getItem(index);
+		return obj;
+	}
 }

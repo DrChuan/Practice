@@ -1,15 +1,16 @@
 #include "ItemList.h"
 
-void ItemList::AddItem(int hp, int atk, int def, int exp, int specialIndex, int walkable) {
-	Item item(hp, atk, def, exp, specialIndex, walkable);
+void ItemList::AddItem(int hp, int atk, int def, int exp, int coins, int specialIndex, int walkable) {
+	Item item(hp, atk, def, exp, coins, specialIndex, walkable);
 	m_items.push_back(item);
 }
 
-void ItemList::ChangeItem(int hp, int atk, int def, int exp,int Index) {
+void ItemList::ChangeItem(int hp, int atk, int def, int exp, int coins, int Index) {
 	m_items[Index].setAtk(atk);
 	m_items[Index].setDef(def);
 	m_items[Index].setHp(hp);
 	m_items[Index].setExp(exp);
+	m_items[Index].setCoins(coins);
 }
 
 void ItemList::SaveItemList(string name) {

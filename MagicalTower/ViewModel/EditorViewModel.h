@@ -10,6 +10,7 @@
 #include "IGetSink.h"
 #include "HandleFileSink.h"
 #include "GenerateGameSink.h"
+#include "ObjListSink.h"
 
 using std::string;
 using std::vector;
@@ -30,6 +31,8 @@ public:
 	std::shared_ptr<HandleRFileSink> m_hrfink;
 	std::shared_ptr<HandleDFileSink> m_hdfink;
 	std::shared_ptr<GenerateGameSink> m_ggsink;
+	std::shared_ptr<GetObjSink> m_gosink;
+	std::shared_ptr<SetObjSink> m_sosink;
 
 	EditorViewModel();
 	void setFloorSquare(int x, int y, int type, int index) {
@@ -50,10 +53,11 @@ public:
 	{
 		return m_floor.getSquare(x, y).getIndex();
 	}
-	void AddEnemy(int atk, int def, int hp, int exp, string name);
-	void AddItem(int hp, int atk, int def, int exp, int specialIndex, int walkable, string name);
+	void AddEnemy(int atk, int def, int hp, int exp, int coins);
+	void AddItem(int hp, int atk, int def, int exp, int coins, int specialIndex, int walkable);
 	void LoadEnemyList(string filename);
-	void ChangeEnemyList(int atk, int def, int hp, int exp, int index);
+	void ChangeEnemyList(int atk, int def, int hp, int exp, int coins, int index);
 	void LoadItemList(string filename);
-	void ChangeItemList(int hp, int atk, int def, int exp, int Index);
+	void ChangeItemList(int hp, int atk, int def, int exp, int coins, int Index);
+	Obj getObj(int type, int index);
 };
