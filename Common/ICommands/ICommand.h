@@ -15,13 +15,13 @@ public:
 
 class IGetInt {
 public:
-	virtual int onCallInt() = 0; 
+	virtual int onCallInt() = 0;
 	// 需要一个返回当前floor文件夹下名为UntitledXXX的最大XXX
 };
 
 class IHandleFile {
 public:
-	virtual void onHandleFile(std::string filename) = 0;
+	virtual bool onHandleFile(std::string filename) = 0;
 	// 以filename为文件名保存当前层到文件
 	// （改动）将filename文件中数据加载为当前的floor(filename为"__new"时为创建新floor)
 	// （新增）将filename文件删除
@@ -29,6 +29,6 @@ public:
 
 class IGenerate {
 public:
-	virtual void onGenerate(std::vector<int> & fileGeneList, std::string filename) = 0;
+	virtual void onGenerate(const std::vector<int>& fileGeneList, std::string filename) = 0;
 	// 地图风格 金钱 生命 攻击 防御 黄钥匙 蓝钥匙 红钥匙
 };

@@ -1,6 +1,6 @@
 #include "App.h"
 
-MagicalTower::MagicalTower(int argc, char* argv[] ):QApplication(argc, argv) {
+MagicalTower::MagicalTower(int argc, char* argv[]) :QApplication(argc, argv) {
 
 };
 
@@ -20,7 +20,9 @@ void MagicalTower::Init() {
 	w.editWindow->iSaveFile = evm.m_hrfink;
 	w.editWindow->iLoadFile = evm.m_hlfink;
 	w.editWindow->iDeleteFile = evm.m_hdfink;
-	w.editWindow->pFloorFileSet =  evm.m_floorFileSet;
-	
+	w.editWindow->iGenerate = evm.m_ggsink;
+
+	w.editWindow->pFloorFileSet = evm.m_floorFileSet;
+
 	w.show();
 }

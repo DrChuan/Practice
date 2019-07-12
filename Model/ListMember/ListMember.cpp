@@ -1,6 +1,6 @@
 #include "ListMember.h"
 #include <cmath>
-Hero::Hero() :Obj( 1200, 18, 18, 0) {
+Hero::Hero() :Obj(1200, 18, 18, 0) {
 	this->m_level = 0;
 	this->next_level_exp = 20;
 	this->m_playerX = 5;
@@ -14,11 +14,11 @@ Hero::Hero() :Obj( 1200, 18, 18, 0) {
 
 void Hero::addExp(int value) {
 	int exp = getExp() + value;
-	setExp(exp); 
+	setExp(exp);
 	if (exp >= this->next_level_exp) {
 		this->m_level++;
 		this->setHp(this->getHp() + int(300.0 * log10(m_level * 11)));
-		this->setAtk(this->getAtk() + int(3.0*log10(m_level*10)));
+		this->setAtk(this->getAtk() + int(3.0 * log10(m_level * 10)));
 		this->setDef(this->getDef() + int(5.0 * log10(m_level * 10)));
 		this->next_level_exp = m_level * (m_level + 1) * 20;
 	}
@@ -48,7 +48,7 @@ bool Hero::getItem(int index) {//这里index待修改
 	case 20: case 21: case 22://三扇门(三种门)20~22
 		if (this->key[index - 20] > 0)
 			this->key[index - 20]--;
-		else 
+		else
 			return false;
 
 	}

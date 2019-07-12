@@ -32,6 +32,7 @@ bool Floor::saveFloor(string path) {
 		name = path + "\\" + m_name;
 	else 
 		name = m_name;
+
 	ofstream fout;
 	fout.open(name.c_str(), ios_base::out|ios_base::binary);//此处可以考虑改进一下，先检查文件是否存在，若存在则提示一下用户是否覆盖
 	if (!fout.is_open()) {
