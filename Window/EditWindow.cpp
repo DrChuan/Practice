@@ -313,15 +313,18 @@ void EditWindow::saveFile()
 	QString filename = QInputDialog::getText(this, codec->toUnicode("保存层"), 
 		                                     codec->toUnicode("请输入您要保存的层文件名："), 
 		                                     QLineEdit::Normal, oriUntitledName, &ok);
-	if (ok)
-	{
-		//if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
-		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
-			QMessageBox::Ok, QMessageBox::Ok);
-		if(iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
+	if (ok) {
+		if (iSaveFile) {
+			if (iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString())) {
+				QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("成功保存当前层数据！"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			} else {
+				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("保存失败！请检查您的输入。"),
+					QMessageBox::Ok, QMessageBox::Ok);
+			}
+		}
 		pFloorFileSet->filenameSetInit();
 		floorChoose.setFileList();
-	//	floorchoose.additem(filename);
 	}
 }
 
@@ -427,9 +430,16 @@ void EditWindow::clickOpenBtn()
 		codec->toUnicode("是否保存当前层？"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
-	if(iLoadFile) iLoadFile->onHandleFile(name);
-	currentFilename = QString::fromLocal8Bit(name.c_str());
-	update();
+	if (iLoadFile) {
+		if (iLoadFile->onHandleFile(name)) {
+			currentFilename = QString::fromLocal8Bit(name.c_str());
+			update();
+		}
+		else {
+			QMessageBox::warning(this, codec->toUnicode("魔塔关卡设计"),
+				codec->toUnicode("不是有效的层文件！"), QMessageBox::Ok, QMessageBox::Ok);
+		}
+	}
 }
 
 void EditWindow::clickDeleteBtn()
@@ -485,7 +495,7 @@ void EditWindow::generateOk()
 	bool ok = false;
 	std::vector<int> temp = generateWindow.getInitialModel();
 	QString name;
-	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"),codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok);
+	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"),codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok).toLocal8Bit();
 	if (ok)
 	{
 		if (name.isEmpty())
