@@ -28,7 +28,9 @@ public:
 	std::shared_ptr<IGetSink> m_igsink;
 	std::shared_ptr<HandleLFileSink> m_hlfink;
 	std::shared_ptr<HandleRFileSink> m_hrfink;
+	std::shared_ptr<HandleDFileSink> m_hdfink;
 	std::shared_ptr<GenerateGameSink> m_ggsink;
+	
 	EditorViewModel();
 	void setFloorSquare(int x, int y, int type, int index) {
 		m_floor.setSquare(type, index, x, y);

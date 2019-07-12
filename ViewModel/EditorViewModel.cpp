@@ -7,6 +7,7 @@ EditorViewModel::EditorViewModel():m_sssink(std::make_shared<SquareSetSink>(this
 									m_igsink(std::make_shared<IGetSink>()),
 									m_hlfink(std::make_shared<HandleLFileSink>(this)),
 									m_hrfink(std::make_shared<HandleRFileSink>(this)),
+									m_hdfink(std::make_shared<HandleDFileSink>(this)),
 									m_ggsink(std::make_shared<GenerateGameSink>(this))
 {
 	m_floorFileSet = std::make_shared<FloorFileSet>();

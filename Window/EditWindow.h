@@ -34,6 +34,7 @@ public:
 	std::shared_ptr<IHandleFile> iSaveFile;
 	std::shared_ptr<IHandleFile> iLoadFile;
 	std::shared_ptr<IHandleFile> iDeleteFile;
+
 	// Common对象数据绑定指针
 	std::shared_ptr<FloorFileSet> pFloorFileSet;
 	// 层文件选择控件

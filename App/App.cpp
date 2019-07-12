@@ -19,7 +19,8 @@ void MagicalTower::Init() {
 	w.editWindow->iGetUntitledFloorNum = evm.m_igsink;
 	w.editWindow->iSaveFile = evm.m_hrfink;
 	w.editWindow->iLoadFile = evm.m_hlfink;
+	w.editWindow->iDeleteFile = evm.m_hdfink;
 	w.editWindow->pFloorFileSet =  evm.m_floorFileSet;
-
+	
 	w.show();
 }
