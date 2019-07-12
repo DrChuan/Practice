@@ -1,37 +1,37 @@
 #include "EditWindow.h"
 #include <iostream>
 
-// æ„é€ å‡½æ•°
+// ¹¹Ôìº¯Êı
 EditWindow::EditWindow(QWidget *parent) : QMainWindow(parent) , floorChoose(pFloorFileSet)
 {
-	// åˆå§‹åŒ–çª—å£æ ‡é¢˜ï¼Œå¤§å°ï¼ŒèƒŒæ™¯
+	// ³õÊ¼»¯´°¿Ú±êÌâ£¬´óĞ¡£¬±³¾°
 	initWindow();
-	// åˆå§‹åŒ–å†°ã€ç«ã€æ—æŒ‰é’®
+	// ³õÊ¼»¯±ù¡¢»ğ¡¢ÁÖ°´Å¥
 	initBackSetBtn();
-	// åˆå§‹åŒ–å…ƒä»¶æ æŒ‰é’®
+	// ³õÊ¼»¯Ôª¼şÀ¸°´Å¥
 	initItemBtn();
 	initEnemyBtn();
 	initGameBtn();
-	// åˆå§‹åŒ–é€‰æ‹©æ¡†å±æ€§
+	// ³õÊ¼»¯Ñ¡Ôñ¿òÊôĞÔ
 	initSelectFrame();
-	// åˆå§‹åŒ–åœ°å›¾ç¼–è¾‘åŒºåŸŸ
+	// ³õÊ¼»¯µØÍ¼±à¼­ÇøÓò
 	initDrawPlace();
 	initDrawObj();
-	// åˆå§‹åŒ–å³ä¾§æŒ‰é’®
+	// ³õÊ¼»¯ÓÒ²à°´Å¥
 	initRightButton();
-	// åˆå§‹åŒ–å›¾å—æ˜¾ç¤ºç»„ä»¶
+	// ³õÊ¼»¯Í¼¿éÏÔÊ¾×é¼ş
 	initSquarePic();
-	// åˆå§‹åŒ–å±‚é€‰æ‹©æ§ä»¶
+	// ³õÊ¼»¯²ãÑ¡Ôñ¿Ø¼ş
 	initFloorChooseList();
-	// è®¾ç½®é¼ æ ‡äº‹ä»¶å“åº”æ–¹å¼
+	// ÉèÖÃÊó±êÊÂ¼şÏìÓ¦·½Ê½
 	setMouseTracking(true);
 }
 
-// æ™®é€šå‡½æ•°
-// -- æ§ä»¶åˆå§‹åŒ–å‡½æ•°
+// ÆÕÍ¨º¯Êı
+// -- ¿Ø¼ş³õÊ¼»¯º¯Êı
 void EditWindow::initWindow()
 {
-	setWindowTitle(codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"));
+	setWindowTitle(codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"));
 	setFixedSize(1024, 768);
 	QPalette p = this->palette();
 	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/editbackice.jpg")));
@@ -56,13 +56,13 @@ void EditWindow::initButton(QPushButton & btn, int x, int y, int width, int heig
 
 void EditWindow::initRightButton()
 {
-	initButton(helpBoardBtn, 900, 700, 100, 32, "è¯´æ˜ä¹¦");
-	initButton(saveBtn, 900, 600, 120, 32, "ä¿å­˜å½“å‰å±‚");
-	initButton(newFloorBtn, 900, 500, 120, 32, "æ–°å»ºç©ºç™½å±‚");
-	initButton(openFloorBtn, 900, 400, 120, 32, "æ‰“å¼€é€‰ä¸­å±‚");
-	initButton(generateBtn, 800, 500, 120, 32, "ç”Ÿæˆæ¸¸æˆå…³å¡");
-	initButton(deleteBtn, 800, 600, 120, 32, "åˆ é™¤é€‰ä¸­å±‚");
-	initButton(setModelBtn, 800, 400, 120, 32, "ä¿®æ”¹é€‰ä¸­å—å±æ€§");
+	initButton(helpBoardBtn, 900, 700, 100, 32, "ËµÃ÷Êé");
+	initButton(saveBtn, 900, 600, 120, 32, "±£´æµ±Ç°²ã");
+	initButton(newFloorBtn, 900, 500, 120, 32, "ĞÂ½¨¿Õ°×²ã");
+	initButton(openFloorBtn, 900, 400, 120, 32, "´ò¿ªÑ¡ÖĞ²ã");
+	initButton(generateBtn, 800, 500, 120, 32, "Éú³ÉÓÎÏ·¹Ø¿¨");
+	initButton(deleteBtn, 800, 600, 120, 32, "É¾³ıÑ¡ÖĞ²ã");
+	initButton(setModelBtn, 800, 400, 120, 32, "ĞŞ¸ÄÑ¡ÖĞ¿éÊôĞÔ");
 	connect(&helpBoardBtn, SIGNAL(clicked()), this, SLOT(clickHelpBoardBtn()));
 	connect(&saveBtn, SIGNAL(clicked()), this, SLOT(clickSaveBtn()));
 	connect(&newFloorBtn, SIGNAL(clicked()), this, SLOT(clickNewBtn()));
@@ -74,13 +74,13 @@ void EditWindow::initRightButton()
 
 void EditWindow::initBackSetBtn()
 {
-	// å­—ä½“è®¾ç½®
+	// ×ÖÌåÉèÖÃ
 	QFont font;
-	font.setFamily("SimHei");   // é»‘ä½“
+	font.setFamily("SimHei");   // ºÚÌå
 	btIce.setFont(font);
 	btFire.setFont(font);
 	btLeaf.setFont(font);
-	// è®¾ç½®æŒ‰é’®èƒŒæ™¯è‰²
+	// ÉèÖÃ°´Å¥±³¾°É«
 	QPalette p;
 	p = btIce.palette();
 	p.setColor(QPalette::Button, QColor(105, 160, 255, 160));
@@ -97,26 +97,26 @@ void EditWindow::initBackSetBtn()
 	btIce.setFlat(true);
 	btFire.setFlat(true);
 	btLeaf.setFlat(true);
-	// è®¾ç½®parentæŒ‡é’ˆ
+	// ÉèÖÃparentÖ¸Õë
 	btIce.setParent(this);
 	btFire.setParent(this);
 	btLeaf.setParent(this);
-	// è®¾ç½®æŒ‰é’®æ–‡å­—
-	btIce.setText(codec->toUnicode("å†°"));
-	btFire.setText(codec->toUnicode("ç«"));
-	btLeaf.setText(codec->toUnicode("æ—"));
-	// æ˜¾ç¤ºæŒ‰é’®
+	// ÉèÖÃ°´Å¥ÎÄ×Ö
+	btIce.setText(codec->toUnicode("±ù"));
+	btFire.setText(codec->toUnicode("»ğ"));
+	btLeaf.setText(codec->toUnicode("ÁÖ"));
+	// ÏÔÊ¾°´Å¥
 	btIce.show();
 	btFire.show();
 	btLeaf.show();
-	// è®¾ç½®æŒ‰é’®å¤§å°åŠä½ç½®
+	// ÉèÖÃ°´Å¥´óĞ¡¼°Î»ÖÃ
 	btIce.resize(100, 36);
 	btIce.move(375, 705);
 	btFire.resize(100, 36);
 	btFire.move(525, 705);
 	btLeaf.resize(100, 36);
 	btLeaf.move(675, 705);
-	// è®¾ç½®æŒ‰é’®ä¿¡å·æ§½
+	// ÉèÖÃ°´Å¥ĞÅºÅ²Û
 	connect(&btIce, SIGNAL(clicked()), this, SLOT(setIce()));
 	connect(&btFire, SIGNAL(clicked()), this, SLOT(setFire()));
 	connect(&btLeaf, SIGNAL(clicked()), this, SLOT(setLeaf()));
@@ -128,13 +128,13 @@ void EditWindow::initItemBtn()
 	QSignalMapper *qsm = new QSignalMapper(this);
 	for (int i = 0; i < 20; i++)
 	{
-		items[i].setParent(this);                                            // è®¾ç½®parentæŒ‡é’ˆ
-		items[i].setGeometry(48 + 48 * (i % 5), 48 + 48 * (i / 5), 48, 48);  // è®¾ç½®å¤§å°åŠä½ç½®
-		items[i].setIcon(QIcon(QPixmap("img/item/item" + QString::number(i))));   // è®¾ç½®å›¾æ ‡
-		items[i].setIconSize(QSize(48, 48));                                 // è®¾ç½®å›¾æ ‡å¤§å°
-		items[i].setFlat(true);                                              // åŸæŒ‰é’®å›¾æ¡ˆä¸å¯è§
+		items[i].setParent(this);                                            // ÉèÖÃparentÖ¸Õë
+		items[i].setGeometry(48 + 48 * (i % 5), 48 + 48 * (i / 5), 48, 48);  // ÉèÖÃ´óĞ¡¼°Î»ÖÃ
+		items[i].setIcon(QIcon(QPixmap("img/item/item" + QString::number(i))));   // ÉèÖÃÍ¼±ê
+		items[i].setIconSize(QSize(48, 48));                                 // ÉèÖÃÍ¼±ê´óĞ¡
+		items[i].setFlat(true);                                              // Ô­°´Å¥Í¼°¸²»¿É¼û
 		items[i].show();
-		connect(&items[i], SIGNAL(clicked()), qsm, SLOT(map()));             // è®¾ç½®ä¿¡å·æ§½
+		connect(&items[i], SIGNAL(clicked()), qsm, SLOT(map()));             // ÉèÖÃĞÅºÅ²Û
 		qsm->setMapping(&items[i], i);
 	}
 	connect(qsm, SIGNAL(mapped(int)), this, SLOT(clickItem(int)));
@@ -235,7 +235,7 @@ void EditWindow::initSquarePic()
 	}
 }
 
-// -- å±æ€§è·å–å‡½æ•°
+// -- ÊôĞÔ»ñÈ¡º¯Êı
 int EditWindow::getIndex()
 {
 	return index;
@@ -279,7 +279,7 @@ QString EditWindow::getImgName(int type, int index)
 	return ret;
 }
 
-// -- åˆ·æ–°å‡½æ•°
+// -- Ë¢ĞÂº¯Êı
 void EditWindow::setFramePos()
 {
 	if (index < 20)
@@ -302,7 +302,7 @@ void EditWindow::update()
 	}
 }
 
-// -- ä¿å­˜æ–‡ä»¶å‡½æ•°
+// -- ±£´æÎÄ¼şº¯Êı
 void EditWindow::saveFile()
 {
 	bool ok = false;
@@ -310,13 +310,13 @@ void EditWindow::saveFile()
 	if (iGetUntitledFloorNum) num = iGetUntitledFloorNum->onCallInt();
 	QString oriUntitledName;
 	oriUntitledName = "Untitled" + QString::number(num);
-	QString filename = QInputDialog::getText(this, codec->toUnicode("ä¿å­˜å±‚"), 
-		                                     codec->toUnicode("è¯·è¾“å…¥æ‚¨è¦ä¿å­˜çš„å±‚æ–‡ä»¶åï¼š"), 
+	QString filename = QInputDialog::getText(this, codec->toUnicode("±£´æ²ã"), 
+		                                     codec->toUnicode("ÇëÊäÈëÄúÒª±£´æµÄ²ãÎÄ¼şÃû£º"), 
 		                                     QLineEdit::Normal, oriUntitledName, &ok);
 	if (ok)
 	{
 		//if (iSaveFile) iSaveFile->onHandleFile(filename.toStdString());
-		QMessageBox::information(NULL, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"), codec->toUnicode("æˆåŠŸä¿å­˜å½“å‰å±‚æ•°æ®ï¼"),
+		QMessageBox::information(NULL, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"), codec->toUnicode("³É¹¦±£´æµ±Ç°²ãÊı¾İ£¡"),
 			QMessageBox::Ok, QMessageBox::Ok);
 		if(iSaveFile) iSaveFile->onHandleFile(filename.toLocal8Bit().toStdString());
 		pFloorFileSet->filenameSetInit();
@@ -325,13 +325,13 @@ void EditWindow::saveFile()
 	}
 }
 
-// -- é¼ æ ‡ç§»åŠ¨å›è°ƒå‡½æ•°
+// -- Êó±êÒÆ¶¯»Øµ÷º¯Êı
 void EditWindow::mouseMoveEvent(QMouseEvent *e)
 {
 	drawObj.hide();
 }
 
-// slotså‡½æ•°
+// slotsº¯Êı
 void EditWindow::setIce()
 {
 	map = 0;
@@ -404,8 +404,8 @@ void EditWindow::clickSaveBtn()
 
 void EditWindow::clickNewBtn()
 {
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"), 
-		                             codec->toUnicode("æ˜¯å¦ä¿å­˜å½“å‰å±‚ï¼Ÿ"), 
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"), 
+		                             codec->toUnicode("ÊÇ·ñ±£´æµ±Ç°²ã£¿"), 
 		                             QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
@@ -418,13 +418,13 @@ void EditWindow::clickOpenBtn()
 {
 	if (fileId == -1)
 	{
-		QMessageBox::warning(this, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"),
-			codec->toUnicode("è¯·é€‰ä¸­ä¸€ä¸ªå±‚æ–‡ä»¶ï¼"), QMessageBox::Ok, QMessageBox::Ok);
+		QMessageBox::warning(this, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"),
+			codec->toUnicode("ÇëÑ¡ÖĞÒ»¸ö²ãÎÄ¼ş£¡"), QMessageBox::Ok, QMessageBox::Ok);
 		return;
 	}
 	std::string name = pFloorFileSet->getFilename(fileId);
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"),
-		codec->toUnicode("æ˜¯å¦ä¿å­˜å½“å‰å±‚ï¼Ÿ"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"),
+		codec->toUnicode("ÊÇ·ñ±£´æµ±Ç°²ã£¿"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 	if (rb == QMessageBox::Yes)
 		saveFile();
 	if(iLoadFile) iLoadFile->onHandleFile(name);
@@ -436,17 +436,18 @@ void EditWindow::clickDeleteBtn()
 {
 	if (fileId == -1)
 	{
-		QMessageBox::warning(this, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"),
-			codec->toUnicode("è¯·é€‰ä¸­ä¸€ä¸ªå±‚æ–‡ä»¶ï¼"), QMessageBox::Ok, QMessageBox::Ok);
+		QMessageBox::warning(this, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"),
+			codec->toUnicode("ÇëÑ¡ÖĞÒ»¸ö²ãÎÄ¼ş£¡"), QMessageBox::Ok, QMessageBox::Ok);
 		return;
 	}
 	std::string name = pFloorFileSet->getFilename(fileId);
-	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("é­”å¡”å…³å¡è®¾è®¡"),
-		codec->toUnicode("ç¡®è®¤åˆ é™¤") + QString::fromStdString(name) + codec->toUnicode("å—ï¼Ÿ"), 
+	QMessageBox::StandardButton rb = QMessageBox::question(this, codec->toUnicode("Ä§Ëş¹Ø¿¨Éè¼Æ"),
+		codec->toUnicode("È·ÈÏÉ¾³ı") + QString::fromStdString(name) + codec->toUnicode("Âğ£¿"), 
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 	if (rb == QMessageBox::Yes)
 		if (iDeleteFile) iDeleteFile->onHandleFile(name);
-	update();
+	pFloorFileSet->filenameSetInit();
+	floorChoose.setFileList();
 }
 
 void EditWindow::clickSetModelBtn()
