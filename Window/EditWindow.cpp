@@ -446,7 +446,8 @@ void EditWindow::clickDeleteBtn()
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 	if (rb == QMessageBox::Yes)
 		if (iDeleteFile) iDeleteFile->onHandleFile(name);
-	update();
+	pFloorFileSet->filenameSetInit();
+	floorChoose.setFileList();
 }
 
 void EditWindow::clickSetModelBtn()
@@ -477,4 +478,30 @@ void EditWindow::generate()
 	generateWindow.initialize(this);
 	generateWindow.setModal(true);
 	generateWindow.show();
+}
+
+void EditWindow::generateOk()
+{
+	bool ok = false;
+	std::vector<int> temp = generateWindow.getInitialModel();
+	QString name;
+	name = QInputDialog::getText(this, codec->toUnicode("生成魔塔"),codec->toUnicode("请输入您要保存的魔塔游戏文件名："), QLineEdit::Normal, name, &ok);
+	if (ok)
+	{
+		if (name.isEmpty())
+		{
+			QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不能为空！"),
+				QMessageBox::Ok, QMessageBox::Ok);
+			return;
+		}
+		temp[0] = map;
+		for (int i = 0; i < generateWindow.getList().size(); i++)
+		{
+			temp.push_back(pFloorFileSet->getFileNumber(generateWindow.getList()[i]));
+		}
+		QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
+			QMessageBox::Ok, QMessageBox::Ok);
+		if (iGenerate) iGenerate->onGenerate(temp, name.toStdString());
+		std::cout << "Success!" << std::endl;
+	}
 }

@@ -34,6 +34,7 @@ public:
 	std::shared_ptr<IHandleFile> iSaveFile;
 	std::shared_ptr<IHandleFile> iLoadFile;
 	std::shared_ptr<IHandleFile> iDeleteFile;
+	std::shared_ptr<IGenerate>   iGenerate;
 	// Common对象数据绑定指针
 	std::shared_ptr<FloorFileSet> pFloorFileSet;
 	// 层文件选择控件
@@ -108,4 +109,5 @@ public slots:
 	void putSquare();
 	void changeFileId(int num);
 	void generate();
+	void generateOk();
 };

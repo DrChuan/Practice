@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector>
 
 class ISquareGet {
 public:
@@ -28,5 +29,6 @@ public:
 
 class IGenerate {
 public:
-	// £¨´ıÉÌÒé£©virtual void onGenerate(vector<int> & fileGeneList, std::string) = 0;
+	virtual void onGenerate(std::vector<int> & fileGeneList, std::string filename) = 0;
+	// µØÍ¼·ç¸ñ ½ğÇ® ÉúÃü ¹¥»÷ ·ÀÓù »ÆÔ¿³× À¶Ô¿³× ºìÔ¿³×
 };
