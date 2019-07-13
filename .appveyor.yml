@@ -43,11 +43,11 @@ build: off
 
 test_script:
 
-  cd MagicTower
+  cd MagicalTower
 
-  msbuild MagicTower.vcxproj
+  msbuild MagicalTower.vcxproj
   
-  makecab Debug\MagicTower.exe MagicTower.zip 
+  makecab Debug\MagicalTower.exe MagicTower.zip 
   
 
 deploy:
