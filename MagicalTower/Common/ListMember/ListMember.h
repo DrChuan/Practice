@@ -60,4 +60,6 @@ public:
 	int getKey(int index) { return key[index]; }
 
 	void setKey(int index, int num) { key[index] = num; }
+
+	int getLevel();
 };
