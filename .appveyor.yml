@@ -10,10 +10,6 @@ platform:
 
 - x64
 
-qt:
-
-- msvc2017
-
 
 image:
 
@@ -34,7 +30,7 @@ environment:
 
   - BUILD_MODE: MSBuild
 
-  - 
+  - qt: msvc2017 
 
 # Disable build through solution file
 build: off
