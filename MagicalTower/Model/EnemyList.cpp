@@ -51,6 +51,7 @@ bool EnemyList::LoadEnemyList(string path) {//从path目录下读取EnemyList.txt
 		}
 	string filename = path + "\\EnemyList.txt";
 	ifstream fcin;
+	m_enemies.clear();
 	fcin.open(filename.c_str(), ios::out | ios::binary);
 	if (!fcin.is_open()) return false;
 	for (int i = 0; i < 20; i++) {

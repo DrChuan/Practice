@@ -78,7 +78,7 @@ bool GameModel::saveHero(string path) {
 	return true;
 }
 
-bool GameModel::loadAppend(string path) {
+bool GameModel::loadAppend(string path) {//必须在地图load后调用
 	string name = path + "\\append";
 	ifstream fcin(name, ios_base::in);
 	if (!fcin.is_open()) return false;
@@ -98,6 +98,7 @@ bool GameModel::loadAppend(string path) {
 	m_hero->setKey(1, temp);
 	fcin.read((char*)& temp, sizeof(int));//RKey
 	m_hero->setKey(2, temp);
+	resetXY(0);
 }
 
 int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层
@@ -111,6 +112,7 @@ int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层
 		int indexx = m_floorset.getSquare(index, x, y).getIndex();
 		if (indexx < 20) {
 			Item m_item = m_itemlist.getItem(indexx);
+			m_hero->getItem(indexx);
 			m_hero->getItem(m_item.getAtk(), m_item.getDef(), m_item.getExp(), m_item.getHp(), m_item.getCoins());
 			m_floorset.setSquare(index, -1, -1, x, y);
 			return 1;

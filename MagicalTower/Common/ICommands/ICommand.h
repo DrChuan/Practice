@@ -53,3 +53,8 @@ class IMove {
 public:
 	virtual int onMove(int direction) = 0;   // 0123 上下左右
 };
+
+class IGetIntList {
+public:
+	virtual std::vector<int> onGetIntList() = 0; //穿回当前层怪物列表
+};
