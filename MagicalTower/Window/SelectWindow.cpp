@@ -19,6 +19,13 @@ void SelectWindow::clickCreator()
 	this->hide();
 }
 
+void SelectWindow::clickExplorer()
+{
+	gameWindow = new GameWindow(); // 到时候要去掉 在app层new
+	gameWindow->show();
+	this->hide();
+}
+
 void SelectWindow::initWindow()
 {
 	QTextCodec *codec = QTextCodec::codecForName("GBK");
@@ -68,5 +75,6 @@ void SelectWindow::initbutton()
 	explorerBtn->setFixedSize(150, 60);
 	explorerBtn->show();
 	// 设置按钮信号槽
-	connect(&(*creatorBtn), SIGNAL(clicked()), this, SLOT(clickCreator()));
+	connect(creatorBtn, SIGNAL(clicked()), this, SLOT(clickCreator()));
+	connect(explorerBtn, SIGNAL(clicked()), this, SLOT(clickExplorer()));
 }

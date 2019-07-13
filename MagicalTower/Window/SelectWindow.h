@@ -7,6 +7,7 @@
 #include "qtoolbutton.h"
 #include "qpalette.h"
 #include "EditWindow.h"
+#include "GameWindow.h"
 
 
 // 按钮位置
@@ -22,10 +23,11 @@ public:
 
 	// 编辑器窗口
 	EditWindow* editWindow;
+	GameWindow* gameWindow;
 public slots:
 	// 按钮槽函数
 	void clickCreator();
-	//void clickExplorer();
+	void clickExplorer();
 private:
 	// 窗口组件
 	QTextBrowser* browser;
