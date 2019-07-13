@@ -24,7 +24,7 @@ public:
 	void updateSquare(int ox, int oy, int nx, int ny);
 	void initData();
 	void updateData();
-	void update();
+	void update(int x, int y);
 	void initGame();
 	void setData();
 	void setHeroName(QString name);
