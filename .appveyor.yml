@@ -15,9 +15,9 @@ image:
 
 - Visual Studio 2019
 
-#artifacts:
-#  - path: MagicTower.zip
-#    name: test
+artifacts:
+  - path: MagicTower.zip
+    name: test
 
 
 environment:
@@ -26,6 +26,11 @@ environment:
 
     secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q
 
+  matrix:
+
+  - BUILD_MODE: MSBuild
+
+  - qt: msvc2017 
 
 # Disable build through solution file
 build: off
@@ -36,13 +41,22 @@ build: off
 #cd Release
 #Demo.exe
 
+test_script:
+
+  cd MagicalTower
+
+  msbuild MagicalTower.vcxproj
+  
+  makecab Debug\MagicalTower.exe MagicTower.zip 
+  
+
 deploy:
-  release: MagicalTower-v$(appveyor_build_version)
+  release: Demo-v$(appveyor_build_version)
   description: 'Release description'
   provider: GitHub
   auth_token:
     secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q # encrypted token from GitHub
-#  artifact: test          
+  artifact: test          
   draft: true
   prerelease: false
   on:

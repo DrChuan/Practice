@@ -1,7 +1,7 @@
 #include "SelectWindow.h"
 
 // 从QMainWindow类创建了SelectWindow类，作为程序的入口，要求用户选择编辑或游戏
-SelectWindow::SelectWindow(QWidget *parent) : QMainWindow(parent)
+SelectWindow::SelectWindow(QWidget* parent) : QMainWindow(parent)
 {
 	initWindow();
 	initBrowser();
@@ -21,14 +21,14 @@ void SelectWindow::clickCreator()
 
 void SelectWindow::clickExplorer()
 {
-	gameWindow = new GameWindow(); // 到时候要去掉 在app层new
 	gameWindow->show();
+	gameWindow->initGame();
 	this->hide();
 }
 
 void SelectWindow::initWindow()
 {
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("GBK");
 	// 初始化窗口标题及大小
 	setWindowTitle(codec->toUnicode("魔塔"));
 	setFixedSize(800, 600);
@@ -38,7 +38,7 @@ void SelectWindow::initWindow()
 }
 void SelectWindow::initBrowser()
 {
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("GBK");
 	// 创建、显示文本框
 	browser = new QTextBrowser(this);
 	browser->show();
@@ -61,7 +61,7 @@ void SelectWindow::initBrowser()
 
 void SelectWindow::initbutton()
 {
-	QTextCodec *codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("GBK");
 	// 设置缔造者按钮文字、大小、位置
 	creatorBtn = new QToolButton(this);
 	creatorBtn->setText(codec->toUnicode("我要做缔造者"));

@@ -71,6 +71,18 @@
     <Filter Include="Source\ViewModel\ObjListSink">
       <UniqueIdentifier>{21ffa54d-152e-4aaa-9096-93d781645d64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ViewModel\GetSpeIntSink">
+      <UniqueIdentifier>{283431dd-9735-4355-a95f-80f05854963d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\MoveSink">
+      <UniqueIdentifier>{07370013-725b-46b7-a98e-fe038f87b1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\gSetNameSink">
+      <UniqueIdentifier>{995afb73-c8cc-4c73-b081-58eab8a7f288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\gGetSquare">
+      <UniqueIdentifier>{0cc9ca16-1ceb-4a53-add6-ee190907a62c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MagicalTower.ui">
@@ -152,8 +164,29 @@
     <ClCompile Include="Window\SetItemWindow.cpp">
       <Filter>Source\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="ViewModel\GameModel.cpp">
+      <Filter>Source\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\GetSpeIntSink\GetSpeIntSink.cpp">
+      <Filter>Source\ViewModel\GetSpeIntSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\MoveSink\MoveSink.cpp">
+      <Filter>Source\ViewModel\MoveSink</Filter>
+    </ClCompile>
     <ClCompile Include="ViewModel\GameViewModel.cpp">
       <Filter>Source\ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\GameWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\InitGameWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\gSetNameSink\gSetNameSink.cpp">
+      <Filter>Source\ViewModel\gSetNameSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\gGetSquare\gGetSquare.cpp">
+      <Filter>Source\ViewModel\gGetSquare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,8 +238,23 @@
     <ClInclude Include="ViewModel\ObjListSink\ObjListSink.h">
       <Filter>Source\ViewModel\ObjListSink</Filter>
     </ClInclude>
+    <ClInclude Include="ViewModel\GameModel.h">
+      <Filter>Source\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\GetSpeIntSink\GetSpeIntSink.h">
+      <Filter>Source\ViewModel\GetSpeIntSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\MoveSink\MoveSink.h">
+      <Filter>Source\ViewModel\MoveSink</Filter>
+    </ClInclude>
     <ClInclude Include="ViewModel\GameViewModel.h">
       <Filter>Source\ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\gSetNameSink\gSetNameSink.h">
+      <Filter>Source\ViewModel\gSetNameSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\gGetSquare\gGetSquare.h">
+      <Filter>Source\ViewModel\gGetSquare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +280,12 @@
       <Filter>Source\Windows</Filter>
     </QtMoc>
     <QtMoc Include="Window\SetItemWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\GameWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\InitGameWindow.h">
       <Filter>Source\Windows</Filter>
     </QtMoc>
   </ItemGroup>

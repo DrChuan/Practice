@@ -6,6 +6,7 @@ MagicalTower::MagicalTower(int argc, char* argv[]) :QApplication(argc, argv) {
 
 void MagicalTower::Init() {
 	w.editWindow = new EditWindow();
+	w.gameWindow = new GameWindow();
 
 	string path = "floors_ws";
 	if ((_access((path).c_str(), 0) == -1))
@@ -28,6 +29,15 @@ void MagicalTower::Init() {
 	w.editWindow->iSetObj = evm.m_sosink;
 
 	w.editWindow->pFloorFileSet = evm.m_floorFileSet;
+
+	w.gameWindow->iGetSpecialInt = gvm.m_gssink;
+	w.gameWindow->iMove = gvm.m_mvsink;
+	w.gameWindow->iSetGame = gvm.m_gsnink;
+	w.gameWindow->isgt = gvm.m_gstink;
+	w.gameWindow->isgi = gvm.m_gsiink;
+
+
+	w.gameWindow->hero = gvm.gm->m_hero;
 
 	w.show();
 }

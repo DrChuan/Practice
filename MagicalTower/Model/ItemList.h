@@ -11,9 +11,10 @@ class ItemList {
 	string  m_itemFile;
 	vector<Item> m_items;
 public:
-	void AddItem(int hp, int atk, int def, int exp, int coins, int specialIndex, int walkable);
+	void Init();
+	void AddItem(int hp, int atk, int def, int exp, int coins, int walkable);
 	void ChangeItem(int hp, int atk, int def, int exp, int coins, int Index);
 	Item getItem(int index) { return m_items[index]; }
-	void SaveItemList(string name);
-	void LoadItemList(string name);
+	bool SaveItemList(string path);
+	bool LoadItemList(string path);
 };

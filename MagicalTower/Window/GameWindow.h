@@ -18,13 +18,13 @@ class GameWindow : public QMainWindow
 {
 	Q_OBJECT
 public:
-	GameWindow(QWidget *parent = Q_NULLPTR);
+	GameWindow(QWidget* parent = Q_NULLPTR);
 	void initButton();
 	void initSquare();
 	void updateSquare(int ox, int oy, int nx, int ny);
 	void initData();
 	void updateData();
-
+	void update();
 	void initGame();
 	void setData();
 	void setHeroName(QString name);
@@ -35,7 +35,6 @@ public:
 	void keyPressEvent(QKeyEvent*);
 	std::shared_ptr<IGetSpeInt> getIntPtr();
 
-private:
 	// 角色数据
 	std::shared_ptr<Hero> hero;
 	// 命令绑定
@@ -44,8 +43,10 @@ private:
 	std::shared_ptr<IGetSpeInt> iGetSpecialInt;
 	std::shared_ptr<IHandleFile> iSetGame;
 	std::shared_ptr<IMove> iMove;
+
+private:
 	// 窗口控件
-	QTextCodec  *codec = QTextCodec::codecForName("GBK");
+	QTextCodec* codec = QTextCodec::codecForName("GBK");
 	QLabel heroPic;
 	QLabel squares[11][11];
 	QPushButton saveBtn;
@@ -58,7 +59,7 @@ private:
 	QLabel totalLayerNum;
 	QLabel weapon[6];
 	QLabel equip[6];
-		// 这里还缺一个显示怪物手册的控件
+	// 这里还缺一个显示怪物手册的控件
 	InitGameWindow initGameWindow;
 	int data[9] = { 0 };
 	int _layerNum = 0;

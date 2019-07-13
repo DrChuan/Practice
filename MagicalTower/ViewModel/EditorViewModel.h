@@ -54,10 +54,8 @@ public:
 		return m_floor.getSquare(x, y).getIndex();
 	}
 	void AddEnemy(int atk, int def, int hp, int exp, int coins);
-	void AddItem(int hp, int atk, int def, int exp, int coins, int specialIndex, int walkable);
-	void LoadEnemyList(string filename);
+	void AddItem(int hp, int atk, int def, int exp, int coins, int walkable);
 	void ChangeEnemyList(int atk, int def, int hp, int exp, int coins, int index);
-	void LoadItemList(string filename);
 	void ChangeItemList(int hp, int atk, int def, int exp, int coins, int Index);
 	Obj getObj(int type, int index);
 };

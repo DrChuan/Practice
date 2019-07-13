@@ -1,7 +1,7 @@
 #include "InitGameWindow.h"
 #include "GameWindow.h"
 
-InitGameWindow::InitGameWindow(GameWindow *ptr) : ptrParent(ptr)
+InitGameWindow::InitGameWindow(GameWindow* ptr) : ptrParent(ptr)
 {
 	setWindowTitle(codec->toUnicode("加载游戏关卡"));
 	setFixedSize(400, 400);
@@ -18,10 +18,14 @@ void InitGameWindow::initList()
 {
 	int len;
 	getAllFileFolder(".\\game", gameNameList);
+	std::string s = QCoreApplication::applicationDirPath().toStdString();
 	len = QCoreApplication::applicationDirPath().toStdString().size();
 	for (int i = 0; i < gameNameList.size(); i++)
 	{
-		gameNameList[i] = QString::fromStdString(gameNameList[i].toStdString().erase(0, len + 5));
+		std::string str = gameNameList[i].toStdString();
+		int len = str.size() - 1;
+		while (len && str[len--] != '/');
+		gameNameList[i] = QString::fromStdString(gameNameList[i].toStdString().erase(0, len + 2));
 		gameList.addItem(gameNameList[i]);
 		//std::cout << gameNameList[i].toLocal8Bit().toStdString();
 	}
@@ -48,7 +52,8 @@ void InitGameWindow::open()
 	QString str = "";
 	while ((str = QInputDialog::getText(this, codec->toUnicode("魔塔"), codec->toUnicode("旅行者，该怎么称呼您？"))) == "");
 	ptrParent->setHeroName(str);
-	ptrParent->loadGameFile(gameNameList[gameList.currentRow()]);
+	int in = gameList.currentRow();
+	ptrParent->loadGameFile(gameNameList[in]);
 	ptrParent->initData();
 	ptrParent->initSquare();
 	if (ptrParent->getIntPtr())

@@ -27,17 +27,17 @@ public:
 
 class  Item : public Obj {
 private:
-	int  m_specialIndex;
+	//int  m_specialIndex;
 	bool m_walkable;
 
 public:
-	Item(int hp = 0, int atk = 0, int def = 0, int exp = 0, int coins = 0, int specialIndex = -1, int walkable = 0) :
-		Obj(hp, atk, def, exp, coins), m_specialIndex(specialIndex), m_walkable(walkable) {}
+	Item(int hp = 0, int atk = 0, int def = 0, int exp = 0, int coins = 0, int walkable = 0) :
+		Obj(hp, atk, def, exp, coins), m_walkable(walkable) {}
 
-	void setSpecialIndex(int value) { m_specialIndex = value; }
+	//void setSpecialIndex(int value) { m_specialIndex = value; }
 	void setWalkable(bool wkb) { m_walkable = wkb; }
 
-	int getSpecialIndex() { return m_specialIndex; }
+	//int getSpecialIndex() { return m_specialIndex; }
 	bool getWalkable() { return m_walkable; }
 };
 
@@ -53,9 +53,11 @@ public:
 
 	bool fight(const Enemy& enemy);
 
-	bool getItem(int index);
+	int getItem(int index);
 
 	void getItem(int addAtk, int addDef, int addExp, int addHp, int addCoins);
 
-	int getKey(int num) { return key[num]; }
+	int getKey(int index) { return key[index]; }
+
+	void setKey(int index, int num) { key[index] = num; }
 };

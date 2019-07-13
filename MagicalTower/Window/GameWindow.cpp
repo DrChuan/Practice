@@ -1,18 +1,18 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(QWidget *parent) : QMainWindow(parent), initGameWindow(this)
+GameWindow::GameWindow(QWidget* parent) : QMainWindow(parent), initGameWindow(this)
 {
 	setFixedSize(1024, 768);
 	setWindowTitle(codec->toUnicode("Ä§Ëþ"));
 	QPalette p = palette();
 
-	
+
 	setPalette(p);
-	
+
 	initButton();
-	initGame();
+	//initGame();
 	initSquare();
-	initData();	
+	initData();
 }
 
 void GameWindow::initButton()
@@ -50,7 +50,7 @@ void GameWindow::initSquare()
 			squares[i][j].lower();
 		}
 	}
-	int x, y;
+	int x = 0, y = 0;
 	if (iGetSpecialInt)
 	{
 		x = iGetSpecialInt->onGetSpeInt(3);
@@ -64,6 +64,16 @@ void GameWindow::updateSquare(int ox, int oy, int nx, int ny)
 	if (isgt && isgi)
 		squares[ox][oy].setPixmap(QPixmap(getImgName(isgt->onUpdate(ox, oy), isgi->onUpdate(ox, oy))));
 	squares[nx][ny].setPixmap(QPixmap("img/system/hero.png"));
+}
+
+void GameWindow::update()
+{
+	for (int i = 0; i < 11; i++)
+		for (int j = 0; j < 11; j++)
+			if (isgt && isgi) squares[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+	//updateData();
+	//heroPic.raise();
+
 }
 
 void GameWindow::initData()
@@ -130,7 +140,7 @@ void GameWindow::initGame()
 void GameWindow::loadGameFile(QString foldername)
 {
 	if (iSetGame) iSetGame->onHandleFile(foldername.toLocal8Bit().toStdString());
-	std::cout << "¶ÁÈ¡£¡" << foldername.toLocal8Bit().toStdString() <<"\n";
+	std::cout << "¶ÁÈ¡£¡" << foldername.toLocal8Bit().toStdString() << "\n";
 }
 
 std::shared_ptr<IGetSpeInt> GameWindow::getIntPtr()
@@ -140,20 +150,41 @@ std::shared_ptr<IGetSpeInt> GameWindow::getIntPtr()
 
 void GameWindow::keyPressEvent(QKeyEvent* eve)
 {
-	int x, y;
+	int k, x, y;
 	if (iGetSpecialInt)
 	{
 		x = iGetSpecialInt->onGetSpeInt(3);
 		y = iGetSpecialInt->onGetSpeInt(4);
 	}
-	switch (eve->key()) {
-	case Qt::Key_Left: if (iMove && iMove->onMove(2)); updateSquare(x, y, x - 1, y); break;
-	case Qt::Key_Right: if (iMove && iMove->onMove(3)); updateSquare(x, y, x + 1, y); break;
-	case Qt::Key_Up: if (iMove && iMove->onMove(0)); updateSquare(x, y, x, y - 1); break;
-	case Qt::Key_Down: if (iMove && iMove->onMove(1)); updateSquare(x, y, x, y + 1); break;
+	if (iMove)
+		switch (eve->key()) {
+		case Qt::Key_Left:
+			k = iMove->onMove(2);
+			if (k == 1)updateSquare(x, y, x - 1, y);
+			break;
+		case Qt::Key_Right:
+			k = iMove->onMove(3);
+			if (k == 1)updateSquare(x, y, x + 1, y);
+			break;
+		case Qt::Key_Up:
+			k = iMove->onMove(0);
+			if (k == 1)updateSquare(x, y, x, y - 1);
+			break;
+		case Qt::Key_Down:
+			k = iMove->onMove(1);
+			if (k == 1)updateSquare(x, y, x, y + 1);
+			break;
+		}
+	if (k == 2) {
+		if (iGetSpecialInt)
+		{
+			x = iGetSpecialInt->onGetSpeInt(3);
+			y = iGetSpecialInt->onGetSpeInt(4);
+		}
+		update();
+		squares[x][y].setPixmap(QPixmap("img/system/hero.png"));
 	}
 	updateData();
-
 }
 
 void GameWindow::setData()

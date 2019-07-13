@@ -1,4 +1,3 @@
-
 #pragma once
 #include <string>
 #include <iostream>
@@ -45,17 +44,12 @@ public:
 	virtual void onSetObj(int type, int index, Obj object) = 0;   // 将object存的属性赋给(type, index)对应的Obj
 };
 
-class IInitGame {
+class IGetSpeInt {
 public:
-	virtual bool onInitGame(std::string pathname) = 0;   // pathname是文件夹路径，直接在这个目录下读那些文件，然后把属性和层什么的设置好
+	virtual int onGetSpeInt(int flag) = 0;  // 0: 当前层编号（记得加1）  1: 总层数   2: 地图风格
 };
 
 class IMove {
 public:
-	virtual int onMove(int direction) = 0;   // 0123 左右上下
-};
-
-class IGetSpeInt {
-public:
-	virtual int onGetSpeInt(int flag) = 0;  // 0: 当前层编号（记得加1）  1: 总层数   2: 地图风格  3: 横坐标  4：纵坐标
+	virtual int onMove(int direction) = 0;   // 0123 上下左右
 };

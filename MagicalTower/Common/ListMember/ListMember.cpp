@@ -41,16 +41,23 @@ bool Hero::fight(const Enemy& enemy) {
 	}
 }
 
-bool Hero::getItem(int index) {//这里index待修改
+int Hero::getItem(int index) {//这里index待修改
 	switch (index) {
 	case 0: case 1: case 2://三种钥匙
 		this->addKey(index);
+		return 1;
 		break;
-	case 20: case 21: case 22://三扇门(三种门)20~22
-		if (this->key[index - 20] > 0)
-			this->key[index - 20]--;
+	case 20://下楼
+		return 2;
+	case 21://上楼 
+		return 3;
+	case 22: case 23: case 24://三扇门
+		if (this->key[index - 22] > 0) {
+			this->key[index - 22]--;
+			return 1;
+		}
 		else
-			return false;
+			return 0;
 
 	}
 	return true;
