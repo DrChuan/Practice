@@ -1,0 +1,76 @@
+version: 1.0.{build}
+clone_depth: 3
+skip_tags: true
+
+configuration:
+
+- Release
+
+platform:
+
+- x64
+
+qt:
+
+- msvc2017
+
+
+image:
+
+- Visual Studio 2017
+
+artifacts:
+  - path: MagicTower.zip
+    name: test
+
+
+environment:
+
+  my_variable:
+
+    secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q
+
+  matrix:
+
+  - BUILD_MODE: MSBuild
+
+  - 
+
+# Disable build through solution file
+build: off
+
+# Build through commands in script below
+#cmake .
+#msbuild /t:Build  Demo.vcxproj
+#cd Release
+#Demo.exe
+
+test_script:
+
+  cd MagicTower
+
+  msbuild MagicTower.vcxproj
+  
+  makecab Debug\MagicTower.exe MagicTower.zip 
+  
+
+deploy:
+  release: Demo-v$(appveyor_build_version)
+  description: 'Release description'
+  provider: GitHub
+  auth_token:
+    secure: 1yit9q4kA36G3TjQw34DeHhFBVjc/JVNPqLC01rX3dGNAEi1jXMXSkgdDlO9q76Q # encrypted token from GitHub
+  artifact: test          
+  draft: true
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    APPVEYOR_REPO_TAG: true        # deploy on tag push only
+
+
+notifications:
+  - provider: Email
+    to:
+      - 992061851@qq.com
+    on_build_success: true
+    on_build_failure: true
