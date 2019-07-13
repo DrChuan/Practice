@@ -24,7 +24,7 @@ void Hero::addExp(int value) {
 
 bool Hero::fight(const Enemy& enemy) {
 	int Hero_hurt = this->getAtk() - enemy.getDef();
-	if (Hero_hurt < 0) return false;
+	if (Hero_hurt < = 0) return false;
 	int huihe = (enemy.getHp() + Hero_hurt - 1) / Hero_hurt;
 	int Enemy_hurt = enemy.getAtk() - this->getDef();
 	Enemy_hurt = Enemy_hurt > 0 ? Enemy_hurt : 0;
