@@ -494,7 +494,6 @@ void EditWindow::putSquare()
 		type = -1, id = 0;
 	else
 		type = getType(), id = getId();
-	//std::cout << "put!" << getType() << getId() << (drawObj.x() - 311) / 48 << (drawObj.y() - 145) / 48 << std::endl;
 	iss->onSquareChange((drawObj.x() - 311) / 48, (drawObj.y() - 145) / 48, type, id);
 	update();
 }
@@ -502,7 +501,6 @@ void EditWindow::putSquare()
 void EditWindow::changeFileId(int num)
 {
 	fileId = num;
-	//std::cout << fileId << std::endl;
 }
 
 void EditWindow::generate()
@@ -530,14 +528,13 @@ void EditWindow::generateOk()
 		{
 			temp.push_back(pFloorFileSet->getFileNumber(generateWindow.getList()[i]));
 		}
-
 		if (iGenerate) {
 			if (iGenerate->onGenerate(temp, name.toLocal8Bit().toStdString())) {
 				QMessageBox::information(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("已生成当前魔塔！"),
 					QMessageBox::Ok, QMessageBox::Ok);
 			}
 			else {
-				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("文件名不合法！"),
+				QMessageBox::warning(NULL, codec->toUnicode("魔塔关卡设计"), codec->toUnicode("生成失败！\n文件名不合法或没有选中任何层文件！"),
 					QMessageBox::Ok, QMessageBox::Ok);
 			}
 		}

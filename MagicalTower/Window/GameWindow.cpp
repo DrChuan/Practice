@@ -2,16 +2,24 @@
 
 GameWindow::GameWindow(QWidget* parent) : QMainWindow(parent), initGameWindow(this)
 {
+	// 设置窗口标题及大小
 	setFixedSize(1024, 768);
 	setWindowTitle(codec->toUnicode("魔塔"));
+	// 设置窗口背景
 	QPalette p = palette();
 	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/gamebackice.png")));
-
 	setPalette(p);
-
+	// 初始化按钮、方块及数据显示
 	initButton();
 	initSquare();
 	initData();
+	enemyBook.setParent(this);
+	enemyBook.show();
+	enemyBook.setIconSize(QSize(48, 48));
+	enemyBook.setGeometry(800, 197, 200, 530);
+	enemyBook.setFocusPolicy(Qt::NoFocus);
+	enemyBook.setStyleSheet("background-color:transparent; border:none");
+	updateEnemyBook();
 }
 
 void GameWindow::initButton()
@@ -50,17 +58,11 @@ void GameWindow::initSquare()
 		}
 	}
 	heroPic.setParent(this);
-	
 	heroPic.setPixmap(QPixmap("img/system/herodown.png"));
 	heroPic.show();
 	heroPic.raise();
-	int x = 0, y = 0;
-	if (iGetSpecialInt)
-	{
-		x = iGetSpecialInt->onGetSpeInt(3);
-		y = iGetSpecialInt->onGetSpeInt(4);
-	}
-	heroPic.setGeometry(241 + 48 * x, 146 + 48 * y, 48, 48);
+	setXY();
+	heroPic.setGeometry(241 + 48 * _x, 146 + 48 * _y, 48, 48);
 }
 
 void GameWindow::updateSquare(int ox, int oy, int nx, int ny)
@@ -72,13 +74,57 @@ void GameWindow::updateSquare(int ox, int oy, int nx, int ny)
 	}
 }
 
-void GameWindow::update(int x, int y)
+void GameWindow::update()
 {
+	setXY();
 	for (int i = 0; i < 11; i++)
 		for (int j = 0; j < 11; j++)
 			if (isgt && isgi) squares[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
-	heroPic.move(241 + x * 48, 146 + y * 48);
-	std::cout << 241 + x * 48 << "!!" << 146 + y * 48;
+	heroPic.move(241 + _x * 48, 146 + _y * 48);
+	updateEnemyBook();
+}
+
+void GameWindow::updateEnemyBook()
+{
+	enemyBook.clear();
+	enemyList.clear();
+	if (!hero->getEnemyBook())
+	{
+		enemyBook.addItem("暂未开启怪物手册！");
+		return;
+	}
+	std::vector<int> list;
+	int n;
+	if (iGetIntList) list = iGetIntList->onGetIntList();
+	n = list.size();
+	QListWidgetItem temp;
+	temp.setSizeHint(QSize(100, 60));
+	QString info;
+	for (int i = 0; i < n; i++)
+	{
+		int t = list[i];
+		Obj tObj = iGetObj->onGetObj(1, t);
+		if (iGetObj)
+		{
+			info += name[t];
+			info += "\n";
+			info += "生命：" + QString::number(tObj.getHp()) + "  ";
+			info += "攻击：" + QString::number(tObj.getAtk()) + "  ";
+			info += "防御：" + QString::number(tObj.getDef()) + "\n";
+			info += "获得经验：" + QString::number(tObj.getExp()) + "  ";
+			info += "获得金币：" + QString::number(tObj.getCoins()) + "\n";
+			if (hero->getHurt(t) == -1)
+				info += "无法攻击";
+			else 
+				info += "战斗损失生命：" + QString::number(hero->getHurt(t));
+			//info += iGetObj->onGetObj(1, list[i]).getName();
+		}
+		temp.setText(info);
+		temp.setIcon(QIcon(QPixmap("img/enemy/enemy" + QString::number(t))));
+		enemyList.push_back(temp);
+		enemyBook.addItem(&(enemyList[i]));
+	}
+//addItem(&QListWidgetItem(QPixmap("img/item/item0.png"), codec->toUnicode("啊哈")));
 }
 
 void GameWindow::initData()
@@ -127,6 +173,15 @@ void GameWindow::initData()
 	totalLayerNum.setPalette(pt);
 }
 
+void GameWindow::setXY()
+{
+	if (iGetSpecialInt)
+	{
+		_x = iGetSpecialInt->onGetSpeInt(3);
+		_y = iGetSpecialInt->onGetSpeInt(4);
+	}
+}
+
 void GameWindow::updateData()
 {
 	setData();
@@ -156,42 +211,34 @@ std::shared_ptr<IGetSpeInt> GameWindow::getIntPtr()
 
 void GameWindow::keyPressEvent(QKeyEvent* eve)
 {
-	int k, x, y;
-	if (iGetSpecialInt)
-	{
-		x = iGetSpecialInt->onGetSpeInt(3);
-		y = iGetSpecialInt->onGetSpeInt(4);
-	}
+	int k;
+	setXY();
 	if (iMove)
 		switch (eve->key()) {
 		case Qt::Key_Left:
 			k = iMove->onMove(2);
 			heroPic.setPixmap(QPixmap("img/system/heroleft"));
-			if (k == 1)  heroPic.move(241 + (x - 1) * 48, 146 + y * 48) , updateSquare(x, y, x - 1, y);
+			if (k == 1)  heroPic.move(241 + (_x - 1) * 48, 146 + _y * 48) , updateSquare(_x, _y, _x - 1, _y);
 			break;
 		case Qt::Key_Right:
 			k = iMove->onMove(3);
 			heroPic.setPixmap(QPixmap("img/system/heroright"));
-			if (k == 1)  heroPic.move(241 + (x + 1) * 48, 146 + y * 48), updateSquare(x, y, x + 1, y);
+			if (k == 1)  heroPic.move(241 + (_x + 1) * 48, 146 + _y * 48), updateSquare(_x, _y, _x + 1, _y);
 			break;
 		case Qt::Key_Up:
 			k = iMove->onMove(0);
 			heroPic.setPixmap(QPixmap("img/system/heroup"));
-			if (k == 1)  heroPic.move(241 + x * 48, 146 + (y - 1) * 48), updateSquare(x, y, x, y - 1);
+			if (k == 1)  heroPic.move(241 + _x * 48, 146 + (_y - 1) * 48), updateSquare(_x, _y, _x, _y - 1);
 			break;
 		case Qt::Key_Down:
 			k = iMove->onMove(1);
 			heroPic.setPixmap(QPixmap("img/system/herodown"));
-			if (k == 1)  heroPic.move(241 + x * 48, 146 + (y + 1) * 48), updateSquare(x, y, x, y + 1);
+			if (k == 1)  heroPic.move(241 + _x * 48, 146 + (_y + 1) * 48), updateSquare(_x, _y, _x, _y + 1);
 			break;
 		}
 	if (k == 2) {
-		if (iGetSpecialInt)
-		{
-			x = iGetSpecialInt->onGetSpeInt(3);
-			y = iGetSpecialInt->onGetSpeInt(4);
-		}
-		update(x, y);
+		//setXY();
+		update();
 	}
 	updateData();
 }

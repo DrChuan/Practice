@@ -56,5 +56,5 @@ public:
 
 class IGetIntList {
 public:
-	virtual std::vector<int> onGetIntList() = 0; //穿回当前层怪物列表
+	virtual std::vector<int> onGetIntList() = 0;
 };

@@ -24,9 +24,11 @@ public:
 	void updateSquare(int ox, int oy, int nx, int ny);
 	void initData();
 	void updateData();
-	void update(int x, int y);
+	void updateEnemyBook();
+	void update();
 	void initGame();
 	void setData();
+	void setXY();
 	void setHeroName(QString name);
 
 	QString getImgName(int type, int index);
@@ -44,6 +46,9 @@ public:
 	std::shared_ptr<IHandleFile> iSetGame;
 	std::shared_ptr<IMove> iMove;
 
+	std::shared_ptr<IGetObj> iGetObj;
+	std::shared_ptr<IGetIntList> iGetIntList;
+
 private:
 	// 窗口控件
 	QTextCodec* codec = QTextCodec::codecForName("GBK");
@@ -59,13 +64,17 @@ private:
 	QLabel totalLayerNum;
 	QLabel weapon[6];
 	QLabel equip[6];
+	QListWidget enemyBook;
+	std::vector<QListWidgetItem> enemyList;
 	// 这里还缺一个显示怪物手册的控件
 	InitGameWindow initGameWindow;
 	int data[9] = { 0 };
 	int _layerNum = 0;
 	int _totalLayerNum = 0;
 	QString _heroName = "";
-
+	int _x;
+	int _y;
+	QString name[25] = {"史莱姆", "红史莱姆"};
 public slots:
 	void clickSave();
 	void clickLoad();
