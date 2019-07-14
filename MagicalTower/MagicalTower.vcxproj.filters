@@ -83,6 +83,18 @@
     <Filter Include="Source\ViewModel\gGetSquare">
       <UniqueIdentifier>{0cc9ca16-1ceb-4a53-add6-ee190907a62c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\ViewModel\GetEnemySink">
+      <UniqueIdentifier>{b3aaccb0-4d58-4f4f-9274-1640853433db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\gGetObjSink">
+      <UniqueIdentifier>{39a40731-28f5-4842-852a-9388cb3b3045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\gSaveSink">
+      <UniqueIdentifier>{d6646d4a-cf2e-4526-837d-11a84005723a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ViewModel\gLoadSink">
+      <UniqueIdentifier>{409262ec-6e38-43eb-a166-35fbdec219d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MagicalTower.ui">
@@ -188,6 +200,21 @@
     <ClCompile Include="ViewModel\gGetSquare\gGetSquare.cpp">
       <Filter>Source\ViewModel\gGetSquare</Filter>
     </ClCompile>
+    <ClCompile Include="ViewModel\GetEnemySink\GetEnemySink.cpp">
+      <Filter>Source\ViewModel\GetEnemySink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\gGetObjSink\gGetObjSink.cpp">
+      <Filter>Source\ViewModel\gGetObjSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\gSaveSink\gSaveSink.cpp">
+      <Filter>Source\ViewModel\gSaveSink</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\gLoadSink\gLoadSink.cpp">
+      <Filter>Source\ViewModel\gLoadSink</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\LoadWindow.cpp">
+      <Filter>Source\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\FloorFileSet\FloorFileSet.h">
@@ -256,6 +283,18 @@
     <ClInclude Include="ViewModel\gGetSquare\gGetSquare.h">
       <Filter>Source\ViewModel\gGetSquare</Filter>
     </ClInclude>
+    <ClInclude Include="ViewModel\GetEnemySink\GetEnenmySink.h">
+      <Filter>Source\ViewModel\GetEnemySink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\gGetObjSink\gGetObjSink.h">
+      <Filter>Source\ViewModel\gGetObjSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\gSaveSink\gSaveSink.h">
+      <Filter>Source\ViewModel\gSaveSink</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\gLoadSink\gLoadSink.h">
+      <Filter>Source\ViewModel\gLoadSink</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="View\DrawPlace.h">
@@ -286,6 +325,9 @@
       <Filter>Source\Windows</Filter>
     </QtMoc>
     <QtMoc Include="Window\InitGameWindow.h">
+      <Filter>Source\Windows</Filter>
+    </QtMoc>
+    <QtMoc Include="Window\LoadWindow.h">
       <Filter>Source\Windows</Filter>
     </QtMoc>
   </ItemGroup>

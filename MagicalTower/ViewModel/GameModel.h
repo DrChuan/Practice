@@ -47,4 +47,6 @@ public:
 	int getSquareIndex(int x, int y) { return m_floorset.getSquare(index, x, y).getIndex(); }
 
 	void resetXY(int direction);
+	void setIndex(int x) { index = x; }
+	Obj getObj(int type, int index);
 };

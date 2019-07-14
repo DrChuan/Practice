@@ -5,7 +5,11 @@ GameViewModel::GameViewModel() :
 	m_mvsink(make_shared<MoveSink>(this)),
 	m_gsnink(make_shared<gSetNameSink>(this)),
 	m_gstink(make_shared<gGetSquareTSink>(this)),
-	m_gsiink(make_shared<gGetSquareISink>(this))
+	m_gsiink(make_shared<gGetSquareISink>(this)),
+	m_gesink(make_shared<GetEnemySink>(this)),
+	m_ggoink(make_shared<gGetObjSink>(this)),
+	m_gsvink(make_shared<gSaveSink>(this)),
+	m_gldink(make_shared<gLoadSink>(this))
 {
 	gm = make_shared<GameModel>();
 }

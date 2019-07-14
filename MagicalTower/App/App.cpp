@@ -16,6 +16,10 @@ void MagicalTower::Init() {
 	if ((_access((path).c_str(), 0) == -1))
 		if (_mkdir((path).c_str()) != 0)
 			cerr << "Can't open or create the directory:" << path << "\n";
+	path = "save";
+	if ((_access((path).c_str(), 0) == -1))
+		if (_mkdir((path).c_str()) != 0)
+			cerr << "Can't open or create the directory:" << path << "\n";
 
 	w.editWindow->iss = evm.m_sssink;
 	w.editWindow->isgi = evm.m_sgIink;
@@ -35,7 +39,10 @@ void MagicalTower::Init() {
 	w.gameWindow->iSetGame = gvm.m_gsnink;
 	w.gameWindow->isgt = gvm.m_gstink;
 	w.gameWindow->isgi = gvm.m_gsiink;
-
+	w.gameWindow->iGetObj = gvm.m_ggoink;
+	w.gameWindow->iGetIntList = gvm.m_gesink;
+	w.gameWindow->iSave = gvm.m_gsvink;
+	w.gameWindow->iLoadGame = gvm.m_gldink;
 
 	w.gameWindow->hero = gvm.gm->m_hero;
 

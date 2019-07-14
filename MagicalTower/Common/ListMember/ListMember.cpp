@@ -8,6 +8,7 @@ Hero::Hero() :Obj(1200, 18, 18, 0, 0) {
 	this->key[2] = 0;
 	this->m_equip = 0;
 	this->m_weapon = 0;
+	this->EnemyBook = 0;
 }
 
 void Hero::addExp(int value) {
@@ -25,7 +26,7 @@ void Hero::addExp(int value) {
 bool Hero::fight(const Enemy& enemy) {
 	int Hero_hurt = this->getAtk() - enemy.getDef();
 	if (Hero_hurt <= 0) return false;
-	int huihe = (enemy.getHp() + Hero_hurt - 1) / Hero_hurt;
+	int huihe = (enemy.getHp() - 1) / Hero_hurt;
 	int Enemy_hurt = enemy.getAtk() - this->getDef();
 	Enemy_hurt = Enemy_hurt > 0 ? Enemy_hurt : 0;
 	int hp = this->getHp() - Enemy_hurt * huihe;
@@ -41,11 +42,27 @@ bool Hero::fight(const Enemy& enemy) {
 	}
 }
 
+int Hero::getHurt(const Enemy& enemy) {
+	int Hero_hurt = this->getAtk() - enemy.getDef();
+	if (Hero_hurt <= 0) return -1;
+	int huihe = (enemy.getHp() + Hero_hurt - 1) / Hero_hurt;
+	int Enemy_hurt = enemy.getAtk() - this->getDef();
+	Enemy_hurt = Enemy_hurt > 0 ? Enemy_hurt : 0;
+	int hurt = Enemy_hurt * huihe;
+
+	if (this->getHp() > hurt)
+		return hurt;
+	return -1;
+}
+
 int Hero::getItem(int index) {//这里index待修改
 	switch (index) {
 	case 0: case 1: case 2://三种钥匙
 		this->addKey(index);
 		return 1;
+		break;
+	case 15:
+		this->setEnemyBook(true);
 		break;
 	case 20://下楼
 		return 2;
@@ -58,9 +75,10 @@ int Hero::getItem(int index) {//这里index待修改
 		}
 		else
 			return 0;
-
+	case 25: case 26: case 27:
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 void Hero::getItem(int addAtk, int addDef, int addExp, int addHp, int addCoins) {

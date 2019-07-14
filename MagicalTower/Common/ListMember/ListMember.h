@@ -22,6 +22,8 @@ public:
 
 class Enemy : public Obj {
 public:
+	Enemy(Obj & obj) : Obj(obj) {}
+
 	Enemy(int hp = 0, int atk = 0, int def = 0, int exp = 0, int coins = 0) :Obj(hp, atk, def, exp, coins) {}
 };
 
@@ -45,6 +47,7 @@ class Hero : public Obj {
 private:
 	int next_level_exp;
 	int m_level, m_weapon, m_equip; //direction {0,1,2,3}=={ÉÏ£¬ÏÂ£¬×ó£¬ÓÒ}
+	bool EnemyBook;
 	int key[3];
 	void addExp(int value);
 	void addKey(int keyNum) { key[keyNum]++; }
@@ -52,6 +55,8 @@ public:
 	Hero();
 
 	bool fight(const Enemy& enemy);
+
+	int getHurt(const Enemy& enemy);
 
 	int getItem(int index);
 
@@ -62,4 +67,8 @@ public:
 	void setKey(int index, int num) { key[index] = num; }
 
 	int getLevel();
+
+	void setEnemyBook(bool o) { EnemyBook = o; }
+
+	bool getEnemyBook() { return EnemyBook; }
 };

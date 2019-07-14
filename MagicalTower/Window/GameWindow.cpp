@@ -1,6 +1,6 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(QWidget* parent) : QMainWindow(parent), initGameWindow(this)
+GameWindow::GameWindow(QWidget* parent) : QMainWindow(parent), initGameWindow(this), loadWindow(this)
 {
 	// 设置窗口标题及大小
 	setFixedSize(1024, 768);
@@ -9,16 +9,25 @@ GameWindow::GameWindow(QWidget* parent) : QMainWindow(parent), initGameWindow(th
 	QPalette p = palette();
 	p.setBrush(QPalette::Background, QBrush(QPixmap("img/system/gamebackice.png")));
 	setPalette(p);
-	// 初始化按钮、方块及数据显示
+	// 初始化按钮、方块
 	initButton();
 	initSquare();
+	// 初始化怪物手册
+	initEnemyBook();
+	// 初始化数据显示
 	initData();
+}
+
+
+void GameWindow::initEnemyBook()
+{
 	enemyBook.setParent(this);
 	enemyBook.show();
 	enemyBook.setIconSize(QSize(48, 48));
-	enemyBook.setGeometry(800, 197, 200, 530);
+	enemyBook.setGeometry(800, 192, 200, 540);
 	enemyBook.setFocusPolicy(Qt::NoFocus);
 	enemyBook.setStyleSheet("background-color:transparent; border:none");
+	enemyList.resize(25);
 	updateEnemyBook();
 }
 
@@ -63,68 +72,6 @@ void GameWindow::initSquare()
 	heroPic.raise();
 	setXY();
 	heroPic.setGeometry(241 + 48 * _x, 146 + 48 * _y, 48, 48);
-}
-
-void GameWindow::updateSquare(int ox, int oy, int nx, int ny)
-{
-	if (isgt && isgi)
-	{
-		squares[ox][oy].setPixmap(QPixmap(getImgName(isgt->onUpdate(ox, oy), isgi->onUpdate(ox, oy))));
-		squares[nx][ny].setPixmap(QPixmap(getImgName(isgt->onUpdate(nx, ny), isgi->onUpdate(nx, ny))));
-	}
-}
-
-void GameWindow::update()
-{
-	setXY();
-	for (int i = 0; i < 11; i++)
-		for (int j = 0; j < 11; j++)
-			if (isgt && isgi) squares[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
-	heroPic.move(241 + _x * 48, 146 + _y * 48);
-	updateEnemyBook();
-}
-
-void GameWindow::updateEnemyBook()
-{
-	enemyBook.clear();
-	enemyList.clear();
-	if (!hero->getEnemyBook())
-	{
-		enemyBook.addItem("暂未开启怪物手册！");
-		return;
-	}
-	std::vector<int> list;
-	int n;
-	if (iGetIntList) list = iGetIntList->onGetIntList();
-	n = list.size();
-	QListWidgetItem temp;
-	temp.setSizeHint(QSize(100, 60));
-	QString info;
-	for (int i = 0; i < n; i++)
-	{
-		int t = list[i];
-		Obj tObj = iGetObj->onGetObj(1, t);
-		if (iGetObj)
-		{
-			info += name[t];
-			info += "\n";
-			info += "生命：" + QString::number(tObj.getHp()) + "  ";
-			info += "攻击：" + QString::number(tObj.getAtk()) + "  ";
-			info += "防御：" + QString::number(tObj.getDef()) + "\n";
-			info += "获得经验：" + QString::number(tObj.getExp()) + "  ";
-			info += "获得金币：" + QString::number(tObj.getCoins()) + "\n";
-			if (hero->getHurt(t) == -1)
-				info += "无法攻击";
-			else 
-				info += "战斗损失生命：" + QString::number(hero->getHurt(t));
-			//info += iGetObj->onGetObj(1, list[i]).getName();
-		}
-		temp.setText(info);
-		temp.setIcon(QIcon(QPixmap("img/enemy/enemy" + QString::number(t))));
-		enemyList.push_back(temp);
-		enemyBook.addItem(&(enemyList[i]));
-	}
-//addItem(&QListWidgetItem(QPixmap("img/item/item0.png"), codec->toUnicode("啊哈")));
 }
 
 void GameWindow::initData()
@@ -173,12 +120,71 @@ void GameWindow::initData()
 	totalLayerNum.setPalette(pt);
 }
 
-void GameWindow::setXY()
+void GameWindow::initGame()
 {
-	if (iGetSpecialInt)
+	initGameWindow.setModal(true);
+	initGameWindow.show();
+}
+
+
+void GameWindow::updateSquare(int ox, int oy, int nx, int ny)
+{
+	if (isgt && isgi)
 	{
-		_x = iGetSpecialInt->onGetSpeInt(3);
-		_y = iGetSpecialInt->onGetSpeInt(4);
+		squares[ox][oy].setPixmap(QPixmap(getImgName(isgt->onUpdate(ox, oy), isgi->onUpdate(ox, oy))));
+		squares[nx][ny].setPixmap(QPixmap(getImgName(isgt->onUpdate(nx, ny), isgi->onUpdate(nx, ny))));
+	}
+}
+
+void GameWindow::update()
+{
+	setXY();
+	for (int i = 0; i < 11; i++)
+		for (int j = 0; j < 11; j++)
+			if (isgt && isgi) squares[i][j].setPixmap(QPixmap(getImgName(isgt->onUpdate(i, j), isgi->onUpdate(i, j))));
+	heroPic.move(241 + _x * 48, 146 + _y * 48);
+	updateEnemyBook();
+}
+
+void GameWindow::updateEnemyBook()
+{
+	enemyList.clear();
+	enemyBook.clear();
+	if (!hero || !hero->getEnemyBook())
+	{
+		enemyBook.addItem(codec->toUnicode("暂未开启怪物手册！"));
+		return;
+	}
+	std::vector<int> list;
+	int n;
+	if (iGetIntList) list = iGetIntList->onGetIntList();
+	n = list.size();
+	QListWidgetItem temp;
+	temp.setSizeHint(QSize(130, 150));
+	QString info;
+	for (int i = 0; i < n; i++)
+	{
+		int t = list[i];
+		Obj tObj = iGetObj->onGetObj(1, t);
+		if (iGetObj)
+		{
+			info += name[t];
+			info += "\n";
+			info += codec->toUnicode("生命:") + QString::number(tObj.getHp()) + "\n";
+			info += codec->toUnicode("攻击:") + QString::number(tObj.getAtk()) + "\n";
+			info += codec->toUnicode("防御:") + QString::number(tObj.getDef()) + "\n";
+			info += codec->toUnicode("获得经验:") + QString::number(tObj.getExp()) + "\n";
+			info += codec->toUnicode("获得金币:") + QString::number(tObj.getCoins()) + "\n";
+			if (hero->getHurt(tObj) == -1)
+				info += codec->toUnicode("无法进攻！");
+			else
+				info += codec->toUnicode("损失生命:") + QString::number(hero->getHurt(tObj));
+		}
+		temp.setText(info);
+		temp.setIcon(QIcon(QPixmap("img/enemy/enemy" + QString::number(t))));
+		enemyList.push_back(temp);
+		info = "";
+		enemyBook.addItem(&(enemyList[i]));
 	}
 }
 
@@ -192,55 +198,14 @@ void GameWindow::updateData()
 	layerNum.setText(QString::number(_layerNum));
 }
 
-void GameWindow::initGame()
-{
-	initGameWindow.setModal(true);
-	initGameWindow.show();
-}
 
-void GameWindow::loadGameFile(QString foldername)
+void GameWindow::setXY()
 {
-	if (iSetGame) iSetGame->onHandleFile(foldername.toLocal8Bit().toStdString());
-	std::cout << "读取！" << foldername.toLocal8Bit().toStdString() << "\n";
-}
-
-std::shared_ptr<IGetSpeInt> GameWindow::getIntPtr()
-{
-	return iGetSpecialInt;
-}
-
-void GameWindow::keyPressEvent(QKeyEvent* eve)
-{
-	int k;
-	setXY();
-	if (iMove)
-		switch (eve->key()) {
-		case Qt::Key_Left:
-			k = iMove->onMove(2);
-			heroPic.setPixmap(QPixmap("img/system/heroleft"));
-			if (k == 1)  heroPic.move(241 + (_x - 1) * 48, 146 + _y * 48) , updateSquare(_x, _y, _x - 1, _y);
-			break;
-		case Qt::Key_Right:
-			k = iMove->onMove(3);
-			heroPic.setPixmap(QPixmap("img/system/heroright"));
-			if (k == 1)  heroPic.move(241 + (_x + 1) * 48, 146 + _y * 48), updateSquare(_x, _y, _x + 1, _y);
-			break;
-		case Qt::Key_Up:
-			k = iMove->onMove(0);
-			heroPic.setPixmap(QPixmap("img/system/heroup"));
-			if (k == 1)  heroPic.move(241 + _x * 48, 146 + (_y - 1) * 48), updateSquare(_x, _y, _x, _y - 1);
-			break;
-		case Qt::Key_Down:
-			k = iMove->onMove(1);
-			heroPic.setPixmap(QPixmap("img/system/herodown"));
-			if (k == 1)  heroPic.move(241 + _x * 48, 146 + (_y + 1) * 48), updateSquare(_x, _y, _x, _y + 1);
-			break;
-		}
-	if (k == 2) {
-		//setXY();
-		update();
+	if (iGetSpecialInt)
+	{
+		_x = iGetSpecialInt->onGetSpeInt(3);
+		_y = iGetSpecialInt->onGetSpeInt(4);
 	}
-	updateData();
 }
 
 void GameWindow::setData()
@@ -270,6 +235,60 @@ void GameWindow::setHeroName(QString name)
 	heroName.setText(_heroName);
 }
 
+
+void GameWindow::keyPressEvent(QKeyEvent* eve)
+{
+	int k;
+	setXY();
+	if (iMove)
+		switch (eve->key()) {
+		case Qt::Key_Left:
+			k = iMove->onMove(2);
+			heroPic.setPixmap(QPixmap("img/system/heroleft"));
+			if ((k & 0x0f) == 1)  heroPic.move(241 + (_x - 1) * 48, 146 + _y * 48), updateSquare(_x, _y, _x - 1, _y);
+			if (k & 0x10) updateEnemyBook();
+			break;
+		case Qt::Key_Right:
+			k = iMove->onMove(3);
+			heroPic.setPixmap(QPixmap("img/system/heroright"));
+			if ((k & 0x0f) == 1)  heroPic.move(241 + (_x + 1) * 48, 146 + _y * 48), updateSquare(_x, _y, _x + 1, _y);
+			if (k & 0x10) updateEnemyBook();
+			break;
+		case Qt::Key_Up:
+			k = iMove->onMove(0);
+			heroPic.setPixmap(QPixmap("img/system/heroup"));
+			if ((k & 0x0f) == 1)  heroPic.move(241 + _x * 48, 146 + (_y - 1) * 48), updateSquare(_x, _y, _x, _y - 1);
+			if (k & 0x10) updateEnemyBook();
+			break;
+		case Qt::Key_Down:
+			k = iMove->onMove(1);
+			heroPic.setPixmap(QPixmap("img/system/herodown"));
+			if ((k & 0x0f) == 1)  heroPic.move(241 + _x * 48, 146 + (_y + 1) * 48), updateSquare(_x, _y, _x, _y + 1);
+			if (k & 0x10) updateEnemyBook();
+			break;
+		}
+	if ((k & 0x0f) == 2) {
+		update();
+	}
+	updateData();
+}
+
+void GameWindow::loadGameFile(QString foldername)
+{
+	if (iSetGame) iSetGame->onHandleFile(foldername.toLocal8Bit().toStdString());
+	std::cout << "读取！" << foldername.toLocal8Bit().toStdString() << "\n";
+}
+
+void GameWindow::load(QString foldername)
+{
+	if (iLoadGame) iLoadGame->onHandleFile(foldername.toLocal8Bit().toStdString());
+}
+
+std::shared_ptr<IGetSpeInt> GameWindow::getIntPtr()
+{
+	return iGetSpecialInt;
+}
+
 QString GameWindow::getImgName(int type, int index)
 {
 	QString ret;
@@ -286,12 +305,18 @@ QString GameWindow::getImgName(int type, int index)
 
 void GameWindow::clickSave()
 {
-
+	QString str = "";
+	while ((str = QInputDialog::getText(this, codec->toUnicode("魔塔"), codec->toUnicode("请输入存档文件名："))) == "");
+	if (iSave) iSave->onHandleFile(str.toLocal8Bit().toStdString());
 }
+
 void GameWindow::clickLoad()
 {
-
+	loadWindow.setModal(true);
+	loadWindow.initList();
+	loadWindow.show();
 }
+
 void GameWindow::clickInitGame()
 {
 	initGameWindow.setWindowFlags(Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);

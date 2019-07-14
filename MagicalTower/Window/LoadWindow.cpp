@@ -1,23 +1,24 @@
-#include "InitGameWindow.h"
+#include "LoadWindow.h"
 #include "GameWindow.h"
 
-InitGameWindow::InitGameWindow(GameWindow* ptr) : ptrParent(ptr)
+LoadWindow::LoadWindow(GameWindow* ptr) : ptrParent(ptr)
 {
-	setWindowTitle(codec->toUnicode("加载游戏关卡"));
+	setWindowTitle(codec->toUnicode("读取进度"));
 	setFixedSize(400, 400);
 	openBtn.setParent(this);
 	openBtn.setGeometry(150, 355, 100, 32);
-	openBtn.setText(codec->toUnicode("打开"));
+	openBtn.setText(codec->toUnicode("读取"));
 	openBtn.show();
 	connect(&openBtn, SIGNAL(clicked()), this, SLOT(open()));
-	setWindowFlags(Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowMinimizeButtonHint);
 	initList();
 }
 
-void InitGameWindow::initList()
+void LoadWindow::initList()
 {
 	int len;
-	getAllFileFolder(".\\game", gameNameList);
+	gameNameList.clear();
+	gameList.clear();
+	getAllFileFolder(".\\save", gameNameList);
 	std::string s = QCoreApplication::applicationDirPath().toStdString();
 	len = QCoreApplication::applicationDirPath().toStdString().size();
 	for (int i = 0; i < gameNameList.size(); i++)
@@ -34,7 +35,7 @@ void InitGameWindow::initList()
 	gameList.setGeometry(40, 40, 320, 300);
 }
 
-void InitGameWindow::getAllFileFolder(QString dirPath, std::vector<QString>& folder)
+void LoadWindow::getAllFileFolder(QString dirPath, std::vector<QString>& folder)
 {
 	QDir dir(dirPath);
 	dir.setFilter(QDir::Dirs);
@@ -46,14 +47,14 @@ void InitGameWindow::getAllFileFolder(QString dirPath, std::vector<QString>& fol
 	}
 }
 
-void InitGameWindow::open()
+void LoadWindow::open()
 {
 	int style;
 	QString str = "";
 	while ((str = QInputDialog::getText(this, codec->toUnicode("魔塔"), codec->toUnicode("旅行者，该怎么称呼您？"))) == "");
 	ptrParent->setHeroName(str);
 	int in = gameList.currentRow();
-	ptrParent->loadGameFile(gameNameList[in]);
+	ptrParent->load(gameNameList[in]);
 	ptrParent->initData();
 	ptrParent->initSquare();
 	if (ptrParent->getIntPtr())

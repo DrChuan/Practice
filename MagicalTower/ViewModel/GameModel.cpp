@@ -23,7 +23,7 @@ bool GameModel::SaveList(string path) {
 	return true;
 }
 
-bool GameModel::loadHero(string path) {
+bool GameModel::saveHero(string path) {
 	string name;
 	if (path.c_str() != nullptr)
 		name = path + "\\Hero";
@@ -36,21 +36,16 @@ bool GameModel::loadHero(string path) {
 		return false;
 	}
 
-	for (auto i : "Hero") {
-		fout.write((char*)& i, sizeof i);
-	}
-	int mo = 0;
-	fout.write((char*)& mo, 1);
 	fout.write((char*)& index, sizeof index);
 	fout.write((char*)& x, sizeof x);
 	fout.write((char*)& y, sizeof y);
-	fout.write((char*)& m_hero, sizeof m_hero);
+	fout.write((char*) & (*m_hero), sizeof(Hero));
 	fout.write((char*)& style, sizeof style);
 	fout.close();
 	return true;
 }
 
-bool GameModel::saveHero(string path) {
+bool GameModel::loadHero(string path) {
 	string name;
 	if (path.c_str() != nullptr)
 		name = path + "\\" + "Hero";
@@ -62,17 +57,11 @@ bool GameModel::saveHero(string path) {
 		cerr << "Can't open the file:" << "Hero" << "\n";
 		return false;
 	}
-	string m_name = "\0";
-	char a;
-	fcin.read((char*)& a, 1);
-	while (a != 0) {
-		m_name += a;
-		fcin.read((char*)& a, 1);
-	}
+
 	fcin.read((char*)& index, sizeof index);
 	fcin.read((char*)& x, sizeof x);
 	fcin.read((char*)& y, sizeof y);
-	fcin.read((char*)& m_hero, sizeof m_hero);
+	fcin.read((char*) & (*m_hero), sizeof(Hero));
 	fcin.read((char*)& style, sizeof style);
 	fcin.close();
 	return true;
@@ -101,11 +90,12 @@ bool GameModel::loadAppend(string path) {//必须在地图load后调用
 	resetXY(0);
 }
 
-int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层
+int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层 0x10位为1表示英雄属性发生变化
+	int re = 1;
 	xychange(directionKey);
 	if (x < 0 || x > 10 || y < 0 || y > 10) {
 		xychange(directionKey ^ 1);
-		return 0;
+		re = 0;
 	}
 	int k = m_floorset.getSquare(index, x, y).getType();
 	if (k == 0) {
@@ -115,31 +105,34 @@ int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层
 			m_hero->getItem(indexx);
 			m_hero->getItem(m_item.getAtk(), m_item.getDef(), m_item.getExp(), m_item.getHp(), m_item.getCoins());
 			m_floorset.setSquare(index, -1, -1, x, y);
-			return 1;
+			re = 0x11;
 		}
 		else {
 			int f = m_hero->getItem(indexx);
 			switch (f) {
 			case 0:
 				xychange(directionKey ^ 1);
+				re = 0;
 				break;
 			case 1:
 				m_floorset.setSquare(index, -1, -1, x, y);
+				re = 1;
 				break;
 			case 2:
 				if (index > 0) {
 					index--;
 					resetXY(1);
+					re = 0x12;
 				}
 				break;
 			case 3:
 				if (index < m_floorset.getFloorNum() - 1) {
 					index++;
 					resetXY(0);
+					re = 0x12;
 				}
 				break;
 			}
-			return (f == 3) ? 2 : f;
 		}
 	}
 	if (k == 1) {
@@ -147,14 +140,15 @@ int GameModel::Move(int directionKey) {//返回：0-没动， 1-走了一格， 2-换层
 		bool f = m_hero->fight(m_enemy);
 		if (!f) {
 			xychange(directionKey ^ 1);
-			return 0;
+			re = 0;
 		}
 		else {
 			m_floorset.setSquare(index, -1, -1, x, y);
-			return 1;
+			re = 0x11;
 		}
 	}
-	return 1;
+
+	return re;
 }
 
 void GameModel::resetXY(int direction) {
@@ -166,4 +160,11 @@ void GameModel::resetXY(int direction) {
 				x = i; y = j;
 				return;
 			}
+}
+
+Obj GameModel::getObj(int type, int index) {
+	if (type == 1)
+		return m_enemylist.getEnemy(index);
+	else
+		return m_itemlist.getItem(index);
 }

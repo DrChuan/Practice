@@ -54,9 +54,9 @@ bool EnemyList::LoadEnemyList(string path) {//从path目录下读取EnemyList.txt
 	m_enemies.clear();
 	fcin.open(filename.c_str(), ios::out | ios::binary);
 	if (!fcin.is_open()) return false;
-	for (int i = 0; i < 20; i++) {
+	for (int i = 0; i < 25; i++) {
 		Enemy temp;
-		fcin.read((char*)& temp, sizeof(m_enemies[i]));
+		fcin.read((char*)& temp, sizeof(temp));
 		m_enemies.push_back(temp);
 	}
 	fcin.close();
